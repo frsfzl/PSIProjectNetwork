@@ -63,12 +63,7 @@
 ### Data Dictionary — authors_per_topic_subtopic_counts(reran).csv
 
 5) HierarchyData.csv 
-| Column Name  | Type    | Description                                                  |
-|--------------|---------|--------------------------------------------------------------|
-| topic        | string  | High-level research topic or thematic area.                 |
-| subtopic     | string  | More granular category within the main topic.               |
-| author_count | integer | Number of unique authors for the topic–subtopic pair.       |
-
+### Data Dictionary — HierarchyData.csv 
 | Column Name | Data Type | Description |
 |-------------|-----------|-------------|
 | Topic       | string    | High-level topic category. |
