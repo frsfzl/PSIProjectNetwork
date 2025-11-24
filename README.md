@@ -1,5 +1,5 @@
-## Project and Process Descriptions 
-This project uses 8 files, five of the files' data dictionaries are presented below. The data sictionaries that are not present below are the index.hmtl and json files. The code used to prodcue these files are in the file named "PSIPublicationLabel.ipynb" The process taken to produce these files are described in the steps as shown below:
+## Project and Process Description
+This project uses 9 files, five of the files' data dictionaries are presented below. The data sictionaries that are not present below are the index.hmtl and json files. The code used to prodcue these files are in the file named "PSIPublicationLabel.ipynb" The process taken to produce these files are described in the steps as shown below:
    1) Take the orignal data with 3000 abstracts and labeled buckets data(Lauren's bucket") to produce publications_with_newBuckets_labels0.80Named.csv file
    2) Take publications_with_newBuckets_labels0.80Named.csv file and map authors to works to topics and subtopics in order to produce authors_aggregation3(reran).csv
    3) Take publications_with_newBuckets_labels0.80Named.csv file to produce  authors_topic_subtopic5NoDup to make sure no duplicates exist 
@@ -9,7 +9,18 @@ This project uses 8 files, five of the files' data dictionaries are presented be
 
 ## Files & Data Dictionary 
 
-1) publications_with_newBuckets_labels0.80Named.csv
+1) newModel-Sept 2025(updated).csv
+
+### Data Dictionary — newModel-Sept 2025(updated).csv
+
+| Column Name                     | Type        | Description                                                             |
+|--------------------------------|-------------|--------------------------------------------------------------------------|
+| ID                             | int         | identification number                                                    |
+| Topics                         | string      | Assigned main taxonomy topic.                                            |
+| Subtopics                      | string/list |  Assigned taxonomy subtopic.                                             |
+
+
+2) publications_with_newBuckets_labels0.80Named.csv
    
 ### Data Dictionary — publications_with_newBuckets_labels0.80Named.csv
 
@@ -31,7 +42,7 @@ This project uses 8 files, five of the files' data dictionaries are presented be
 | hf_indices(0_80)               | list[int]   | HF model topic match indices ≥0.80 threshold.                            |
 | hf_topic_names(0_80)           | string      | Names of HF model topics matched ≥0.80 threshold.                        |
 
-2) authors_aggregation3(reran).csv
+3) authors_aggregation3(reran).csv
 
 | Column Name              | Data Type | Description |
 |--------------------------|-----------|-------------|
@@ -67,11 +78,11 @@ This project uses 8 files, five of the files' data dictionaries are presented be
 | hf_topic_match_indices(all)                                | list[int]     | All topic indices matched (no threshold).                                   |
 | semantically_matched_topicsNames(Title+abstract)_hf_0_80   | string        | Topic names matched semantically at ≥0.80 threshold.                        |
 
-4) authors_per_topic_subtopic_counts(reran)
+5) authors_per_topic_subtopic_counts(reran)
    
 ### Data Dictionary — authors_per_topic_subtopic_counts(reran).csv
 
-5) HierarchyData.csv 
+6) HierarchyData.csv 
 ### Data Dictionary — HierarchyData.csv 
 | Column Name | Data Type | Description |
 |-------------|-----------|-------------|
