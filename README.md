@@ -1,6 +1,7 @@
-Files & Data Dictionary 
+## Files & Data Dictionary 
 
 1) publications_with_newBuckets_labels0.80Named.csv
+   
 ### Data Dictionary — publications_with_newBuckets_labels0.80Named.csv
 
 | Column Name                     | Type        | Description                                                              |
@@ -22,6 +23,7 @@ Files & Data Dictionary
 | hf_topic_names(0_80)           | string      | Names of HF model topics matched ≥0.80 threshold.                        |
 
 2) authors_aggregation3(reran).csv
+
 | Column Name              | Data Type | Description |
 |--------------------------|-----------|-------------|
 | author_key               | string    | Unique identifier for each author. |
@@ -34,6 +36,7 @@ Files & Data Dictionary
 
 
 4) authors_topic_subtopic5NoDup
+   
 ### Data Dictionary — authors_topic_subtopic5NoDup(reran1)2.csv
 
 | Column Name                                                | Type          | Description                                                                 |
@@ -56,6 +59,7 @@ Files & Data Dictionary
 | semantically_matched_topicsNames(Title+abstract)_hf_0_80   | string        | Topic names matched semantically at ≥0.80 threshold.                        |
 
 4) authors_per_topic_subtopic_counts(reran)
+   
 ### Data Dictionary — authors_per_topic_subtopic_counts(reran).csv
 
 5) HierarchyData.csv 
