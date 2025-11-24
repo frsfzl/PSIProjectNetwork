@@ -74,10 +74,17 @@ coming soon...
 | hf_topic_match_indices(0_80)                               | list[int]     | Topic indices matched at ≥0.80 threshold (HF model).                        |
 | hf_topic_match_indices(all)                                | list[int]     | All topic indices matched (no threshold).                                   |
 | semantically_matched_topicsNames(Title+abstract)_hf_0_80   | string        | Topic names matched semantically at ≥0.80 threshold.                        |
-   
+
+
 ### 6) Data Dictionary — authors_per_topic_subtopic_counts(reran).csv
 
-### 6) Data Dictionary — HierarchyData.csv 
+| Column Name  | Type    | Description                                                  |
+|--------------|---------|--------------------------------------------------------------|
+| topic        | string  | High-level research topic or thematic area.                 |
+| subtopic     | string  | More granular category within the main topic.               |
+| author_count | integer | Number of unique authors for the topic–subtopic pair.       |
+
+### 7) Data Dictionary — HierarchyData.csv 
 | Column Name | Data Type | Description |
 |-------------|-----------|-------------|
 | Topic       | string    | High-level topic category. |
