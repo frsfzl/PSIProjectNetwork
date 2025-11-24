@@ -1,0 +1,68 @@
+Topic ID,Topics,Subtopics
+0,Sensing and Imaging Technologies,sensing
+1,Sensing and Imaging Technologies,imaging
+2,Sensing and Imaging Technologies,sensors
+3,Sensing and Imaging Technologies,mass spectronomy
+4,Data Analytics and Modeling,data science
+5,Data Analytics and Modeling,modeling
+6,Data Analytics and Modeling,artificial intelligence
+7,Data Analytics and Modeling,machine learning
+8,Data Analytics and Modeling,digital twins
+9,Data Analytics and Modeling,proteomics
+10,Data Analytics and Modeling,computer vision
+11,Data Analytics and Modeling,geospatial
+13,Data Analytics and Modeling,data analytics
+14,AgTech and Automation,Agtech
+15,AgTech and Automation,CPS
+16,AgTech and Automation,robotics
+17,AgTech and Automation,automation
+18,AgTech and Automation,precision ag
+19,AgTech and Automation,digital ag
+20,AgTech and Automation,IoT
+21,Genetics and Genomics,Genetics
+22,Genetics and Genomics,genomics
+23,Genetics and Genomics,breeding
+24,Genetics and Genomics,CRISPR
+25,Genetics and Genomics,gene expression
+26,Genetics and Genomics,plant improvement
+27,Plant Ecology and Microbial Biology,Ecology
+28,Plant Ecology and Microbial Biology,soil
+29,Plant Ecology and Microbial Biology,fungi
+30,Plant Ecology and Microbial Biology,microbes
+31,Plant Ecology and Microbial Biology,plant-microbe interactions
+32,Plant Ecology and Microbial Biology,nutrient cycle
+33,Plant Ecology and Microbial Biology,plant signalling
+34,Plant Health and Pathology and Pest Mgmt,plant health
+35,Plant Health and Pathology and Pest Mgmt,pathology
+36,Plant Health and Pathology and Pest Mgmt,pest mgmt
+37,Plant Health and Pathology and Pest Mgmt,disease control
+38,Plant Health and Pathology and Pest Mgmt,biotic stress
+39,Plant Health and Pathology and Pest Mgmt,nematodes
+40,Sustainable Ag and Resource Management,sustainable ag
+41,Sustainable Ag and Resource Management,conservation
+42,Sustainable Ag and Resource Management,regenerative ag
+43,Sustainable Ag and Resource Management,resilient ag
+44,Sustainable Ag and Resource Management,bioremediation
+45,Sustainable Ag and Resource Management,carbon capture
+46,Sustainable Ag and Resource Management,waste management
+47,Sustainable Ag and Resource Management,renewable energy
+48,Sustainable Ag and Resource Management,materials engineering
+49,Sustainable Ag and Resource Management,synthetic biology
+50,Policy and Society and Economics,Ag economics
+51,Policy and Society and Economics,resource economics
+52,Policy and Society and Economics,supply chain
+53,Policy and Society and Economics,risk management
+54,Policy and Society and Economics,labor
+55,Policy and Society and Economics,food systems
+56,Policy and Society and Economics,food security
+57,Policy and Society and Economics,policy
+58,Policy and Society and Economics,society
+59,Policy and Society and Economics,decision support
+60,Policy and Society and Economics,regulatory science
+61,Policy and Society and Economics,community
+62,Knowledge Transfer and Outreach,education
+63,Knowledge Transfer and Outreach,workforce development
+64,Knowledge Transfer and Outreach,extension
+65,Knowledge Transfer and Outreach,outreach
+66,Knowledge Transfer and Outreach,science communication
+67,Knowledge Transfer and Outreach,social sciences
