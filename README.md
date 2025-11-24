@@ -1,3 +1,12 @@
+## Project and Process Descriptions 
+This project uses 8 files, five of the files' data dictionaries are presented below. The data sictionaries that are not present below are the index.hmtl and json files. The code used to prodcue these files are in the file named "PSIPublicationLabel.ipynb" The process taken to produce these files are described in the steps as shown below:
+   1) Take the orignal data with 3000 abstracts and labeled buckets data(Lauren's bucket") to produce publications_with_newBuckets_labels0.80Named.csv file
+   2) Take publications_with_newBuckets_labels0.80Named.csv file and map authors to works to topics and subtopics in order to produce authors_aggregation3(reran).csv
+   3) Take publications_with_newBuckets_labels0.80Named.csv file to produce  authors_topic_subtopic5NoDup to make sure no duplicates exist 
+   4) Take publications_with_newBuckets_labels0.80Named.csv file and produce authors_per_topic_subtopic_counts(reran).csv to get the counts of the different topic and subtopic combinations
+         * Before producing the counts file make sure to clean the "al" from "et al"
+   
+
 ## Files & Data Dictionary 
 
 1) publications_with_newBuckets_labels0.80Named.csv
