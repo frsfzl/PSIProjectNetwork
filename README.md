@@ -1,0 +1,74 @@
+Files & Data Dictionary 
+
+1) publications_with_newBuckets_labels0.80Named.csv
+### Data Dictionary — publications_with_newBuckets_labels0.80Named.csv
+
+| Column Name                     | Type        | Description                                                              |
+|--------------------------------|-------------|--------------------------------------------------------------------------|
+| title                          | string      | Publication title.                                                       |
+| abstract                       | string      | Abstract text of the publication.                                        |
+| authors                        | string/list | List of publication authors.                                             |
+| year                           | integer     | Year of publication.                                                     |
+| doi                            | string      | Digital Object Identifier.                                               |
+| original_topic_assignment      | string      | Manually assigned or taxonomy-based topic.                               |
+| original_subtopic_assignment   | string      | Manually assigned or taxonomy-based subtopic.                            |
+| compressed_text                | string      | Condensed form of title + abstract.                                      |
+| cleaned_text                   | string      | Fully cleaned and normalized text for modeling.                          |
+| semantic_labels_threshold_0_80 | list/string | Semantic topic labels matched at ≥0.80 similarity.                       |
+| semantic_subtopic_labels       | list/string | LLM-generated subtopic labels.                                           |
+| final_combined_topic           | string      | Final topic combining manual + model labels.                             |
+| final_combined_subtopic        | string      | Final subtopic combining manual + model labels.                          |
+| hf_indices(0_80)               | list[int]   | HF model topic match indices ≥0.80 threshold.                            |
+| hf_topic_names(0_80)           | string      | Names of HF model topics matched ≥0.80 threshold.                        |
+
+2) authors_aggregation3(reran).csv
+| Column Name              | Data Type | Description |
+|--------------------------|-----------|-------------|
+| author_key               | string    | Unique identifier for each author. |
+| author_display_first     | string    | Author's displayed first name. |
+| author_display_last      | string    | Author's displayed last name. |
+| author_name_variants     | string    | All known name variants for the author (often in a list-like string). |
+| author_subtopics_all     | string    | All subtopics associated with the author. |
+| num_works                | integer   | Number of works attributed to the author. |
+| author_topics_all        | string    | All high-level topics associated with the author. |
+
+
+4) authors_topic_subtopic5NoDup
+### Data Dictionary — authors_topic_subtopic5NoDup(reran1)2.csv
+
+| Column Name                                                | Type          | Description                                                                 |
+|------------------------------------------------------------|---------------|-----------------------------------------------------------------------------|
+| title                                                      | string        | Title of the publication.                                                   |
+| abstract                                                   | string        | Abstract text of the publication.                                           |
+| year                                                       | integer       | Publication year.                                                            |
+| doi                                                        | string        | Digital Object Identifier.                                                  |
+| authors                                                    | string/list   | List of authors (delimited string).                                         |
+| topic                                                      | string        | Assigned main taxonomy topic.                                               |
+| subtopic                                                   | string        | Assigned taxonomy subtopic.                                                 |
+| compressed_text                                            | string        | Condensed representation of title + abstract.                               |
+| cleaned_text                                               | string        | Fully cleaned and normalized text.                                          |
+| embedding_vector                                           | list[float]   | Vector embedding generated by model.                                        |
+| clip_score                                                 | float         | Similarity or quality score from CLIP/embedding system.                     |
+| matched_topic_index                                        | list[int]     | Indices of matched topics by embedding similarity.                          |
+| matched_topic_name                                         | string        | Human-readable names of matched topics.                                     |
+| hf_topic_match_indices(0_80)                               | list[int]     | Topic indices matched at ≥0.80 threshold (HF model).                        |
+| hf_topic_match_indices(all)                                | list[int]     | All topic indices matched (no threshold).                                   |
+| semantically_matched_topicsNames(Title+abstract)_hf_0_80   | string        | Topic names matched semantically at ≥0.80 threshold.                        |
+
+4) authors_per_topic_subtopic_counts(reran)
+### Data Dictionary — authors_per_topic_subtopic_counts(reran).csv
+
+5) HierarchyData.csv 
+| Column Name  | Type    | Description                                                  |
+|--------------|---------|--------------------------------------------------------------|
+| topic        | string  | High-level research topic or thematic area.                 |
+| subtopic     | string  | More granular category within the main topic.               |
+| author_count | integer | Number of unique authors for the topic–subtopic pair.       |
+
+| Column Name | Data Type | Description |
+|-------------|-----------|-------------|
+| Topic       | string    | High-level topic category. |
+| Subtopic    | string    | Subtopic under the main Topic (some values may be missing). |
+| Count       | float     | Numerical count associated with each Topic/Subtopic pair. |
+
+
