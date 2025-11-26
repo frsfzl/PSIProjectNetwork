@@ -10,7 +10,12 @@ This project uses 10 files, five of the files' data dictionaries are presented b
 ## Files & Data Dictionary 
 
 ### 1) Data Dictionary — works_with_abstracts_updated.csv
-coming soon...
+| Column     | Type   | Description |
+|------------|--------|-------------|
+| Topic ID   | int64  |             |
+| Topics     | object |             |
+| Subtopics  | object |             |
+
 
 ### 2) Data Dictionary — newModel-Sept 2025(updated).csv
 
