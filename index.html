@@ -60,12 +60,21 @@
 	    margin-top: 8px;
 	    font-size:17px !important;
 	}
+    
 	.textdiv p{
 	    line-height: 13px;
 	    margin:0 0 10px !important;
 	    padding:0px;
 	    font-size:15px !important;
 	}
+
+    .textdiv p.count {
+    margin: 0 !important;
+    font-size: 12px !important;
+    line-height: 14px !important;
+    opacity: 0.7;
+    font-weight: normal;
+    }
 
 	/* Author list styling */
 	#authorList {
@@ -372,8 +381,8 @@ d3.queue()
                         });
                     }
                     return '<p class="title">' + d.data.name + '</p>'  + 
-                            '<p>' + 'Papers: ' + (d.value || 0) + '</p>' + 
-                            '<p>' + 'Authors: ' + peopleCount + '</p>'
+                            '<p class="count">' + 'Papers: ' + (d.value || 0) + '</p>' + 
+                            '<p class="count">' + 'Authors: ' + peopleCount + '</p>'
                 })
                 .attr("class", "textdiv");
 
