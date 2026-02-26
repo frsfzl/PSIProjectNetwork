@@ -359,7 +359,22 @@ d3.queue()
                 .attr("class", "foreignobj")
                 .append("xhtml:div")
                 .attr("dy", "1em")
-                .html(d => { return '<p class="title">' + d.data.name + '</p>'  + '<p>' + 'Number of Papers: ' + (d.value || 0) + '</p>'})
+                .html(d => {
+                    let peopleCount = 0;
+
+                    if (d.depth === 2) {
+                        // We are at a Subtopic: just count its own author list
+                        peopleCount = d.data.authorList ? d.data.authorList.length : 0;
+                    } else if (d.depth === 1) {
+                        // We are at a Main Topic: sum the author lists of all its Subtopic children
+                        peopleCount = d3.sum(d.children, function(subtopic) {
+                            return subtopic.data.authorList ? subtopic.data.authorList.length : 0;
+                        });
+                    }
+                    return '<p class="title">' + d.data.name + '</p>'  + 
+                            '<p>' + 'Papers: ' + (d.value || 0) + '</p>' + 
+                            '<p>' + 'Authors: ' + peopleCount + '</p>'
+                })
                 .attr("class", "textdiv");
 
             function transition(d) {
