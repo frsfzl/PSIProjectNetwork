@@ -102,6 +102,38 @@
 	#authorList li:last-child {
 	    border-bottom: none;
 	}
+	.author-list-header {
+	    display: flex;
+	    align-items: center;
+	    justify-content: space-between;
+	    flex-wrap: wrap;
+	    gap: 8px;
+	    margin-bottom: 8px;
+	}
+	.author-toggle {
+	    display: inline-flex;
+	    border-radius: 20px;
+	    overflow: hidden;
+	    border: 1.5px solid #aaa;
+	    font-size: 12px;
+	    font-family: sans-serif;
+	}
+	.author-toggle label {
+	    padding: 4px 13px;
+	    cursor: pointer;
+	    background: #f0f0f0;
+	    color: #444;
+	    margin: 0;
+	    user-select: none;
+	    transition: background 0.15s, color 0.15s;
+	}
+	.author-toggle label.active {
+	    background: #CC0000;
+	    color: #fff;
+	}
+	.author-toggle input[type="radio"] {
+	    display: none;
+	}
 
 	svg {
 	  display: block;
@@ -152,8 +184,90 @@ grandparent.append("text")
     .attr("y", 6 - margin.top)
     .attr("dy", ".75em");
 
-d3.json("jsonRETTL2.json", function(data) {
-    d3.csv("HierarchyData.csv", function(data2) {
+// Build a set of NC State author keys ("lastName, firstName") from the publications CSV
+var ncsAuthorKeys = new Set();
+
+function buildNCSSet(pubsData) {
+    pubsData.forEach(function(row) {
+        var nc = (row.nc_state_people || "").trim();
+        if (!nc) return;
+        nc.split(";").forEach(function(person) {
+            person = person.trim().replace(/\s*\([^)]*\)/g, "").trim();
+            if (!person) return;
+            
+            var parts = person.split(/\s+/);
+            if (parts.length < 2) return;
+            
+            var last = parts[parts.length - 1].toLowerCase();
+            var first = parts[0].toLowerCase();
+            
+            ncsAuthorKeys.add(last + ", " + first);
+        });
+    });
+}
+
+function isNCSAuthor(authorName) {
+    var parts = authorName.split(",");
+    if (parts.length < 2) return false;
+    
+    var last = parts[0].trim().toLowerCase();
+    var first = parts[1].trim().split(/\s+/)[0].toLowerCase();
+    
+    return ncsAuthorKeys.has(last + ", " + first);
+}
+
+function showAuthorList(topicName, authors) {
+    d3.select("#authorList").remove();
+
+    var authorDiv = d3.select("#" + el_id)
+        .append("div")
+        .attr("id", "authorList");
+
+    var header = authorDiv.append("div")
+        .attr("class", "author-list-header");
+
+    header.append("h3").text("Authors in " + topicName);
+
+    var toggleDiv = header.append("div")
+        .attr("class", "author-toggle");
+
+    var lblAll = toggleDiv.append("label").attr("class", "active");
+    lblAll.append("input").attr("type", "radio").attr("name", "authorFilter").attr("value", "all").property("checked", true);
+    lblAll.append("span").text("All Authors");
+
+    var lblNCS = toggleDiv.append("label");
+    lblNCS.append("input").attr("type", "radio").attr("name", "authorFilter").attr("value", "ncstate");
+    lblNCS.append("span").text("NC State Authors");
+
+    var list = authorDiv.append("ul");
+
+    function renderList(filter) {
+        list.selectAll("li").remove();
+        var filtered = filter === "ncstate"
+            ? authors.filter(function(a) { return isNCSAuthor(a.data.name); })
+            : authors;
+        filtered.forEach(function(a) {
+                list.append("li").text(a.data.name);
+        });
+
+    }
+
+    renderList("all");
+
+    toggleDiv.selectAll("input[type='radio']").on("change", function() {
+        var val = this.value;
+        toggleDiv.selectAll("label").classed("active", false);
+        d3.select(this.parentNode).classed("active", true);
+        renderList(val);
+    });
+}
+
+d3.queue()
+    .defer(d3.json, "jsonRETTL2.json")
+    .defer(d3.csv, "HierarchyData.csv")
+    .defer(d3.csv, "publications_with_newBuckets_labels0.80Named.csv")
+    .await(function(error, data, data2, pubsData) {
+        buildNCSSet(pubsData);
 
         var mapping = {};
         var orderedKeys = [];
@@ -200,15 +314,7 @@ d3.json("jsonRETTL2.json", function(data) {
             d3.select("#authorList").remove();
 
             if (!d.children && d.depth === 3) {
-                var authorDiv = d3.select("#" + el_id)
-                    .append("div")
-                    .attr("id", "authorList");
-
-                authorDiv.append("h3").text("Authors in " + d.parent.data.name);
-                var list = authorDiv.append("ul");
-                d.parent.children.forEach(function(a){
-                    list.append("li").text(a.data.name);
-                });
+                showAuthorList(d.parent.data.name, d.parent.children);
                 return;
             }
 
@@ -261,15 +367,7 @@ d3.json("jsonRETTL2.json", function(data) {
 
                 if (d.depth === 2 && d.children && d.children[0].children == null) {
                     d3.selectAll(".depth").remove();
-                    d3.select("#authorList").remove();
-                    var authorDiv = d3.select("#" + el_id)
-                        .append("div")
-                        .attr("id", "authorList");
-                    authorDiv.append("h3").text("Authors in " + d.data.name);
-                    var list = authorDiv.append("ul");
-                    d.children.forEach(function(a){
-                        list.append("li").text(a.data.name);
-                    });
+                    showAuthorList(d.data.name, d.children);
                     transitioning = false;
                     return;
                 }
@@ -360,5 +458,4 @@ d3.json("jsonRETTL2.json", function(data) {
             return res.split(sep).filter(i => i!== "").join(sep);
         }
     });
-});
 </script>
