@@ -1,0 +1,461 @@
+<meta charset="utf-8">
+<style>
+	/* Chart container */
+	#chart {
+	  max-width: 100%;
+	  overflow: auto;
+	  position: relative;
+	}
+
+	text {
+	  pointer-events: none;
+	}
+	.grandparent text {
+      font-size: 20px;
+	}
+	rect {
+	  stroke: #fff;
+	  stroke-width: 1px;
+	}
+	rect.parent,
+	.grandparent rect {
+	  stroke-width: 3px;
+	}
+	.grandparent:hover rect {
+	  fill: grey;
+	}
+	.children rect.parent,
+	.grandparent rect {
+	  cursor: pointer;
+	}
+	.children rect.child {
+	  opacity: 0;
+	}
+	.legend {
+	  margin-bottom:8px !important;
+	}
+	.legend rect {
+	  stroke-width: 0px;
+	}
+	.legend text {
+	  text-anchor: middle;
+	  pointer-events: auto;
+	  font-size: 13px;
+	  font-family: sans-serif;
+	  fill: black;
+	}
+	.form-group {
+	    text-align:left;
+	}
+	.textdiv {
+	    font-size: 14px;
+	    padding: 10px;
+	    cursor: pointer;
+	    overflow: none;
+	}
+	.textdiv .title {
+	    font-size: 100%;
+	    font-weight: bold;
+	    margin-top: 8px;
+	    font-size:17px !important;
+	}
+	.textdiv p{
+	    line-height: 13px;
+	    margin:0 0 10px !important;
+	    padding:0px;
+	    font-size:15px !important;
+	}
+
+	/* Author list styling */
+	#authorList {
+	    font-family: sans-serif;
+	    font-size: 20px;
+	    padding: 10px;
+	    margin: 0;
+	    max-height: 500px;
+	    overflow-y: auto;
+	    border: 1px solid #ccc;
+	    border-radius: 10px;
+	    background: #f8f9fa;
+	    position: absolute;
+	    top: 100px;
+	    left: 30px;               /* moved left to avoid legend overlap */
+	    width: 850px;             /* #SIZE HERE - adjust width as needed */
+	    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+	    z-index: 999;
+	}
+	#authorList h3 {
+	    margin: 0;
+	    padding: 0 0 8px 0;
+	    font-size: 16px;
+	}
+	#authorList ul {
+	    list-style-type: none;
+	    padding-left: 0;
+	    margin: 0;
+	}
+	#authorList li {
+	    padding: 6px 10px;
+	    border-bottom: 1px solid #ddd;
+	    font-size: 14px;
+	}
+	#authorList li:last-child {
+	    border-bottom: none;
+	}
+	.author-list-header {
+	    display: flex;
+	    align-items: center;
+	    justify-content: space-between;
+	    flex-wrap: wrap;
+	    gap: 8px;
+	    margin-bottom: 8px;
+	}
+	.author-toggle {
+	    display: inline-flex;
+	    border-radius: 20px;
+	    overflow: hidden;
+	    border: 1.5px solid #aaa;
+	    font-size: 12px;
+	    font-family: sans-serif;
+	}
+	.author-toggle label {
+	    padding: 4px 13px;
+	    cursor: pointer;
+	    background: #f0f0f0;
+	    color: #444;
+	    margin: 0;
+	    user-select: none;
+	    transition: background 0.15s, color 0.15s;
+	}
+	.author-toggle label.active {
+	    background: #CC0000;
+	    color: #fff;
+	}
+	.author-toggle input[type="radio"] {
+	    display: none;
+	}
+
+	svg {
+	  display: block;
+	}
+</style>
+
+<p id="chart"></p>
+
+<script src="//d3js.org/d3.v4.min.js"></script>
+<script>
+var el_id = 'chart';
+var obj = document.getElementById(el_id);
+var divWidth = obj.offsetWidth || 1200;
+var margin = {top: 70, right: 300, bottom: 20, left: 30},
+    width = divWidth * 0.7,
+    height = Math.max(divWidth * 0.5, 400),
+    formatNumber = d3.format(","),
+    transitioning;
+
+var x = d3.scaleLinear().domain([0, width]).range([0, width]);
+var y = d3.scaleLinear().domain([0, height]).range([0, height]);
+
+var treemap = d3.treemap()
+    .size([width, height])
+    .paddingInner(0)
+    .round(false);
+
+var svg = d3.select('#'+el_id).append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.bottom + margin.top)
+    .style("margin-left", -margin.left + "px")
+    .style("margin.right", -margin.right + "px")
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+    .style("shape-rendering", "crispEdges");
+
+var grandparent = svg.append("g")
+    .attr("class", "grandparent");
+
+grandparent.append("rect")
+    .attr("y", -margin.top)
+    .attr("width", width)
+    .attr("height", margin.top)
+    .attr("fill", '#bbbbbb');
+
+grandparent.append("text")
+    .attr("x", 6)
+    .attr("y", 6 - margin.top)
+    .attr("dy", ".75em");
+
+// Build a set of NC State author keys ("lastName, firstName") from the publications CSV
+var ncsAuthorKeys = new Set();
+
+function buildNCSSet(pubsData) {
+    pubsData.forEach(function(row) {
+        var nc = (row.nc_state_people || "").trim();
+        if (!nc) return;
+        nc.split(";").forEach(function(person) {
+            person = person.trim().replace(/\s*\([^)]*\)/g, "").trim();
+            if (!person) return;
+            
+            var parts = person.split(/\s+/);
+            if (parts.length < 2) return;
+            
+            var last = parts[parts.length - 1].toLowerCase();
+            var first = parts[0].toLowerCase();
+            
+            ncsAuthorKeys.add(last + ", " + first);
+        });
+    });
+}
+
+function isNCSAuthor(authorName) {
+    var parts = authorName.split(",");
+    if (parts.length < 2) return false;
+    
+    var last = parts[0].trim().toLowerCase();
+    var first = parts[1].trim().split(/\s+/)[0].toLowerCase();
+    
+    return ncsAuthorKeys.has(last + ", " + first);
+}
+
+function showAuthorList(topicName, authors) {
+    d3.select("#authorList").remove();
+
+    var authorDiv = d3.select("#" + el_id)
+        .append("div")
+        .attr("id", "authorList");
+
+    var header = authorDiv.append("div")
+        .attr("class", "author-list-header");
+
+    header.append("h3").text("Authors in " + topicName);
+
+    var toggleDiv = header.append("div")
+        .attr("class", "author-toggle");
+
+    var lblAll = toggleDiv.append("label").attr("class", "active");
+    lblAll.append("input").attr("type", "radio").attr("name", "authorFilter").attr("value", "all").property("checked", true);
+    lblAll.append("span").text("All Authors");
+
+    var lblNCS = toggleDiv.append("label");
+    lblNCS.append("input").attr("type", "radio").attr("name", "authorFilter").attr("value", "ncstate");
+    lblNCS.append("span").text("NC State Authors");
+
+    var list = authorDiv.append("ul");
+
+    function renderList(filter) {
+        list.selectAll("li").remove();
+        var filtered = filter === "ncstate"
+            ? authors.filter(function(a) { return isNCSAuthor(a.data.name); })
+            : authors;
+        filtered.forEach(function(a) {
+                list.append("li").text(a.data.name);
+        });
+
+    }
+
+    renderList("all");
+
+    toggleDiv.selectAll("input[type='radio']").on("change", function() {
+        var val = this.value;
+        toggleDiv.selectAll("label").classed("active", false);
+        d3.select(this.parentNode).classed("active", true);
+        renderList(val);
+    });
+}
+
+d3.queue()
+    .defer(d3.json, "jsonRETTL2.json")
+    .defer(d3.csv, "HierarchyData.csv")
+    .defer(d3.csv, "publications_with_newBuckets_labels0.80Named.csv")
+    .await(function(error, data, data2, pubsData) {
+        buildNCSSet(pubsData);
+
+        var mapping = {};
+        var orderedKeys = [];
+        data2.forEach(function(d){
+            var raw = (d.Topic || "").toString().trim();
+            if(!raw || raw.toLowerCase() === "topic") return;
+            var key = raw.toLowerCase();
+            if(!(key in mapping)){
+                mapping[key] = raw;
+                orderedKeys.push(key);
+            }
+        });
+
+        let pColor = orderedKeys.slice();
+
+        var color = d3.scaleOrdinal()
+            .domain(pColor)
+            .range([
+                "#FF0000", "#FF5300", "#FFA500", "#FFD200",
+                "#AEC6CF", "#80C000", "#008000", "#1ABC9C", "#2471A3", "#0066FF", "#A569BD"
+            ]);
+
+        const tooltip = d3.select('body')
+            .append('div')
+            .style('position', 'relative')
+            .style('z-index', '10')
+            .style('background-color','white')
+            .style('border', 'solid')
+            .style('border-width', '2px')
+            .style('border-radius', '5px')
+            .style('padding', '5px')
+            .style('width','310')
+            .attr('id', 'tooltip');
+
+        var root = d3.hierarchy(data);
+        treemap(root
+            .sum(function (d) { return d.value; })
+            .sort(function (a, b) { return b.height - a.height || b.value - a.value; })
+        );
+
+        display(root);
+
+        function display(d) {
+            d3.select("#authorList").remove();
+
+            if (!d.children && d.depth === 3) {
+                showAuthorList(d.parent.data.name, d.parent.children);
+                return;
+            }
+
+            grandparent
+                .datum(d.parent)
+                .on("click", transition)
+                .select("text")
+                .text(name(d));
+
+            grandparent
+                .datum(d.parent)
+                .select("rect")
+                .attr("fill", '#FFFFFF');
+
+            var g1 = svg.insert("g", ".grandparent")
+                .datum(d)
+                .attr("class", "depth");
+
+            var g = g1.selectAll("g")
+                .data(d.children)
+                .enter().append("g");
+
+            g.filter(d => d.children)
+                .classed("children", true)
+                .on("click", transition);
+
+            g.selectAll(".child")
+                .data(d => d.children || [d])
+                .enter().append("rect")
+                .attr("class", "child")
+                .call(rect);
+
+            g.append("rect")
+                .attr("class", "parent")
+                .call(rect)
+                .append("title")
+                .text(d => d.data.name);
+
+            g.append("foreignObject")
+                .call(rect)
+                .attr("class", "foreignobj")
+                .append("xhtml:div")
+                .attr("dy", "1em")
+                .html(d => '<p class="title">' + d.data.name + '</p>')
+                .attr("class", "textdiv");
+
+            function transition(d) {
+                if (transitioning || !d) return;
+                transitioning = true;
+
+                if (d.depth === 2 && d.children && d.children[0].children == null) {
+                    d3.selectAll(".depth").remove();
+                    showAuthorList(d.data.name, d.children);
+                    transitioning = false;
+                    return;
+                }
+
+                var g2 = display(d),
+                    t1 = g1.transition().duration(650),
+                    t2 = g2.transition().duration(650);
+                x.domain([d.x0, d.x1]);
+                y.domain([d.y0, d.y1]);
+                svg.style("shape-rendering", null);
+                svg.selectAll(".depth").sort((a, b) => a.depth - b.depth);
+                g2.selectAll("text").style("fill-opacity", 0);
+                g2.selectAll("foreignObject div").style("display", "none");
+                t1.selectAll("text").style("fill-opacity", 0);
+                t2.selectAll("text").style("fill-opacity", 1);
+                t1.selectAll("rect").call(rect);
+                t2.selectAll("rect").call(rect);
+                t1.selectAll(".textdiv").style("display", "none");
+                t1.selectAll(".foreignobj").call(foreign);
+                t2.selectAll(".textdiv").style("display", "block");
+                t2.selectAll(".foreignobj").call(foreign);
+                t1.on("end.remove", function(){
+                    this.remove();
+                    transitioning = false;
+                });
+            }
+            return g;
+        }
+
+        function rect(rect) {
+            rect.attr("x", d => x(d.x0))
+                .attr("y", d => y(d.y0))
+                .attr("width", d => x(d.x1) - x(d.x0))
+                .attr("height", d => y(d.y1) - y(d.y0))
+                .attr("fill", function (d) {
+                    let name = d.data.name ? d.data.name.toString().trim().toLowerCase() : "";
+                    let parent = d.parent && d.parent.data && d.parent.data.name ? d.parent.data.name.toString().trim().toLowerCase() : "";
+                    let grandparent = d.parent && d.parent.parent && d.parent.parent.data && d.parent.parent.data.name ? d.parent.parent.data.name.toString().trim().toLowerCase() : "";
+                    if (pColor.indexOf(name) !== -1) return color(name);
+                    if (pColor.indexOf(parent) !== -1) return color(parent);
+                    if (pColor.indexOf(grandparent) !== -1) return color(grandparent);
+                    return "#ccc";
+                })
+                .attr("opacity", function (d) { return (d.depth==3) ? 0.65 : 0.8; });
+        }
+
+        for(var i=0;i<pColor.length;i++){
+            var key = pColor[i];
+            var label = mapping[key] || key;
+
+            svg.append("rect")
+                .attr('width',18)
+                .attr('height',18)
+                .attr("x", width+20)
+                .attr("y", -20 + i*30)
+                .style("fill", function(){ return color(key); });
+
+            svg.append("text")
+                .attr("x", width+45)
+                .attr("y", -10 + i*30)
+                .text(label)
+                .attr("text-anchor", "left")
+                .style("alignment-baseline", "right");
+        }
+
+        svg.append("text")
+            .attr("x", width/2)
+            .attr("y", -20)
+            .text("NCSU PSI Research Mapping")
+            .attr("text-anchor", "middle")
+            .attr("font-size", "25")
+            .attr("font-weight", "bold");
+
+        function foreign(foreign) {
+            foreign.attr("x", d => x(d.x0))
+                   .attr("y", d => y(d.y0))
+                   .attr("width", d => x(d.x1) - x(d.x0))
+                   .attr("height", d => y(d.y1) - y(d.y0));
+        }
+
+        function name(d) {
+            return breadcrumbs(d) + (d.parent ? " - Click here to zoom out" : " - Click a block to zoom in");
+        }
+
+        function breadcrumbs(d) {
+            var res = "", sep = " >> ";
+            d.ancestors().reverse().forEach(function(i){ res += i.data.name + sep; });
+            return res.split(sep).filter(i => i!== "").join(sep);
+        }
+    });
+</script>
