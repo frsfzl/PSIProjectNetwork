@@ -30,6 +30,7 @@
 	}
 	.children rect.child {
 	  opacity: 0;
+      display: none;
 	}
 	.legend {
 	  margin-bottom:8px !important;
@@ -244,10 +245,10 @@ function showAuthorList(topicName, authors) {
     function renderList(filter) {
         list.selectAll("li").remove();
         var filtered = filter === "ncstate"
-            ? authors.filter(function(a) { return isNCSAuthor(a.data.name); })
+            ? authors.filter(function(a) { return isNCSAuthor(a); })
             : authors;
         filtered.forEach(function(a) {
-                list.append("li").text(a.data.name);
+                list.append("li").text(a);
         });
 
     }
@@ -263,7 +264,7 @@ function showAuthorList(topicName, authors) {
 }
 
 d3.queue()
-    .defer(d3.json, "jsonRETTL2.json")
+    .defer(d3.json, "jsonRETTL3.json")
     .defer(d3.csv, "HierarchyData.csv")
     .defer(d3.csv, "publications_with_newBuckets_labels0.80Named.csv")
     .await(function(error, data, data2, pubsData) {
@@ -365,9 +366,9 @@ d3.queue()
                 if (transitioning || !d) return;
                 transitioning = true;
 
-                if (d.depth === 2 && d.children && d.children[0].children == null) {
+                if (d.depth === 2 && d.data.authorList) {
                     d3.selectAll(".depth").remove();
-                    showAuthorList(d.data.name, d.children);
+                    showAuthorList(d.data.name, d.data.authorList);
                     transitioning = false;
                     return;
                 }
