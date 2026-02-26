@@ -369,20 +369,20 @@ d3.queue()
                 .append("xhtml:div")
                 .attr("dy", "1em")
                 .html(d => {
-                    let peopleCount = 0;
+                    // 1. Calculations
+                    let papers = d.value || 0;
+                    let people = 0;
+                    let collabs = 0;
 
-                    if (d.depth === 2) {
-                        // We are at a Subtopic: just count its own author list
-                        peopleCount = d.data.authorList ? d.data.authorList.length : 0;
-                    } else if (d.depth === 1) {
-                        // We are at a Main Topic: sum the author lists of all its Subtopic children
-                        peopleCount = d3.sum(d.children, function(subtopic) {
-                            return subtopic.data.authorList ? subtopic.data.authorList.length : 0;
-                        });
+                    if (d.depth === 2) { // Subtopic
+                        people = d.data.authorList ? d.data.authorList.length : 0;
+                        collabs = d.data.collabCount || 0;
+                    } else if (d.depth === 1) { // Topic
+                        people = d3.sum(d.children, s => s.data.authorList ? s.data.authorList.length : 0);
+                        collabs = d3.sum(d.children, s => s.data.collabCount || 0);
                     }
-                    return '<p class="title">' + d.data.name + '</p>'  + 
-                            '<p class="count">' + 'Papers: ' + (d.value || 0) + '</p>' + 
-                            '<p class="count">' + 'Authors: ' + peopleCount + '</p>'
+                    // 2. The Label
+                    return '<p class="title">' + d.data.name + '</p>' + '<p class="count">' + papers + ' Papers | ' + people + ' People | ' + collabs + ' Collabs</p>';
                 })
                 .attr("class", "textdiv");
 
