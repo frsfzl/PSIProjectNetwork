@@ -393,6 +393,16 @@ d3.queue()
                 if (d.depth === 2 && d.data.authorList) {
                     d3.selectAll(".depth").remove();
                     showAuthorList(d.data.name, d.data.authorList);
+
+                    grandparent
+                        .datum(d.parent)
+                        .on("click", function(parentNode) {
+                            d3.select("#authorList").remove();
+                            display(parentNode);
+                        })
+                        .select("text")
+                        .text(name(d));
+
                     transitioning = false;
                     return;
                 }
