@@ -79,20 +79,17 @@
 	/* Author list styling */
 	#authorList {
 	    font-family: sans-serif;
-	    font-size: 20px;
-	    padding: 10px;
+	    padding: 20px 28px;
 	    margin: 0;
-	    max-height: 500px;
-	    overflow-y: auto;
-	    border: 1px solid #ccc;
-	    border-radius: 10px;
-	    background: #f8f9fa;
 	    position: absolute;
-	    top: 100px;
-	    left: 30px;               /* moved left to avoid legend overlap */
-	    width: 850px;             /* #SIZE HERE - adjust width as needed */
-	    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+	    top: 0;
+	    left: 0;
+	    right: 0;
+	    min-height: 100%;
+	    background: #fff;
 	    z-index: 999;
+	    overflow-y: auto;
+	    box-sizing: border-box;
 	}
 	#authorList h3 {
 	    margin: 0;
@@ -144,6 +141,67 @@
 	.author-toggle input[type="radio"] {
 	    display: none;
 	}
+	.back-btn {
+	    background: none;
+	    border: 1.5px solid #666;
+	    border-radius: 6px;
+	    padding: 6px 14px;
+	    font-size: 13px;
+	    font-family: sans-serif;
+	    cursor: pointer;
+	    color: #333;
+	    transition: background 0.15s;
+	}
+	.back-btn:hover {
+	    background: #f0f0f0;
+	}
+	.author-search {
+	    display: block;
+	    width: 100%;
+	    max-width: 400px;
+	    margin: 12px 0 6px;
+	    padding: 7px 12px;
+	    font-size: 14px;
+	    font-family: sans-serif;
+	    border: 1.5px solid #ccc;
+	    border-radius: 6px;
+	    box-sizing: border-box;
+	    outline: none;
+	}
+	.author-search:focus {
+	    border-color: #888;
+	}
+	.sort-controls {
+	    display: flex;
+	    align-items: center;
+	    gap: 6px;
+	    margin-bottom: 10px;
+	    font-size: 13px;
+	    font-family: sans-serif;
+	    color: #555;
+	}
+	.sort-btn {
+	    padding: 3px 10px;
+	    font-size: 12px;
+	    font-family: sans-serif;
+	    border: 1.5px solid #aaa;
+	    border-radius: 4px;
+	    background: #f0f0f0;
+	    cursor: pointer;
+	    color: #444;
+	    transition: background 0.15s;
+	}
+	.sort-btn.active {
+	    background: #333;
+	    color: #fff;
+	    border-color: #333;
+	}
+	.author-count {
+	    font-size: 12px;
+	    color: #888;
+	    margin: 0 0 8px;
+	    font-family: sans-serif;
+	}
 
 	svg {
 	  display: block;
@@ -162,6 +220,7 @@ var margin = {top: 70, right: 300, bottom: 20, left: 30},
     height = Math.max(divWidth * 0.5, 400),
     formatNumber = d3.format(","),
     transitioning;
+var lastParentNode = null;
 
 var x = d3.scaleLinear().domain([0, width]).range([0, width]);
 var y = d3.scaleLinear().domain([0, height]).range([0, height]);
@@ -233,8 +292,17 @@ function showAuthorList(topicName, authors) {
         .append("div")
         .attr("id", "authorList");
 
+    // Header row: back button + title + filter toggle
     var header = authorDiv.append("div")
         .attr("class", "author-list-header");
+
+    header.append("button")
+        .attr("class", "back-btn")
+        .text("← Back to map")
+        .on("click", function() {
+            d3.select("#authorList").remove();
+            if (lastParentNode) display(lastParentNode);
+        });
 
     header.append("h3").text("Authors in " + topicName);
 
@@ -249,26 +317,68 @@ function showAuthorList(topicName, authors) {
     lblNCS.append("input").attr("type", "radio").attr("name", "authorFilter").attr("value", "ncstate");
     lblNCS.append("span").text("NC State Authors");
 
+    // Search box
+    var searchInput = authorDiv.append("input")
+        .attr("type", "text")
+        .attr("class", "author-search")
+        .attr("placeholder", "Search authors...");
+
+    // Sort controls
+    var sortDir = 1;
+    var sortControls = authorDiv.append("div").attr("class", "sort-controls");
+    sortControls.append("span").text("Sort:");
+    var btnAZ = sortControls.append("button").attr("class", "sort-btn active").text("A → Z");
+    var btnZA = sortControls.append("button").attr("class", "sort-btn").text("Z → A");
+
+    var countDisplay = authorDiv.append("p").attr("class", "author-count");
     var list = authorDiv.append("ul");
 
-    function renderList(filter) {
+    function renderList() {
         list.selectAll("li").remove();
-        var filtered = filter === "ncstate"
-            ? authors.filter(function(a) { return isNCSAuthor(a); })
-            : authors;
-        filtered.forEach(function(a) {
-                list.append("li").text(a);
-        });
+        var filterVal = d3.select("input[name='authorFilter']:checked").property("value");
+        var searchVal = searchInput.property("value").toLowerCase();
 
+        var filtered = filterVal === "ncstate"
+            ? authors.filter(function(a) { return isNCSAuthor(a); })
+            : authors.slice();
+
+        if (searchVal) {
+            filtered = filtered.filter(function(a) {
+                return a.toLowerCase().indexOf(searchVal) !== -1;
+            });
+        }
+
+        filtered.sort(function(a, b) { return sortDir * a.localeCompare(b); });
+
+        countDisplay.text(filtered.length + " author" + (filtered.length !== 1 ? "s" : ""));
+
+        filtered.forEach(function(a) {
+            list.append("li").text(a);
+        });
     }
 
-    renderList("all");
+    renderList();
 
     toggleDiv.selectAll("input[type='radio']").on("change", function() {
-        var val = this.value;
         toggleDiv.selectAll("label").classed("active", false);
         d3.select(this.parentNode).classed("active", true);
-        renderList(val);
+        renderList();
+    });
+
+    searchInput.on("input", renderList);
+
+    btnAZ.on("click", function() {
+        sortDir = 1;
+        btnAZ.classed("active", true);
+        btnZA.classed("active", false);
+        renderList();
+    });
+
+    btnZA.on("click", function() {
+        sortDir = -1;
+        btnAZ.classed("active", false);
+        btnZA.classed("active", true);
+        renderList();
     });
 }
 
@@ -382,7 +492,7 @@ d3.queue()
                         collabs = d3.sum(d.children, s => s.data.collabCount || 0);
                     }
                     // 2. The Label
-                    return '<p class="title">' + d.data.name + '</p>' + '<p class="count">' + papers + ' Papers | ' + people + ' People | ' + collabs + ' Collabs</p>';
+                    return '<p class="title">' + d.data.name + '</p>' + '<p class="count">' + papers + ' Papers | ' + people + ' Authors</p>';
                 })
                 .attr("class", "textdiv");
 
@@ -392,6 +502,7 @@ d3.queue()
 
                 if (d.depth === 2 && d.data.authorList) {
                     d3.selectAll(".depth").remove();
+                    lastParentNode = d.parent;
                     showAuthorList(d.data.name, d.data.authorList);
 
                     grandparent
