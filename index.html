@@ -1,31 +1,87 @@
 <meta charset="utf-8">
 <style>
+	html, body {
+	  margin: 0;
+	  padding: 0;
+	  width: 100%;
+	  height: 100%;
+	  overflow: hidden;
+	  font-family: sans-serif;
+	}
+	/* Navbar */
+	#navbar {
+	  position: fixed;
+	  top: 0; left: 0; right: 0;
+	  height: 48px;
+	  background: #1a1a1a;
+	  display: flex;
+	  align-items: center;
+	  padding: 0 18px;
+	  gap: 0;
+	  z-index: 1000;
+	  box-sizing: border-box;
+	}
+	#app-title {
+	  color: #fff;
+	  font-size: 15px;
+	  font-weight: 700;
+	  white-space: nowrap;
+	  letter-spacing: 0.02em;
+	}
+	#nav-sep {
+	  width: 1px;
+	  height: 22px;
+	  background: rgba(255,255,255,0.25);
+	  margin: 0 14px;
+	  flex-shrink: 0;
+	}
+	#breadcrumb {
+	  display: flex;
+	  align-items: center;
+	  gap: 4px;
+	  font-size: 13px;
+	  min-width: 0;
+	}
+	.bc-link {
+	  color: rgba(255,255,255,0.6);
+	  cursor: pointer;
+	  white-space: nowrap;
+	  transition: color 0.15s;
+	}
+	.bc-link:hover {
+	  color: #fff;
+	  text-decoration: underline;
+	}
+	.bc-sep {
+	  color: rgba(255,255,255,0.35);
+	  font-size: 14px;
+	}
+	.bc-current {
+	  color: #fff;
+	  white-space: nowrap;
+	  overflow: hidden;
+	  text-overflow: ellipsis;
+	}
 	/* Chart container */
 	#chart {
-	  max-width: 100%;
-	  overflow: auto;
+	  width: 100%;
+	  height: calc(100vh - 48px);
+	  margin-top: 48px;
+	  overflow: hidden;
 	  position: relative;
 	}
 
 	text {
 	  pointer-events: none;
 	}
-	.grandparent text {
-      font-size: 20px;
-	}
 	rect {
 	  stroke: #fff;
 	  stroke-width: 1px;
 	}
-	rect.parent,
-	.grandparent rect {
+	rect.parent {
 	  stroke-width: 3px;
 	}
-	.grandparent:hover rect {
-	  fill: grey;
-	}
-	.children rect.parent,
-	.grandparent rect {
+	.children rect.parent {
 	  cursor: pointer;
 	}
 	.children rect.child {
@@ -53,6 +109,7 @@
 	    padding: 10px;
 	    cursor: pointer;
 	    overflow: none;
+	    pointer-events: none;
 	}
 	.textdiv .title {
 	    font-size: 100%;
@@ -208,19 +265,25 @@
 	}
 </style>
 
-<p id="chart"></p>
+<nav id="navbar">
+  <span id="app-title">NCSU PSI Research Mapping</span>
+  <div id="nav-sep"></div>
+  <div id="breadcrumb"></div>
+</nav>
+<div id="chart"></div>
 
 <script src="//d3js.org/d3.v4.min.js"></script>
 <script>
 var el_id = 'chart';
-var obj = document.getElementById(el_id);
-var divWidth = obj.offsetWidth || 1200;
-var margin = {top: 70, right: 300, bottom: 20, left: 30},
-    width = divWidth * 0.7,
-    height = Math.max(divWidth * 0.5, 400),
+var navH   = 48;
+var margin = {top: 4, right: 4, bottom: 4, left: 4},
+    width  = window.innerWidth  - margin.left - margin.right,
+    height = window.innerHeight - navH - margin.top - margin.bottom,
     formatNumber = d3.format(","),
     transitioning;
 var lastParentNode = null;
+var tooltip = null;
+var navigateTo = null;
 
 var x = d3.scaleLinear().domain([0, width]).range([0, width]);
 var y = d3.scaleLinear().domain([0, height]).range([0, height]);
@@ -231,27 +294,12 @@ var treemap = d3.treemap()
     .round(false);
 
 var svg = d3.select('#'+el_id).append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.bottom + margin.top)
-    .style("margin-left", -margin.left + "px")
-    .style("margin.right", -margin.right + "px")
+    .attr("width",  width  + margin.left + margin.right)
+    .attr("height", height + margin.top  + margin.bottom)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
     .style("shape-rendering", "crispEdges");
 
-var grandparent = svg.append("g")
-    .attr("class", "grandparent");
-
-grandparent.append("rect")
-    .attr("y", -margin.top)
-    .attr("width", width)
-    .attr("height", margin.top)
-    .attr("fill", '#bbbbbb');
-
-grandparent.append("text")
-    .attr("x", 6)
-    .attr("y", 6 - margin.top)
-    .attr("dy", ".75em");
 
 // Build a set of NC State author keys ("lastName, firstName") from the publications CSV
 var ncsAuthorKeys = new Set();
@@ -287,6 +335,7 @@ function isNCSAuthor(authorName) {
 
 function showAuthorList(topicName, authors) {
     d3.select("#authorList").remove();
+    tooltip.style("display", "none");
 
     var authorDiv = d3.select("#" + el_id)
         .append("div")
@@ -300,8 +349,7 @@ function showAuthorList(topicName, authors) {
         .attr("class", "back-btn")
         .text("← Back to map")
         .on("click", function() {
-            d3.select("#authorList").remove();
-            if (lastParentNode) display(lastParentNode);
+            if (lastParentNode) navigateTo(lastParentNode);
         });
 
     header.append("h3").text("Authors in " + topicName);
@@ -410,17 +458,50 @@ d3.queue()
                 "#AEC6CF", "#80C000", "#008000", "#1ABC9C", "#2471A3", "#0066FF", "#A569BD"
             ]);
 
-        const tooltip = d3.select('body')
+        tooltip = d3.select('body')
             .append('div')
-            .style('position', 'relative')
-            .style('z-index', '10')
-            .style('background-color','white')
-            .style('border', 'solid')
-            .style('border-width', '2px')
-            .style('border-radius', '5px')
-            .style('padding', '5px')
-            .style('width','310')
-            .attr('id', 'tooltip');
+            .attr('id', 'tooltip')
+            .style('position', 'fixed')
+            .style('display', 'none')
+            .style('z-index', '9999')
+            .style('background', '#fff')
+            .style('border', '2px solid #333')
+            .style('border-radius', '6px')
+            .style('padding', '10px 14px')
+            .style('max-width', '280px')
+            .style('pointer-events', 'none')
+            .style('font-family', 'sans-serif')
+            .style('font-size', '13px')
+            .style('box-shadow', '0 2px 8px rgba(0,0,0,0.15)');
+
+        function showTooltip(d, event) {
+            var html = '<strong style="font-size:14px">' + d.data.name + '</strong>';
+
+            if (d.depth === 1 && d.children) {
+                html += '<table style="margin-top:6px;border-collapse:collapse;width:100%">';
+                var sorted = d.children.slice().sort(function(a,b){ return b.value - a.value; });
+                sorted.forEach(function(child) {
+                    html += '<tr>'
+                        + '<td style="padding:2px 8px 2px 0;color:#333">' + child.data.name + '</td>'
+                        + '<td style="padding:2px 0;text-align:right;color:#666;white-space:nowrap">' + child.value.toLocaleString() + ' papers</td>'
+                        + '</tr>';
+                });
+                html += '</table>';
+            } else if (d.depth === 2) {
+                var authors = d.data.authorList ? d.data.authorList.length : 0;
+                html += '<div style="margin-top:6px;color:#555">'
+                    + d.value.toLocaleString() + ' Papers &nbsp;|&nbsp; '
+                    + authors.toLocaleString() + ' Authors'
+                    + '</div>';
+            }
+
+            tooltip.html(html).style('display', 'block');
+            var ex = event.clientX, ey = event.clientY;
+            var tw = tooltip.node().offsetWidth;
+            // flip left if too close to right edge
+            var left = (ex + 16 + tw > window.innerWidth) ? (ex - tw - 16) : (ex + 16);
+            tooltip.style('left', left + 'px').style('top', (ey - 10) + 'px');
+        }
 
         var root = d3.hierarchy(data);
         treemap(root
@@ -438,18 +519,17 @@ d3.queue()
                 return;
             }
 
-            grandparent
-                .datum(d.parent)
-                .on("click", transition)
-                .select("text")
-                .text(name(d));
+            // Update breadcrumb
+            if (!d.parent) {
+                updateBreadcrumb([]);
+            } else {
+                updateBreadcrumb([
+                    {label: 'All Topics', node: root},
+                    {label: d.data.name,  node: null}
+                ]);
+            }
 
-            grandparent
-                .datum(d.parent)
-                .select("rect")
-                .attr("fill", '#FFFFFF');
-
-            var g1 = svg.insert("g", ".grandparent")
+            var g1 = svg.insert("g", ".depth")
                 .datum(d)
                 .attr("class", "depth");
 
@@ -461,6 +541,10 @@ d3.queue()
                 .classed("children", true)
                 .on("click", transition);
 
+            g.on("mouseover", function(d) { showTooltip(d, d3.event); })
+             .on("mousemove", function(d) { showTooltip(d, d3.event); })
+             .on("mouseout",  function()  { tooltip.style("display", "none"); });
+
             g.selectAll(".child")
                 .data(d => d.children || [d])
                 .enter().append("rect")
@@ -469,13 +553,12 @@ d3.queue()
 
             g.append("rect")
                 .attr("class", "parent")
-                .call(rect)
-                .append("title")
-                .text(d => d.data.name);
+                .call(rect);
 
             g.append("foreignObject")
                 .call(rect)
                 .attr("class", "foreignobj")
+                .style("pointer-events", "none")
                 .append("xhtml:div")
                 .attr("dy", "1em")
                 .html(d => {
@@ -503,17 +586,12 @@ d3.queue()
                 if (d.depth === 2 && d.data.authorList) {
                     d3.selectAll(".depth").remove();
                     lastParentNode = d.parent;
+                    updateBreadcrumb([
+                        {label: 'All Topics',    node: root},
+                        {label: d.parent.data.name, node: d.parent},
+                        {label: d.data.name,     node: null}
+                    ]);
                     showAuthorList(d.data.name, d.data.authorList);
-
-                    grandparent
-                        .datum(d.parent)
-                        .on("click", function(parentNode) {
-                            d3.select("#authorList").remove();
-                            display(parentNode);
-                        })
-                        .select("text")
-                        .text(name(d));
-
                     transitioning = false;
                     return;
                 }
@@ -560,32 +638,7 @@ d3.queue()
                 .attr("opacity", function (d) { return (d.depth==3) ? 0.65 : 0.8; });
         }
 
-        for(var i=0;i<pColor.length;i++){
-            var key = pColor[i];
-            var label = mapping[key] || key;
 
-            svg.append("rect")
-                .attr('width',18)
-                .attr('height',18)
-                .attr("x", width+20)
-                .attr("y", -20 + i*30)
-                .style("fill", function(){ return color(key); });
-
-            svg.append("text")
-                .attr("x", width+45)
-                .attr("y", -10 + i*30)
-                .text(label)
-                .attr("text-anchor", "left")
-                .style("alignment-baseline", "right");
-        }
-
-        svg.append("text")
-            .attr("x", width/2)
-            .attr("y", -20)
-            .text("NCSU PSI Research Mapping")
-            .attr("text-anchor", "middle")
-            .attr("font-size", "25")
-            .attr("font-weight", "bold");
 
         function foreign(foreign) {
             foreign.attr("x", d => x(d.x0))
@@ -594,14 +647,41 @@ d3.queue()
                    .attr("height", d => y(d.y1) - y(d.y0));
         }
 
-        function name(d) {
-            return breadcrumbs(d) + (d.parent ? " - Click here to zoom out" : " - Click a block to zoom in");
-        }
+        // Central navigation function — always call this instead of display() directly.
+        // Clears stale DOM, resets zoom domains, then renders.
+        navigateTo = function(node) {
+            tooltip.style("display", "none");
+            d3.select("#authorList").remove();
+            d3.selectAll(".depth").remove();
+            transitioning = false;
+            if (!node.parent) {
+                // Root: full view
+                x.domain([0, width]);
+                y.domain([0, height]);
+            } else {
+                // Topic: zoom into that node's bounds
+                x.domain([node.x0, node.x1]);
+                y.domain([node.y0, node.y1]);
+            }
+            display(node);
+        };
 
-        function breadcrumbs(d) {
-            var res = "", sep = " >> ";
-            d.ancestors().reverse().forEach(function(i){ res += i.data.name + sep; });
-            return res.split(sep).filter(i => i!== "").join(sep);
+        function updateBreadcrumb(segments) {
+            var bc = d3.select('#breadcrumb');
+            bc.html('');
+            segments.forEach(function(seg, i) {
+                if (i > 0) {
+                    bc.append('span').attr('class', 'bc-sep').text('›');
+                }
+                if (seg.node !== null) {
+                    bc.append('span')
+                      .attr('class', 'bc-link')
+                      .text(seg.label)
+                      .on('click', function() { navigateTo(seg.node); });
+                } else {
+                    bc.append('span').attr('class', 'bc-current').text(seg.label);
+                }
+            });
         }
     });
 </script>
