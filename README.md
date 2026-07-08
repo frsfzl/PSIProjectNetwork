@@ -97,3 +97,10 @@ This project uses 10 files, five of the files' data dictionaries are presented b
 | Count       | float     | Numerical count associated with each Topic/Subtopic pair. |
 
 
+# Immiediate next steps and open issues:
+1) download button on the authors page
+2) Scroll enbale
+3) Listing NC state affliation by author names
+4) 
+
+
