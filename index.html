@@ -334,12 +334,21 @@
 	    background: #fce6e6;
 	}
 	.ncs-tag {
-	    font-size: 10px;
+	    font-size: 11px;
 	    font-weight: 700;
 	    color: #CC0000;
+	    flex-shrink: 0;
+	    text-align: right;
+	    max-width: 300px;
+	    white-space: nowrap;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	    cursor: default;
+	}
+	.ncs-tag.generic {
 	    letter-spacing: 0.05em;
 	    text-transform: uppercase;
-	    flex-shrink: 0;
+	    font-size: 10px;
 	}
 
 	svg {
@@ -405,22 +414,38 @@ function buildNCSSet(pubsData) {
     });
 }
 
-function isNCSAuthor(authorName) {
+function ncsKeyFor(authorName) {
     var parts = authorName.split(",");
-    if (parts.length < 2) return false;
-    
+    if (parts.length < 2) return null;
+
     var last = parts[0].trim().toLowerCase();
     var first = parts[1].trim().split(/\s+/)[0].toLowerCase();
-    
-    return ncsAuthorKeys.has(last + ", " + first);
+
+    return last + ", " + first;
+}
+
+function isNCSAuthor(authorName) {
+    var key = ncsKeyFor(authorName);
+    return !!key && ncsAuthorKeys.has(key);
+}
+
+// Populated from ncs_faculty_lookup.json: "last, first" -> {department, college}
+var ncsFacultyInfo = {};
+
+function getFacultyInfo(authorName) {
+    var key = ncsKeyFor(authorName);
+    return (key && ncsFacultyInfo[key]) || null;
 }
 
 function downloadAuthorsCSV(topicName, authors) {
-    var rows = ["Author Name,NC State Affiliation"];
+    var rows = ["Author Name,NC State Affiliation,Department,College"];
     authors.forEach(function(a) {
         var name = '"' + a.replace(/"/g, '""') + '"';
         var affiliation = isNCSAuthor(a) ? "Yes" : "No";
-        rows.push(name + "," + affiliation);
+        var info = getFacultyInfo(a);
+        var department = '"' + (info ? info.department.replace(/"/g, '""') : "") + '"';
+        var college = '"' + (info ? info.college.replace(/"/g, '""') : "") + '"';
+        rows.push(name + "," + affiliation + "," + department + "," + college);
     });
 
     var blob = new Blob([rows.join("\n")], {type: "text/csv;charset=utf-8;"});
@@ -541,7 +566,15 @@ function showAuthorList(topicName, authors) {
                     + (rowIndex % 2 === 1 ? " row-alt" : ""));
             li.append("span").attr("class", "author-name").text(a);
             if (isNcs) {
-                li.append("span").attr("class", "ncs-tag").text("NC State");
+                var facultyInfo = getFacultyInfo(a);
+                if (facultyInfo) {
+                    li.append("span")
+                        .attr("class", "ncs-tag")
+                        .attr("title", facultyInfo.college + " · " + facultyInfo.department)
+                        .text(facultyInfo.department);
+                } else {
+                    li.append("span").attr("class", "ncs-tag generic").text("NC State");
+                }
             }
             rowIndex++;
         });
@@ -576,8 +609,10 @@ d3.queue()
     .defer(d3.json, "jsonRETTL3.json")
     .defer(d3.csv, "HierarchyData.csv")
     .defer(d3.csv, "publications_with_newBuckets_labels0.80Named.csv")
-    .await(function(error, data, data2, pubsData) {
+    .defer(d3.json, "ncs_faculty_lookup.json")
+    .await(function(error, data, data2, pubsData, facultyLookup) {
         buildNCSSet(pubsData);
+        ncsFacultyInfo = facultyLookup || {};
 
         var mapping = {};
         var orderedKeys = [];
