@@ -333,13 +333,32 @@
 	.author-row.ncs:hover {
 	    background: #fce6e6;
 	}
+	.tags-wrap {
+	    display: flex;
+	    align-items: center;
+	    gap: 8px;
+	    flex-shrink: 0;
+	}
+	.psi-tag {
+	    display: inline-block;
+	    padding: 2px 9px;
+	    font-size: 10px;
+	    font-weight: 700;
+	    letter-spacing: 0.03em;
+	    border-radius: 10px;
+	    background: #E8F5E9;
+	    color: #2E7D32;
+	    border: 1px solid #A5D6A7;
+	    white-space: nowrap;
+	    flex-shrink: 0;
+	}
 	.ncs-tag {
 	    font-size: 11px;
 	    font-weight: 700;
 	    color: #CC0000;
 	    flex-shrink: 0;
 	    text-align: right;
-	    max-width: 300px;
+	    max-width: 260px;
 	    white-space: nowrap;
 	    overflow: hidden;
 	    text-overflow: ellipsis;
@@ -437,15 +456,24 @@ function getFacultyInfo(authorName) {
     return (key && ncsFacultyInfo[key]) || null;
 }
 
+// Populated from ncs_psi_keys.json: Set of "last, first" keys on the NC PSI faculty roster
+var ncsPsiKeys = new Set();
+
+function isNCPSI(authorName) {
+    var key = ncsKeyFor(authorName);
+    return !!key && ncsPsiKeys.has(key);
+}
+
 function downloadAuthorsCSV(topicName, authors) {
-    var rows = ["Author Name,NC State Affiliation,Department,College"];
+    var rows = ["Author Name,NC State Affiliation,Department,College,NC PSI"];
     authors.forEach(function(a) {
         var name = '"' + a.replace(/"/g, '""') + '"';
         var affiliation = isNCSAuthor(a) ? "Yes" : "No";
         var info = getFacultyInfo(a);
         var department = '"' + (info ? info.department.replace(/"/g, '""') : "") + '"';
         var college = '"' + (info ? info.college.replace(/"/g, '""') : "") + '"';
-        rows.push(name + "," + affiliation + "," + department + "," + college);
+        var psi = isNCPSI(a) ? "Yes" : "No";
+        rows.push(name + "," + affiliation + "," + department + "," + college + "," + psi);
     });
 
     var blob = new Blob([rows.join("\n")], {type: "text/csv;charset=utf-8;"});
@@ -500,6 +528,10 @@ function showAuthorList(topicName, authors) {
     lblNCS.append("input").attr("type", "radio").attr("name", "authorFilter").attr("value", "ncstate");
     lblNCS.append("span").text("NC State Authors");
 
+    var lblPSI = toggleDiv.append("label");
+    lblPSI.append("input").attr("type", "radio").attr("name", "authorFilter").attr("value", "ncpsi");
+    lblPSI.append("span").text("NC PSI");
+
     toolbarTop.append("button")
         .attr("class", "download-btn")
         .text("⬇ Download CSV")
@@ -530,9 +562,12 @@ function showAuthorList(topicName, authors) {
         var filterVal = d3.select("input[name='authorFilter']:checked").property("value");
         var searchVal = searchInput.property("value").toLowerCase();
 
-        var filtered = filterVal === "ncstate"
-            ? authors.filter(function(a) { return isNCSAuthor(a); })
-            : authors.slice();
+        var filtered = authors.slice();
+        if (filterVal === "ncstate") {
+            filtered = filtered.filter(function(a) { return isNCSAuthor(a); });
+        } else if (filterVal === "ncpsi") {
+            filtered = filtered.filter(function(a) { return isNCPSI(a); });
+        }
 
         if (searchVal) {
             filtered = filtered.filter(function(a) {
@@ -560,20 +595,25 @@ function showAuthorList(topicName, authors) {
             }
 
             var isNcs = isNCSAuthor(a);
+            var isPsi = isNCPSI(a);
             var li = list.append("li")
                 .attr("class", "author-row"
                     + (isNcs ? " ncs" : "")
                     + (rowIndex % 2 === 1 ? " row-alt" : ""));
             li.append("span").attr("class", "author-name").text(a);
             if (isNcs) {
+                var tagsWrap = li.append("span").attr("class", "tags-wrap");
+                if (isPsi) {
+                    tagsWrap.append("span").attr("class", "psi-tag").text("NC PSI");
+                }
                 var facultyInfo = getFacultyInfo(a);
                 if (facultyInfo) {
-                    li.append("span")
+                    tagsWrap.append("span")
                         .attr("class", "ncs-tag")
                         .attr("title", facultyInfo.college + " · " + facultyInfo.department)
                         .text(facultyInfo.department);
                 } else {
-                    li.append("span").attr("class", "ncs-tag generic").text("NC State");
+                    tagsWrap.append("span").attr("class", "ncs-tag generic").text("NC State");
                 }
             }
             rowIndex++;
@@ -610,9 +650,11 @@ d3.queue()
     .defer(d3.csv, "HierarchyData.csv")
     .defer(d3.csv, "publications_with_newBuckets_labels0.80Named.csv")
     .defer(d3.json, "ncs_faculty_lookup.json")
-    .await(function(error, data, data2, pubsData, facultyLookup) {
+    .defer(d3.json, "ncs_psi_keys.json")
+    .await(function(error, data, data2, pubsData, facultyLookup, psiKeys) {
         buildNCSSet(pubsData);
         ncsFacultyInfo = facultyLookup || {};
+        ncsPsiKeys = new Set(psiKeys || []);
 
         var mapping = {};
         var orderedKeys = [];
