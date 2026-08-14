@@ -310,12 +310,27 @@
 	    align-items: center;
 	    justify-content: space-between;
 	    gap: 10px;
-	    padding: 9px 14px;
+	    padding: 8px 14px;
 	    border-bottom: 1px solid #f0f0f0;
 	    border-left: 3px solid transparent;
 	    font-size: 14px;
 	    color: #222;
 	    transition: background 0.1s;
+	}
+	.name-col {
+	    display: flex;
+	    flex-direction: column;
+	    gap: 2px;
+	    min-width: 0;
+	}
+	.also-in {
+	    font-size: 11px;
+	    color: #888;
+	    white-space: nowrap;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	    max-width: 650px;
+	    cursor: default;
 	}
 	.author-row.row-alt {
 	    background: #fafafa;
@@ -464,8 +479,20 @@ function isNCPSI(authorName) {
     return !!key && ncsPsiKeys.has(key);
 }
 
-function downloadAuthorsCSV(topicName, authors) {
-    var rows = ["Author Name,NC State Affiliation,Department,College,NC PSI"];
+// Populated from ncs_author_topics.json: "last, first" -> {topics: [...], subtopics: [...]}
+var ncsAuthorTopics = {};
+
+// All top-level topics this author appears in besides the one currently being
+// viewed, alphabetical (see README for why).
+function getOtherTopics(authorName, currentTopic) {
+    var key = ncsKeyFor(authorName);
+    var info = key && ncsAuthorTopics[key];
+    if (!info) return [];
+    return info.topics.filter(function(t) { return t !== currentTopic; });
+}
+
+function downloadAuthorsCSV(subtopicName, authors, parentTopic) {
+    var rows = ["Author Name,NC State Affiliation,Department,College,NC PSI,Other Topics"];
     authors.forEach(function(a) {
         var name = '"' + a.replace(/"/g, '""') + '"';
         var affiliation = isNCSAuthor(a) ? "Yes" : "No";
@@ -473,12 +500,13 @@ function downloadAuthorsCSV(topicName, authors) {
         var department = '"' + (info ? info.department.replace(/"/g, '""') : "") + '"';
         var college = '"' + (info ? info.college.replace(/"/g, '""') : "") + '"';
         var psi = isNCPSI(a) ? "Yes" : "No";
-        rows.push(name + "," + affiliation + "," + department + "," + college + "," + psi);
+        var otherTopics = '"' + getOtherTopics(a, parentTopic).join(", ").replace(/"/g, '""') + '"';
+        rows.push(name + "," + affiliation + "," + department + "," + college + "," + psi + "," + otherTopics);
     });
 
     var blob = new Blob([rows.join("\n")], {type: "text/csv;charset=utf-8;"});
     var url = URL.createObjectURL(blob);
-    var safeName = topicName.toString().trim().replace(/[^a-z0-9]+/gi, "_").toLowerCase();
+    var safeName = subtopicName.toString().trim().replace(/[^a-z0-9]+/gi, "_").toLowerCase();
 
     var link = document.createElement("a");
     link.href = url;
@@ -494,7 +522,7 @@ function authorFirstLetter(name) {
     return /[A-Z]/.test(ch) ? ch : "#";
 }
 
-function showAuthorList(topicName, authors) {
+function showAuthorList(topicName, authors, parentTopic) {
     d3.select("#authorList").remove();
     tooltip.style("display", "none");
 
@@ -536,7 +564,7 @@ function showAuthorList(topicName, authors) {
         .attr("class", "download-btn")
         .text("⬇ Download CSV")
         .on("click", function() {
-            downloadAuthorsCSV(topicName, currentFiltered);
+            downloadAuthorsCSV(topicName, currentFiltered, parentTopic);
         });
 
     var toolbarBottom = toolbar.append("div").attr("class", "toolbar-bottom");
@@ -600,7 +628,22 @@ function showAuthorList(topicName, authors) {
                 .attr("class", "author-row"
                     + (isNcs ? " ncs" : "")
                     + (rowIndex % 2 === 1 ? " row-alt" : ""));
-            li.append("span").attr("class", "author-name").text(a);
+
+            var nameCol = li.append("span").attr("class", "name-col");
+            nameCol.append("span").attr("class", "author-name").text(a);
+
+            var otherTopics = getOtherTopics(a, parentTopic);
+            if (otherTopics.length > 0) {
+                var maxShown = 3;
+                var shownText = otherTopics.slice(0, maxShown).join(", ");
+                var remaining = otherTopics.length - maxShown;
+                if (remaining > 0) shownText += " +" + remaining + " more";
+                nameCol.append("span")
+                    .attr("class", "also-in")
+                    .attr("title", otherTopics.join(", "))
+                    .text("Also in: " + shownText);
+            }
+
             if (isNcs) {
                 var tagsWrap = li.append("span").attr("class", "tags-wrap");
                 if (isPsi) {
@@ -651,10 +694,12 @@ d3.queue()
     .defer(d3.csv, "publications_with_newBuckets_labels0.80Named.csv")
     .defer(d3.json, "ncs_faculty_lookup.json")
     .defer(d3.json, "ncs_psi_keys.json")
-    .await(function(error, data, data2, pubsData, facultyLookup, psiKeys) {
+    .defer(d3.json, "ncs_author_topics.json")
+    .await(function(error, data, data2, pubsData, facultyLookup, psiKeys, authorTopics) {
         buildNCSSet(pubsData);
         ncsFacultyInfo = facultyLookup || {};
         ncsPsiKeys = new Set(psiKeys || []);
+        ncsAuthorTopics = authorTopics || {};
 
         var mapping = {};
         var orderedKeys = [];
@@ -734,7 +779,7 @@ d3.queue()
             d3.select("#authorList").remove();
 
             if (!d.children && d.depth === 3) {
-                showAuthorList(d.parent.data.name, d.parent.children);
+                showAuthorList(d.parent.data.name, d.parent.children, d.parent.parent.data.name);
                 return;
             }
 
@@ -810,7 +855,7 @@ d3.queue()
                         {label: d.parent.data.name, node: d.parent},
                         {label: d.data.name,     node: null}
                     ]);
-                    showAuthorList(d.data.name, d.data.authorList);
+                    showAuthorList(d.data.name, d.data.authorList, d.parent.data.name);
                     transitioning = false;
                     return;
                 }

@@ -1,242 +1,274 @@
 {
- "gould, fred": {
-  "department": "Entomology and Plant Pathology",
-  "college": "College of Agriculture and Life Sciences"
- },
- "parajuli, rajan": {
-  "department": "Forestry and Environmental Resources",
-  "college": "College of Natural Resources"
- },
- "allen, jonathan": {
-  "department": "Food, Bioprocessing, and Nutrition Sciences",
-  "college": "College of Agriculture and Life Sciences"
- },
- "doherty, colleen": {
+ "liu, xiaojing": {
   "department": "Molecular and Structural Biochemistry",
   "college": "College of Agriculture and Life Sciences"
  },
- "miguel, adriana": {
+ "freytes, donald": {
+  "department": "Biomedical Engineering",
+  "college": "College of Engineering"
+ },
+ "menegatti, stefano": {
   "department": "Chemical and Biomolecular Engineering",
   "college": "College of Engineering"
  },
- "lietz, amanda": {
-  "department": "Nuclear Engineering",
+ "reyes, francis": {
+  "department": "Civil, Construction and Environmental Engineering",
   "college": "College of Engineering"
  },
- "roberts, david": {
-  "department": "Computer Science",
-  "college": "College of Engineering"
- },
- "anderson, kenneth": {
-  "department": "Prestage Department of Poultry Science",
+ "liu, wusheng": {
+  "department": "Horticultural Science",
   "college": "College of Agriculture and Life Sciences"
  },
- "malheiros, ramon": {
-  "department": "Prestage Department of Poultry Science",
-  "college": "College of Agriculture and Life Sciences"
- },
- "peszlen, ilona": {
-  "department": "Forest Biomaterials",
-  "college": "College of Natural Resources"
- },
- "scharf, valery": {
-  "department": "Clinical Sciences",
-  "college": "College of Veterinary Medicine"
- },
- "rejesus, roderick": {
-  "department": "Agricultural and Resource Economics",
-  "college": "College of Agriculture and Life Sciences"
- },
- "bradford, philip": {
-  "department": "Textile Engineering, Chemistry and Science",
-  "college": "Wilson College of Textiles"
- },
- "walker, trevor": {
+ "gray, josh": {
   "department": "Forestry and Environmental Resources",
   "college": "College of Natural Resources"
  },
- "vann, rachel": {
+ "quesada, lina": {
+  "department": "Entomology and Plant Pathology",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "bradshaw, michael": {
+  "department": "Entomology and Plant Pathology",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "blikslager, anthony": {
+  "department": "College of Veterinary Medicine Administration",
+  "college": "College of Veterinary Medicine"
+ },
+ "kulesza, stephanie": {
   "department": "Crop and Soil Sciences",
   "college": "College of Agriculture and Life Sciences"
  },
- "li, fanxing": {
-  "department": "Chemical and Biomolecular Engineering",
-  "college": "College of Engineering"
+ "tateosian, laura": {
+  "department": "Center for Geospatial Analytics",
+  "college": "College of Natural Resources"
  },
- "balke, nina": {
-  "department": "Materials Science and Engineering",
-  "college": "College of Engineering"
- },
- "kon, tom": {
-  "department": "Horticultural Science",
+ "bolinaga, celso": {
+  "department": "Biological and Agricultural Engineering",
   "college": "College of Agriculture and Life Sciences"
  },
- "jennings, katherine": {
-  "department": "Horticultural Science",
+ "ahumada, daisy": {
+  "department": "Entomology and Plant Pathology",
   "college": "College of Agriculture and Life Sciences"
  },
- "xu, dongkuan": {
-  "department": "Computer Science",
-  "college": "College of Engineering"
- },
- "williamson, ian": {
-  "department": "Molecular Biomedical Sciences",
-  "college": "College of Veterinary Medicine"
- },
- "youngsteadt, elsa": {
-  "department": "Applied Ecology",
+ "shah, sanjay": {
+  "department": "Biological and Agricultural Engineering",
   "college": "College of Agriculture and Life Sciences"
+ },
+ "shi, wei": {
+  "department": "Crop and Soil Sciences",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "warsing, donald": {
+  "department": "Information Technology, Analytics, & Operations",
+  "college": "Poole College of Management"
  },
  "cho, soolyeon": {
   "department": "College of Design Administration",
   "college": "College of Design"
  },
- "barrangou, rodolphe": {
-  "department": "Food, Bioprocessing, and Nutrition Sciences",
-  "college": "College of Agriculture and Life Sciences"
- },
- "bellver, jose": {
-  "department": "Plant and Microbial Biology",
-  "college": "College of Agriculture and Life Sciences"
- },
- "smith, jared": {
-  "department": "Finance",
-  "college": "Poole College of Management"
- },
- "vashaee, daryoosh": {
-  "department": "Electrical and Computer Engineering",
-  "college": "College of Engineering"
- },
- "brown, ashley": {
-  "department": "Biomedical Engineering",
-  "college": "College of Engineering"
- },
- "gluck, jessica": {
-  "department": "Textile Engineering, Chemistry and Science",
-  "college": "Wilson College of Textiles"
- },
- "oralkan, omer": {
-  "department": "Electrical and Computer Engineering",
-  "college": "College of Engineering"
- },
- "adler, kenneth": {
-  "department": "Molecular Biomedical Sciences",
+ "foster, derek": {
+  "department": "Population Health and Pathobiology",
   "college": "College of Veterinary Medicine"
  },
- "chen, hsuan": {
+ "hoffmann, mark": {
   "department": "Horticultural Science",
   "college": "College of Agriculture and Life Sciences"
  },
- "cheng, jay": {
-  "department": "Biological and Agricultural Engineering",
-  "college": "College of Agriculture and Life Sciences"
- },
- "chapman, benjamin": {
-  "department": "Agricultural and Human Sciences",
-  "college": "College of Agriculture and Life Sciences"
- },
- "rasmussen, david": {
-  "department": "Entomology and Plant Pathology",
-  "college": "College of Agriculture and Life Sciences"
- },
- "ranjithan, ranji": {
-  "department": "Civil, Construction and Environmental Engineering",
-  "college": "College of Engineering"
- },
- "kay, michael": {
-  "department": "Edward P. Fitts Department of Industrial & Systems Engineering",
-  "college": "College of Engineering"
- },
- "kudenov, michael": {
-  "department": "Electrical and Computer Engineering",
-  "college": "College of Engineering"
- },
- "saloni, daniel": {
-  "department": "Forest Biomaterials",
+ "isik, fikret": {
+  "department": "Forestry and Environmental Resources",
   "college": "College of Natural Resources"
  },
- "garcia, kevin": {
-  "department": "Crop and Soil Sciences",
-  "college": "College of Agriculture and Life Sciences"
- },
- "reynolds, james": {
-  "department": "Electrical and Computer Engineering",
-  "college": "College of Engineering"
- },
- "louws, frank": {
-  "department": "Horticultural Science",
-  "college": "College of Agriculture and Life Sciences"
- },
- "swarts, jason": {
-  "department": "English",
-  "college": "College of Humanities and Social Sciences"
- },
- "stapelmann, katharina": {
-  "department": "Nuclear Engineering",
-  "college": "College of Engineering"
- },
- "liu, yuchen": {
-  "department": "Computer Science",
-  "college": "College of Engineering"
- },
- "duckworth, owen": {
-  "department": "Crop and Soil Sciences",
-  "college": "College of Agriculture and Life Sciences"
- },
- "sharara, mahmoud": {
-  "department": "Biological and Agricultural Engineering",
-  "college": "College of Agriculture and Life Sciences"
- },
- "gorny, adrienne": {
-  "department": "Entomology and Plant Pathology",
-  "college": "College of Agriculture and Life Sciences"
- },
- "whitfield, anna": {
-  "department": "Entomology and Plant Pathology",
-  "college": "College of Agriculture and Life Sciences"
- },
- "mitasova, helena": {
-  "department": "Marine, Earth, and Atmospheric Sciences",
-  "college": "College of Sciences"
- },
- "bruno-barcena, jose": {
-  "department": "Plant and Microbial Biology",
-  "college": "College of Agriculture and Life Sciences"
- },
- "gonzalez, ronalds": {
-  "department": "Forest Biomaterials",
-  "college": "College of Natural Resources"
- },
- "reyes, francis": {
-  "department": "Civil, Construction and Environmental Engineering",
+ "genzer, jan": {
+  "department": "Chemical and Biomolecular Engineering",
   "college": "College of Engineering"
  },
  "castellano, felix": {
   "department": "Chemistry",
   "college": "College of Sciences"
  },
- "jackson, brian": {
+ "ziegler, amanda": {
+  "department": "Molecular Biomedical Sciences",
+  "college": "College of Veterinary Medicine"
+ },
+ "kay, michael": {
+  "department": "Edward P. Fitts Department of Industrial & Systems Engineering",
+  "college": "College of Engineering"
+ },
+ "ristaino, jean": {
+  "department": "Entomology and Plant Pathology",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "rao, balaji": {
+  "department": "Chemical and Biomolecular Engineering",
+  "college": "College of Engineering"
+ },
+ "shirwaiker, rohan": {
+  "department": "Edward P. Fitts Department of Industrial & Systems Engineering",
+  "college": "College of Engineering"
+ },
+ "khan, saad": {
+  "department": "Chemical and Biomolecular Engineering",
+  "college": "College of Engineering"
+ },
+ "ding, huiling": {
+  "department": "English",
+  "college": "College of Humanities and Social Sciences"
+ },
+ "callahan, benjamin": {
+  "department": "Population Health and Pathobiology",
+  "college": "College of Veterinary Medicine"
+ },
+ "stepanova, anna": {
+  "department": "Plant and Microbial Biology",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "theis, thomas": {
+  "department": "Chemistry",
+  "college": "College of Sciences"
+ },
+ "gruen, margaret": {
+  "department": "Clinical Sciences",
+  "college": "College of Veterinary Medicine"
+ },
+ "pierce, marcela": {
+  "department": "Plant and Microbial Biology",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "huang, hsiao-ying": {
+  "department": "Mechanical and Aerospace Engineering",
+  "college": "College of Engineering"
+ },
+ "collazo, ramon": {
+  "department": "Materials Science and Engineering",
+  "college": "College of Engineering"
+ },
+ "schultheis, jonathan": {
   "department": "Horticultural Science",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "schnabel, lauren": {
+  "department": "Clinical Sciences",
+  "college": "College of Veterinary Medicine"
+ },
+ "carbone, ignazio": {
+  "department": "Entomology and Plant Pathology",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "grunden, amy": {
+  "department": "North Carolina Agricultural Research Service",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "peszlen, ilona": {
+  "department": "Forest Biomaterials",
+  "college": "College of Natural Resources"
+ },
+ "fell, harrison": {
+  "department": "Agricultural and Resource Economics",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "xiang, lirong": {
+  "department": "Biological and Agricultural Engineering",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "cubeta, marc": {
+  "department": "Entomology and Plant Pathology",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "neupert, shevaun": {
+  "department": "Psychology",
+  "college": "College of Humanities and Social Sciences"
+ },
+ "perera, imara": {
+  "department": "Plant and Microbial Biology",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "yin, rong": {
+  "department": "Textile Engineering, Chemistry and Science",
+  "college": "Wilson College of Textiles"
+ },
+ "tulbure, mirela": {
+  "department": "Forestry and Environmental Resources",
+  "college": "College of Natural Resources"
+ },
+ "gage, joseph": {
+  "department": "Crop and Soil Sciences",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "miguel, adriana": {
+  "department": "Chemical and Biomolecular Engineering",
+  "college": "College of Engineering"
+ },
+ "malheiros, ramon": {
+  "department": "Prestage Department of Poultry Science",
   "college": "College of Agriculture and Life Sciences"
  },
  "miller, grady": {
   "department": "Crop and Soil Sciences",
   "college": "College of Agriculture and Life Sciences"
  },
- "whitehill, justin": {
-  "department": "Forestry and Environmental Resources",
-  "college": "College of Natural Resources"
+ "johnson, amy": {
+  "department": "Crop and Soil Sciences",
+  "college": "College of Agriculture and Life Sciences"
  },
- "crespo, rocio": {
+ "walgenbach, james": {
+  "department": "Entomology and Plant Pathology",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "rejesus, roderick": {
+  "department": "Agricultural and Resource Economics",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "hoyo, cathrine": {
+  "department": "Biological Sciences",
+  "college": "College of Sciences"
+ },
+ "ii, harvey": {
+  "department": "Edward P. Fitts Department of Industrial & Systems Engineering",
+  "college": "College of Engineering"
+ },
+ "bryant, matthew": {
+  "department": "Mechanical and Aerospace Engineering",
+  "college": "College of Engineering"
+ },
+ "gluck, jessica": {
+  "department": "Textile Engineering, Chemistry and Science",
+  "college": "Wilson College of Textiles"
+ },
+ "machado, gustavo": {
   "department": "Population Health and Pathobiology",
   "college": "College of Veterinary Medicine"
+ },
+ "lila, mary": {
+  "department": "Kannapolis Research",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "haigler, candace": {
+  "department": "Crop and Soil Sciences",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "milla-lewis, susana": {
+  "department": "Crop and Soil Sciences",
+  "college": "College of Agriculture and Life Sciences"
  },
  "osmond, deanna": {
   "department": "Crop and Soil Sciences",
   "college": "College of Agriculture and Life Sciences"
  },
- "ozturk, mehmet": {
-  "department": "Electrical and Computer Engineering",
+ "queiroz, anderson": {
+  "department": "Civil, Construction and Environmental Engineering",
+  "college": "College of Engineering"
+ },
+ "lan, kai": {
+  "department": "Forest Biomaterials",
+  "college": "College of Natural Resources"
+ },
+ "peters, kara": {
+  "department": "Engineering Research",
+  "college": "College of Engineering"
+ },
+ "horn, tim": {
+  "department": "Mechanical and Aerospace Engineering",
   "college": "College of Engineering"
  },
  "kuzma, jennifer": {
@@ -247,99 +279,11 @@
   "department": "Electrical and Computer Engineering",
   "college": "College of Engineering"
  },
- "classen, john": {
-  "department": "Biological and Agricultural Engineering",
-  "college": "College of Agriculture and Life Sciences"
- },
- "ade, harald": {
-  "department": "Physics",
-  "college": "College of Sciences"
- },
- "ristaino, jean": {
-  "department": "Entomology and Plant Pathology",
-  "college": "College of Agriculture and Life Sciences"
- },
- "bolotnov, igor": {
-  "department": "Nuclear Engineering",
-  "college": "College of Engineering"
- },
- "dickey, michael": {
-  "department": "Chemical and Biomolecular Engineering",
-  "college": "College of Engineering"
- },
- "rose, bob": {
-  "department": "Molecular and Structural Biochemistry",
-  "college": "College of Agriculture and Life Sciences"
- },
- "gundogdu, kenan": {
-  "department": "Physics",
-  "college": "College of Sciences"
- },
- "lavoine, nathalie": {
-  "department": "Forest Biomaterials",
-  "college": "College of Natural Resources"
- },
- "theriot, casey": {
-  "department": "Population Health and Pathobiology",
-  "college": "College of Veterinary Medicine"
- },
- "lan, kai": {
-  "department": "Forest Biomaterials",
-  "college": "College of Natural Resources"
- },
- "seracino, rudi": {
-  "department": "Civil, Construction and Environmental Engineering",
-  "college": "College of Engineering"
- },
- "breidt, frederick": {
-  "department": "Food, Bioprocessing, and Nutrition Sciences",
-  "college": "College of Agriculture and Life Sciences"
- },
- "lila, mary": {
-  "department": "Kannapolis Research",
-  "college": "College of Agriculture and Life Sciences"
- },
- "wei, qingshan": {
-  "department": "Chemical and Biomolecular Engineering",
-  "college": "College of Engineering"
- },
- "harris, angela": {
-  "department": "Civil, Construction and Environmental Engineering",
-  "college": "College of Engineering"
- },
- "chi, min": {
-  "department": "Computer Science",
-  "college": "College of Engineering"
- },
- "snyder, lori": {
+ "post, angela": {
   "department": "Crop and Soil Sciences",
   "college": "College of Agriculture and Life Sciences"
  },
- "koci, matt": {
-  "department": "Prestage Department of Poultry Science",
-  "college": "College of Agriculture and Life Sciences"
- },
- "heitman, josh": {
-  "department": "Crop and Soil Sciences",
-  "college": "College of Agriculture and Life Sciences"
- },
- "crook, nathan": {
-  "department": "Chemical and Biomolecular Engineering",
-  "college": "College of Engineering"
- },
- "irwin, rebecca": {
-  "department": "Applied Ecology",
-  "college": "College of Agriculture and Life Sciences"
- },
- "jaramillo, juan": {
-  "department": "Forestry and Environmental Resources",
-  "college": "College of Natural Resources"
- },
- "gilger, brian": {
-  "department": "Clinical Sciences",
-  "college": "College of Veterinary Medicine"
- },
- "long, terri": {
+ "hoffmann, william": {
   "department": "Plant and Microbial Biology",
   "college": "College of Agriculture and Life Sciences"
  },
@@ -347,239 +291,111 @@
   "department": "Plant and Microbial Biology",
   "college": "College of Agriculture and Life Sciences"
  },
- "goshe, michael": {
-  "department": "Molecular and Structural Biochemistry",
-  "college": "College of Agriculture and Life Sciences"
- },
- "ercumen, ayse": {
-  "department": "Forestry and Environmental Resources",
-  "college": "College of Natural Resources"
- },
- "fell, harrison": {
-  "department": "Agricultural and Resource Economics",
-  "college": "College of Agriculture and Life Sciences"
- },
- "ziegler, amanda": {
-  "department": "Molecular Biomedical Sciences",
-  "college": "College of Veterinary Medicine"
- },
- "youssef, mohamed": {
-  "department": "Biological and Agricultural Engineering",
-  "college": "College of Agriculture and Life Sciences"
- },
- "poole, chad": {
-  "department": "Biological and Agricultural Engineering",
-  "college": "College of Agriculture and Life Sciences"
- },
- "haigler, candace": {
-  "department": "Crop and Soil Sciences",
-  "college": "College of Agriculture and Life Sciences"
- },
- "gatiboni, luke": {
-  "department": "Crop and Soil Sciences",
-  "college": "College of Agriculture and Life Sciences"
- },
- "nelson, natalie": {
-  "department": "Biological and Agricultural Engineering",
-  "college": "College of Agriculture and Life Sciences"
- },
- "ghashghaei, troy": {
-  "department": "Molecular Biomedical Sciences",
-  "college": "College of Veterinary Medicine"
- },
- "knappe, detlef": {
-  "department": "Civil, Construction and Environmental Engineering",
-  "college": "College of Engineering"
- },
- "guo, zhishan": {
-  "department": "Computer Science",
-  "college": "College of Engineering"
- },
- "smirnova, tatyana": {
-  "department": "Chemistry",
-  "college": "College of Sciences"
- },
- "ii, harvey": {
-  "department": "Edward P. Fitts Department of Industrial & Systems Engineering",
-  "college": "College of Engineering"
- },
- "pierce, joshua": {
-  "department": "Chemistry",
-  "college": "College of Sciences"
- },
- "park, sunkyu": {
-  "department": "Forest Biomaterials",
-  "college": "College of Natural Resources"
- },
- "shah, sanjay": {
-  "department": "Biological and Agricultural Engineering",
-  "college": "College of Agriculture and Life Sciences"
- },
- "cahoon, charles": {
-  "department": "Crop and Soil Sciences",
-  "college": "College of Agriculture and Life Sciences"
- },
- "blikslager, anthony": {
-  "department": "College of Veterinary Medicine Administration",
-  "college": "College of Veterinary Medicine"
- },
- "goodwin, jean": {
-  "department": "Communication",
-  "college": "College of Humanities and Social Sciences"
- },
- "freytes, donald": {
-  "department": "Biomedical Engineering",
-  "college": "College of Engineering"
- },
- "fernandez, gina": {
-  "department": "Horticultural Science",
-  "college": "College of Agriculture and Life Sciences"
- },
- "hyman, michael": {
-  "department": "Plant and Microbial Biology",
-  "college": "College of Agriculture and Life Sciences"
- },
- "yin, rong": {
-  "department": "Textile Engineering, Chemistry and Science",
-  "college": "Wilson College of Textiles"
- },
- "narayan, jagdish": {
-  "department": "Materials Science and Engineering",
-  "college": "College of Engineering"
- },
- "sozzani, ross": {
-  "department": "Plant and Microbial Biology",
-  "college": "College of Agriculture and Life Sciences"
- },
- "braun, james": {
-  "department": "Mechanical and Aerospace Engineering",
-  "college": "College of Engineering"
- },
- "bozkurt, alper": {
-  "department": "Electrical and Computer Engineering",
-  "college": "College of Engineering"
- },
- "efimenko, kirill": {
-  "department": "Chemical and Biomolecular Engineering",
-  "college": "College of Engineering"
- },
- "galik, christopher": {
-  "department": "Political Science & Public Administration [in the School of Public and International Affairs]",
-  "college": "College of Humanities and Social Sciences"
- },
- "mills, amanda": {
-  "department": "Textile Engineering, Chemistry and Science",
-  "college": "Wilson College of Textiles"
- },
- "queiroz, anderson": {
-  "department": "Civil, Construction and Environmental Engineering",
-  "college": "College of Engineering"
- },
- "carbonell, ruben": {
-  "department": "Golden Leaf Biomanufacturing Training and Education Center",
-  "college": "College of Engineering"
- },
- "baker, justin": {
-  "department": "Forestry and Environmental Resources",
-  "college": "College of Natural Resources"
- },
- "hernandez, ricardo": {
-  "department": "Horticultural Science",
-  "college": "College of Agriculture and Life Sciences"
- },
- "hoyo, cathrine": {
-  "department": "Biological Sciences",
-  "college": "College of Sciences"
- },
- "xiang, lirong": {
-  "department": "Biological and Agricultural Engineering",
-  "college": "College of Agriculture and Life Sciences"
- },
- "ding, huiling": {
+ "swarts, jason": {
   "department": "English",
   "college": "College of Humanities and Social Sciences"
  },
- "schultheis, jonathan": {
-  "department": "Horticultural Science",
+ "rotenberg, dorith": {
+  "department": "Entomology and Plant Pathology",
   "college": "College of Agriculture and Life Sciences"
  },
- "west, andre": {
-  "department": "Textiles Extension Education For Economic Development",
-  "college": "Wilson College of Textiles"
- },
- "mathews, kyle": {
-  "department": "Clinical Sciences",
-  "college": "College of Veterinary Medicine"
- },
- "suchoff, david": {
-  "department": "Crop and Soil Sciences",
-  "college": "College of Agriculture and Life Sciences"
- },
- "ranney, thomas": {
-  "department": "Horticultural Science",
-  "college": "College of Agriculture and Life Sciences"
- },
- "breitschwerdt, edward": {
-  "department": "Clinical Sciences",
-  "college": "College of Veterinary Medicine"
- },
- "sitar, zlatko": {
-  "department": "Materials Science and Engineering",
-  "college": "College of Engineering"
- },
- "jiang, xiaoning": {
-  "department": "Mechanical and Aerospace Engineering",
-  "college": "College of Engineering"
- },
- "lobaton, edgar": {
-  "department": "Electrical and Computer Engineering",
+ "dickey, michael": {
+  "department": "Chemical and Biomolecular Engineering",
   "college": "College of Engineering"
  },
  "pal, lokendra": {
   "department": "Forest Biomaterials",
   "college": "College of Natural Resources"
  },
- "heiniger, ronnie": {
-  "department": "Crop and Soil Sciences",
-  "college": "College of Agriculture and Life Sciences"
- },
- "ward, jason": {
-  "department": "Biological and Agricultural Engineering",
-  "college": "College of Agriculture and Life Sciences"
- },
- "pierce, marcela": {
-  "department": "Plant and Microbial Biology",
-  "college": "College of Agriculture and Life Sciences"
- },
- "wang, jack": {
-  "department": "Forestry and Environmental Resources",
-  "college": "College of Natural Resources"
- },
- "reisig, dominic": {
-  "department": "Entomology and Plant Pathology",
-  "college": "College of Agriculture and Life Sciences"
- },
- "meritet, danielle": {
-  "department": "Population Health and Pathobiology",
-  "college": "College of Veterinary Medicine"
- },
- "kolar, praveen": {
-  "department": "Biological and Agricultural Engineering",
-  "college": "College of Agriculture and Life Sciences"
- },
- "johnson, amy": {
-  "department": "Crop and Soil Sciences",
-  "college": "College of Agriculture and Life Sciences"
- },
- "anarde, katherine": {
-  "department": "Civil, Construction and Environmental Engineering",
+ "dominguez, ignacio": {
+  "department": "Computer Science",
   "college": "College of Engineering"
  },
- "iorizzo, massimo": {
+ "goodwin, barry": {
+  "department": "Agricultural and Resource Economics",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "guo, zhishan": {
+  "department": "Computer Science",
+  "college": "College of Engineering"
+ },
+ "liu, jun": {
+  "department": "Mechanical and Aerospace Engineering",
+  "college": "College of Engineering"
+ },
+ "jackson, brian": {
   "department": "Horticultural Science",
   "college": "College of Agriculture and Life Sciences"
  },
- "johnson, jeremiah": {
+ "parsons, gregory": {
+  "department": "Chemical and Biomolecular Engineering",
+  "college": "College of Engineering"
+ },
+ "cardoso, amanda": {
+  "department": "Crop and Soil Sciences",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "zheng, xiaoyong": {
+  "department": "Agricultural and Resource Economics",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "tuck, james": {
+  "department": "Electrical and Computer Engineering",
+  "college": "College of Engineering"
+ },
+ "liu, yuchen": {
+  "department": "Computer Science",
+  "college": "College of Engineering"
+ },
+ "sartor, ryan": {
+  "department": "Crop and Soil Sciences",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "lavoine, nathalie": {
+  "department": "Forest Biomaterials",
+  "college": "College of Natural Resources"
+ },
+ "perkins-veazie, penelope": {
+  "department": "Horticultural Science",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "toomer, ondulla": {
+  "department": "Food, Bioprocessing, and Nutrition Sciences",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "call, douglas": {
+  "department": "Civil, Construction and Environmental Engineering",
+  "college": "College of Engineering"
+ },
+ "vann, rachel": {
+  "department": "Crop and Soil Sciences",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "west, andre": {
+  "department": "Textiles Extension Education For Economic Development",
+  "college": "Wilson College of Textiles"
+ },
+ "lopez, lorena": {
+  "department": "Entomology and Plant Pathology",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "ercumen, ayse": {
+  "department": "Forestry and Environmental Resources",
+  "college": "College of Natural Resources"
+ },
+ "bolotnov, igor": {
+  "department": "Nuclear Engineering",
+  "college": "College of Engineering"
+ },
+ "dougherty, daniel": {
+  "department": "Physics",
+  "college": "College of Sciences"
+ },
+ "kelly, robert": {
+  "department": "Chemical and Biomolecular Engineering",
+  "college": "College of Engineering"
+ },
+ "han, kevin": {
   "department": "Civil, Construction and Environmental Engineering",
   "college": "College of Engineering"
  },
@@ -587,667 +403,123 @@
   "department": "Prestage Department of Poultry Science",
   "college": "College of Agriculture and Life Sciences"
  },
- "liu, xiaojing": {
-  "department": "Molecular and Structural Biochemistry",
+ "whipker, brian": {
+  "department": "Horticultural Science",
   "college": "College of Agriculture and Life Sciences"
  },
- "shi, wei": {
+ "iorizzo, massimo": {
+  "department": "Horticultural Science",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "heitman, josh": {
   "department": "Crop and Soil Sciences",
   "college": "College of Agriculture and Life Sciences"
  },
- "obenour, daniel": {
-  "department": "Civil, Construction and Environmental Engineering",
-  "college": "College of Engineering"
- },
- "khan, saad": {
-  "department": "Chemical and Biomolecular Engineering",
-  "college": "College of Engineering"
- },
- "zhu, yong": {
-  "department": "Mechanical and Aerospace Engineering",
-  "college": "College of Engineering"
- },
- "eroglu, abdulkerim": {
-  "department": "Kannapolis Research",
+ "gorny, adrienne": {
+  "department": "Entomology and Plant Pathology",
   "college": "College of Agriculture and Life Sciences"
  },
  "yamaner, yalcin": {
   "department": "Electrical and Computer Engineering",
   "college": "College of Engineering"
  },
- "sartor, ryan": {
+ "abolhasani, milad": {
+  "department": "Chemical and Biomolecular Engineering",
+  "college": "College of Engineering"
+ },
+ "edmisten, keith": {
   "department": "Crop and Soil Sciences",
   "college": "College of Agriculture and Life Sciences"
  },
- "irving, douglas": {
-  "department": "Materials Science and Engineering",
+ "anarde, katherine": {
+  "department": "Civil, Construction and Environmental Engineering",
   "college": "College of Engineering"
  },
  "franzon, paul": {
   "department": "Electrical and Computer Engineering",
   "college": "College of Engineering"
  },
- "villani, sara": {
-  "department": "Entomology and Plant Pathology",
-  "college": "College of Agriculture and Life Sciences"
- },
- "leggett, zakiya": {
+ "wang, jack": {
   "department": "Forestry and Environmental Resources",
   "college": "College of Natural Resources"
  },
- "muddiman, david": {
-  "department": "Chemistry",
-  "college": "College of Sciences"
- },
- "machado, gustavo": {
-  "department": "Population Health and Pathobiology",
-  "college": "College of Veterinary Medicine"
- },
- "cooper, caren": {
-  "department": "Forestry and Environmental Resources",
-  "college": "College of Natural Resources"
- },
- "kuraparthy, vasu": {
-  "department": "Crop and Soil Sciences",
-  "college": "College of Agriculture and Life Sciences"
- },
- "huang, hsiao-ying": {
-  "department": "Mechanical and Aerospace Engineering",
-  "college": "College of Engineering"
- },
- "kerns, james": {
-  "department": "Entomology and Plant Pathology",
-  "college": "College of Agriculture and Life Sciences"
- },
- "lewis, ramsey": {
-  "department": "Crop and Soil Sciences",
-  "college": "College of Agriculture and Life Sciences"
- },
- "carbone, ignazio": {
-  "department": "Entomology and Plant Pathology",
-  "college": "College of Agriculture and Life Sciences"
- },
- "warsing, donald": {
-  "department": "Information Technology, Analytics, & Operations",
-  "college": "Poole College of Management"
- },
- "chang, wei-chen": {
-  "department": "Chemistry",
-  "college": "College of Sciences"
- },
- "maltecca, christian": {
-  "department": "Animal Science",
-  "college": "College of Agriculture and Life Sciences"
- },
- "gross, kevin": {
-  "department": "Statistics",
-  "college": "College of Sciences"
- },
- "gray, josh": {
-  "department": "Forestry and Environmental Resources",
-  "college": "College of Natural Resources"
- },
- "king, russell": {
-  "department": "Edward P. Fitts Department of Industrial & Systems Engineering",
-  "college": "College of Engineering"
- },
- "collazo, jaime": {
-  "department": "Applied Ecology",
-  "college": "College of Agriculture and Life Sciences"
- },
- "staicu, ana-maria": {
-  "department": "Statistics",
-  "college": "College of Sciences"
- },
- "augustyn, veronica": {
-  "department": "Materials Science and Engineering",
-  "college": "College of Engineering"
- },
- "kennedy, george": {
-  "department": "Entomology and Plant Pathology",
-  "college": "College of Agriculture and Life Sciences"
- },
- "osburn, chris": {
-  "department": "Marine, Earth, and Atmospheric Sciences",
-  "college": "College of Sciences"
- },
- "kulesza, stephanie": {
-  "department": "Crop and Soil Sciences",
-  "college": "College of Agriculture and Life Sciences"
- },
- "sagues, joe": {
+ "sharara, mahmoud": {
   "department": "Biological and Agricultural Engineering",
   "college": "College of Agriculture and Life Sciences"
  },
- "cruse, glenn": {
-  "department": "Molecular Biomedical Sciences",
-  "college": "College of Veterinary Medicine"
+ "choudoir, mallory": {
+  "department": "Plant and Microbial Biology",
+  "college": "College of Agriculture and Life Sciences"
  },
- "salvi, deepti": {
+ "whitfield, anna": {
+  "department": "Entomology and Plant Pathology",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "barrangou, rodolphe": {
   "department": "Food, Bioprocessing, and Nutrition Sciences",
   "college": "College of Agriculture and Life Sciences"
  },
- "xu, chenhan": {
+ "goodwin, jean": {
+  "department": "Communication",
+  "college": "College of Humanities and Social Sciences"
+ },
+ "berube, david": {
+  "department": "Communication",
+  "college": "College of Humanities and Social Sciences"
+ },
+ "gatiboni, luke": {
+  "department": "Crop and Soil Sciences",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "ghosh, sujit": {
+  "department": "Statistics",
+  "college": "College of Sciences"
+ },
+ "long, terri": {
+  "department": "Plant and Microbial Biology",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "roberts, david": {
   "department": "Computer Science",
   "college": "College of Engineering"
  },
- "dutta, rudra": {
-  "department": "Computer Science",
-  "college": "College of Engineering"
+ "locke, anna": {
+  "department": "Crop and Soil Sciences",
+  "college": "College of Agriculture and Life Sciences"
  },
- "brown, zachary": {
-  "department": "Agricultural and Resource Economics",
+ "ojiambo, peter": {
+  "department": "Entomology and Plant Pathology",
   "college": "College of Agriculture and Life Sciences"
  },
  "schal, coby": {
   "department": "Entomology and Plant Pathology",
   "college": "College of Agriculture and Life Sciences"
  },
- "fisher, matthew": {
-  "department": "Biomedical Engineering",
-  "college": "College of Engineering"
- },
- "rotenberg, dorith": {
-  "department": "Entomology and Plant Pathology",
-  "college": "College of Agriculture and Life Sciences"
- },
- "goodwin, barry": {
-  "department": "Agricultural and Resource Economics",
-  "college": "College of Agriculture and Life Sciences"
- },
- "peterson, nils": {
-  "department": "Forestry and Environmental Resources",
-  "college": "College of Natural Resources"
- },
- "rickabaugh, jay": {
-  "department": "Political Science & Public Administration [in the School of Public and International Affairs]",
-  "college": "College of Humanities and Social Sciences"
- },
- "pawlak, joel": {
-  "department": "Forest Biomaterials",
-  "college": "College of Natural Resources"
- },
- "harrysson, ola": {
-  "department": "Edward P. Fitts Department of Industrial & Systems Engineering",
-  "college": "College of Engineering"
- },
- "li, zheng": {
-  "department": "Agricultural and Resource Economics",
-  "college": "College of Agriculture and Life Sciences"
- },
- "santiso, erik": {
+ "crook, nathan": {
   "department": "Chemical and Biomolecular Engineering",
   "college": "College of Engineering"
- },
- "venditti, richard": {
-  "department": "Forest Biomaterials",
-  "college": "College of Natural Resources"
- },
- "dunne, jeffrey": {
-  "department": "Crop and Soil Sciences",
-  "college": "College of Agriculture and Life Sciences"
- },
- "vatsavai, ranga": {
-  "department": "Computer Science",
-  "college": "College of Engineering"
- },
- "ojiambo, peter": {
-  "department": "Entomology and Plant Pathology",
-  "college": "College of Agriculture and Life Sciences"
- },
- "kern, jordan": {
-  "department": "Edward P. Fitts Department of Industrial & Systems Engineering",
-  "college": "College of Engineering"
- },
- "buckner, eli": {
-  "department": "Engineering Research",
-  "college": "College of Engineering"
- },
- "han, kevin": {
-  "department": "Civil, Construction and Environmental Engineering",
-  "college": "College of Engineering"
- },
- "liu, jianqing": {
-  "department": "Computer Science",
-  "college": "College of Engineering"
- },
- "zeng, zhaobang": {
-  "department": "Horticultural Science",
-  "college": "College of Agriculture and Life Sciences"
- },
- "ducoste, joel": {
-  "department": "Engineering Research",
-  "college": "College of Engineering"
- },
- "reich, brian": {
-  "department": "Statistics",
-  "college": "College of Sciences"
- },
- "moorman, christopher": {
-  "department": "Forestry and Environmental Resources",
-  "college": "College of Natural Resources"
- },
- "boi, cristiana": {
-  "department": "Chemical and Biomolecular Engineering",
-  "college": "College of Engineering"
- },
- "yencho, craig": {
-  "department": "Horticultural Science",
-  "college": "College of Agriculture and Life Sciences"
- },
- "woodley, alex": {
-  "department": "Crop and Soil Sciences",
-  "college": "College of Agriculture and Life Sciences"
- },
- "sayde, chadi": {
-  "department": "Biological and Agricultural Engineering",
-  "college": "College of Agriculture and Life Sciences"
- },
- "o'connor, brendan": {
-  "department": "Mechanical and Aerospace Engineering",
-  "college": "College of Engineering"
- },
- "hawari, ayman": {
-  "department": "Nuclear Engineering",
-  "college": "College of Engineering"
- },
- "knauer, mark": {
-  "department": "Animal Science",
-  "college": "College of Agriculture and Life Sciences"
- },
- "williams, cranos": {
-  "department": "Electrical and Computer Engineering",
-  "college": "College of Engineering"
- },
- "lopez, lorena": {
-  "department": "Entomology and Plant Pathology",
-  "college": "College of Agriculture and Life Sciences"
- },
- "ghosh, tushar": {
-  "department": "Textile Engineering, Chemistry and Science",
-  "college": "Wilson College of Textiles"
- },
- "cardoso, amanda": {
-  "department": "Crop and Soil Sciences",
-  "college": "College of Agriculture and Life Sciences"
- },
- "castillo, miguel": {
-  "department": "Crop and Soil Sciences",
-  "college": "College of Agriculture and Life Sciences"
- },
- "walgenbach, james": {
-  "department": "Entomology and Plant Pathology",
-  "college": "College of Agriculture and Life Sciences"
- },
- "stepanova, anna": {
-  "department": "Plant and Microbial Biology",
-  "college": "College of Agriculture and Life Sciences"
- },
- "hall, steven": {
-  "department": "Biological and Agricultural Engineering",
-  "college": "College of Agriculture and Life Sciences"
- },
- "binder, andrew": {
-  "department": "Communication",
-  "college": "College of Humanities and Social Sciences"
- },
- "hoffmann, william": {
-  "department": "Plant and Microbial Biology",
-  "college": "College of Agriculture and Life Sciences"
- },
- "sederoff, heike": {
-  "department": "Plant and Microbial Biology",
-  "college": "College of Agriculture and Life Sciences"
- },
- "bolinaga, celso": {
-  "department": "Biological and Agricultural Engineering",
-  "college": "College of Agriculture and Life Sciences"
- },
- "bryant, matthew": {
-  "department": "Mechanical and Aerospace Engineering",
-  "college": "College of Engineering"
- },
- "perkins-veazie, penelope": {
-  "department": "Horticultural Science",
-  "college": "College of Agriculture and Life Sciences"
- },
- "money, eric": {
-  "department": "Center for Geospatial Analytics",
-  "college": "College of Natural Resources"
- },
- "post, angela": {
-  "department": "Crop and Soil Sciences",
-  "college": "College of Agriculture and Life Sciences"
- },
- "li, xu": {
-  "department": "Plant and Microbial Biology",
-  "college": "College of Agriculture and Life Sciences"
- },
- "vukomanovic, jelena": {
-  "department": "Parks, Recreation and Tourism Management",
-  "college": "College of Natural Resources"
- },
- "dougherty, daniel": {
-  "department": "Physics",
-  "college": "College of Sciences"
- },
- "menegatti, stefano": {
-  "department": "Chemical and Biomolecular Engineering",
-  "college": "College of Engineering"
- },
- "gonzalez, ramon": {
-  "department": "Crop and Soil Sciences",
-  "college": "College of Agriculture and Life Sciences"
- },
- "zheng, haotian": {
-  "department": "Food, Bioprocessing, and Nutrition Sciences",
-  "college": "College of Agriculture and Life Sciences"
- },
- "mathews, stephanie": {
-  "department": "Biological Sciences",
-  "college": "College of Sciences"
- },
- "yingling, yaroslava": {
-  "department": "Materials Science and Engineering",
-  "college": "College of Engineering"
- },
- "thakur, siddhartha": {
-  "department": "Population Health and Pathobiology",
-  "college": "College of Veterinary Medicine"
- },
- "lee, andrew": {
-  "department": "Mechanical and Aerospace Engineering",
-  "college": "College of Engineering"
- },
- "reading, benjamin": {
-  "department": "Applied Ecology",
-  "college": "College of Agriculture and Life Sciences"
- },
- "kleiner, manuel": {
-  "department": "Plant and Microbial Biology",
-  "college": "College of Agriculture and Life Sciences"
  },
  "ardon, marcelo": {
   "department": "Forestry and Environmental Resources",
   "college": "College of Natural Resources"
  },
- "cubeta, marc": {
+ "richardson, robert": {
+  "department": "Crop and Soil Sciences",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "gould, fred": {
   "department": "Entomology and Plant Pathology",
   "college": "College of Agriculture and Life Sciences"
  },
- "bradshaw, michael": {
-  "department": "Entomology and Plant Pathology",
-  "college": "College of Agriculture and Life Sciences"
- },
- "muth, john": {
-  "department": "Electrical and Computer Engineering",
-  "college": "College of Engineering"
- },
- "quezada, emmanuel": {
-  "department": "Horticultural Science",
-  "college": "College of Agriculture and Life Sciences"
- },
- "horn, tim": {
-  "department": "Mechanical and Aerospace Engineering",
-  "college": "College of Engineering"
- },
- "shannon, steven": {
-  "department": "Nuclear Engineering",
-  "college": "College of Engineering"
- },
- "toomer, ondulla": {
-  "department": "Food, Bioprocessing, and Nutrition Sciences",
-  "college": "College of Agriculture and Life Sciences"
- },
- "genzer, jan": {
-  "department": "Chemical and Biomolecular Engineering",
-  "college": "College of Engineering"
- },
- "huang, he": {
-  "department": "Biomedical Engineering",
-  "college": "College of Engineering"
- },
- "meentemeyer, ross": {
-  "department": "Center for Geospatial Analytics",
-  "college": "College of Natural Resources"
- },
- "ghosh, sujit": {
-  "department": "Statistics",
+ "smith, adrian": {
+  "department": "Biological Sciences",
   "college": "College of Sciences"
- },
- "collins, guy": {
-  "department": "Crop and Soil Sciences",
-  "college": "College of Agriculture and Life Sciences"
- },
- "reberg-horton, chris": {
-  "department": "Crop and Soil Sciences",
-  "college": "College of Agriculture and Life Sciences"
- },
- "hu, shuijin": {
-  "department": "Entomology and Plant Pathology",
-  "college": "College of Agriculture and Life Sciences"
- },
- "pavlidis, spyridon": {
-  "department": "Electrical and Computer Engineering",
-  "college": "College of Engineering"
- },
- "sichitiu, mihail": {
-  "department": "Electrical and Computer Engineering",
-  "college": "College of Engineering"
- },
- "parsons, gregory": {
-  "department": "Chemical and Biomolecular Engineering",
-  "college": "College of Engineering"
- },
- "tuck, james": {
-  "department": "Electrical and Computer Engineering",
-  "college": "College of Engineering"
  },
  "enomoto, masataka": {
   "department": "Clinical Sciences",
   "college": "College of Veterinary Medicine"
  },
- "whipker, brian": {
-  "department": "Horticultural Science",
-  "college": "College of Agriculture and Life Sciences"
- },
- "foster, derek": {
-  "department": "Population Health and Pathobiology",
-  "college": "College of Veterinary Medicine"
- },
- "maggi, ricardo": {
-  "department": "Clinical Sciences",
-  "college": "College of Veterinary Medicine"
- },
- "choudoir, mallory": {
-  "department": "Plant and Microbial Biology",
-  "college": "College of Agriculture and Life Sciences"
- },
- "schnabel, lauren": {
-  "department": "Clinical Sciences",
-  "college": "College of Veterinary Medicine"
- },
- "hsieh, tzung": {
-  "department": "Plant and Microbial Biology",
-  "college": "College of Agriculture and Life Sciences"
- },
- "neupert, shevaun": {
-  "department": "Psychology",
-  "college": "College of Humanities and Social Sciences"
- },
- "grunden, amy": {
-  "department": "North Carolina Agricultural Research Service",
-  "college": "College of Agriculture and Life Sciences"
- },
- "griffith, emily": {
-  "department": "Statistics",
-  "college": "College of Sciences"
- },
- "milla-lewis, susana": {
-  "department": "Crop and Soil Sciences",
-  "college": "College of Agriculture and Life Sciences"
- },
- "gannon, travis": {
-  "department": "Crop and Soil Sciences",
-  "college": "College of Agriculture and Life Sciences"
- },
- "dominguez, ignacio": {
-  "department": "Computer Science",
-  "college": "College of Engineering"
- },
- "joseph, michael": {
-  "department": "Prestage Department of Poultry Science",
-  "college": "College of Agriculture and Life Sciences"
- },
- "edmisten, keith": {
-  "department": "Crop and Soil Sciences",
-  "college": "College of Agriculture and Life Sciences"
- },
- "jordan, david": {
-  "department": "Crop and Soil Sciences",
-  "college": "College of Agriculture and Life Sciences"
- },
- "theis, thomas": {
-  "department": "Chemistry",
-  "college": "College of Sciences"
- },
- "olby, natasha": {
-  "department": "Clinical Sciences",
-  "college": "College of Veterinary Medicine"
- },
- "liu, ming": {
-  "department": "Biomedical Engineering",
-  "college": "College of Engineering"
- },
- "perera, imara": {
-  "department": "Plant and Microbial Biology",
-  "college": "College of Agriculture and Life Sciences"
- },
- "piedrahita, jorge": {
-  "department": "Molecular Biomedical Sciences",
-  "college": "College of Veterinary Medicine"
- },
- "bloom, dara": {
-  "department": "Agricultural and Human Sciences",
-  "college": "College of Agriculture and Life Sciences"
- },
- "locke, anna": {
-  "department": "Crop and Soil Sciences",
-  "college": "College of Agriculture and Life Sciences"
- },
- "jones, daniela": {
-  "department": "Biological and Agricultural Engineering",
-  "college": "College of Agriculture and Life Sciences"
- },
- "seyam, abdel-fattah": {
-  "department": "Textile and Apparel, Technology and Management",
-  "college": "Wilson College of Textiles"
- },
- "smith, madilynn": {
-  "department": "Textile Engineering, Chemistry and Science",
-  "college": "Wilson College of Textiles"
- },
- "oh, annie": {
-  "department": "Clinical Sciences",
-  "college": "College of Veterinary Medicine"
- },
- "smith, ralph": {
-  "department": "Mathematics",
-  "college": "College of Sciences"
- },
- "hoffmann, mark": {
-  "department": "Horticultural Science",
-  "college": "College of Agriculture and Life Sciences"
- },
- "hess, paul": {
-  "department": "Clinical Sciences",
-  "college": "College of Veterinary Medicine"
- },
- "zikry, mohammed": {
-  "department": "Mechanical and Aerospace Engineering",
-  "college": "College of Engineering"
- },
- "lux, leann": {
-  "department": "Entomology and Plant Pathology",
-  "college": "College of Agriculture and Life Sciences"
- },
- "berube, david": {
-  "department": "Communication",
-  "college": "College of Humanities and Social Sciences"
- },
- "mcconnell, brandon": {
-  "department": "Edward P. Fitts Department of Industrial & Systems Engineering",
-  "college": "College of Engineering"
- },
- "rao, balaji": {
-  "department": "Chemical and Biomolecular Engineering",
-  "college": "College of Engineering"
- },
- "peters, kara": {
-  "department": "Engineering Research",
-  "college": "College of Engineering"
- },
- "sihi, debjani": {
-  "department": "Plant and Microbial Biology",
-  "college": "College of Agriculture and Life Sciences"
- },
- "kelly, robert": {
-  "department": "Chemical and Biomolecular Engineering",
-  "college": "College of Engineering"
- },
- "fisher, loren": {
-  "department": "North Carolina Agricultural Research Service",
-  "college": "College of Agriculture and Life Sciences"
- },
- "wiegmann, brian": {
-  "department": "Entomology and Plant Pathology",
-  "college": "College of Agriculture and Life Sciences"
- },
- "call, douglas": {
-  "department": "Civil, Construction and Environmental Engineering",
-  "college": "College of Engineering"
- },
- "ashrafi, hudson": {
-  "department": "Horticultural Science",
-  "college": "College of Agriculture and Life Sciences"
- },
- "ahumada, daisy": {
-  "department": "Entomology and Plant Pathology",
-  "college": "College of Agriculture and Life Sciences"
- },
- "tateosian, laura": {
-  "department": "Center for Geospatial Analytics",
-  "college": "College of Natural Resources"
- },
- "wong, chau-wai": {
-  "department": "Electrical and Computer Engineering",
-  "college": "College of Engineering"
- },
- "guertault, lucie": {
-  "department": "Biological and Agricultural Engineering",
-  "college": "College of Agriculture and Life Sciences"
- },
- "liu, wusheng": {
-  "department": "Horticultural Science",
-  "college": "College of Agriculture and Life Sciences"
- },
- "zhang, jing": {
-  "department": "Horticultural Science",
-  "college": "College of Agriculture and Life Sciences"
- },
- "richardson, robert": {
-  "department": "Crop and Soil Sciences",
-  "college": "College of Agriculture and Life Sciences"
- },
- "huerta, alejandra": {
-  "department": "Entomology and Plant Pathology",
-  "college": "College of Agriculture and Life Sciences"
- },
- "quesada, lina": {
-  "department": "Entomology and Plant Pathology",
-  "college": "College of Agriculture and Life Sciences"
- },
- "isik, fikret": {
+ "cooper, caren": {
   "department": "Forestry and Environmental Resources",
   "college": "College of Natural Resources"
  },
@@ -1255,80 +527,808 @@
   "department": "Horticultural Science",
   "college": "College of Agriculture and Life Sciences"
  },
- "nielsen, dahlia": {
-  "department": "Biological Sciences",
-  "college": "College of Sciences"
- },
- "gruen, margaret": {
-  "department": "Clinical Sciences",
-  "college": "College of Veterinary Medicine"
- },
- "abolhasani, milad": {
-  "department": "Chemical and Biomolecular Engineering",
-  "college": "College of Engineering"
- },
- "velev, orlin": {
-  "department": "Chemical and Biomolecular Engineering",
+ "seracino, rudi": {
+  "department": "Civil, Construction and Environmental Engineering",
   "college": "College of Engineering"
  },
  "grieger, khara": {
   "department": "Applied Ecology",
   "college": "College of Agriculture and Life Sciences"
  },
- "liu, jun": {
+ "piedrahita, jorge": {
+  "department": "Molecular Biomedical Sciences",
+  "college": "College of Veterinary Medicine"
+ },
+ "liu, jianqing": {
+  "department": "Computer Science",
+  "college": "College of Engineering"
+ },
+ "chen, hsuan": {
+  "department": "Horticultural Science",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "narayan, jagdish": {
+  "department": "Materials Science and Engineering",
+  "college": "College of Engineering"
+ },
+ "staicu, ana-maria": {
+  "department": "Statistics",
+  "college": "College of Sciences"
+ },
+ "liu, ming": {
+  "department": "Biomedical Engineering",
+  "college": "College of Engineering"
+ },
+ "muddiman, david": {
+  "department": "Chemistry",
+  "college": "College of Sciences"
+ },
+ "hawari, ayman": {
+  "department": "Nuclear Engineering",
+  "college": "College of Engineering"
+ },
+ "johnson, jeremiah": {
+  "department": "Civil, Construction and Environmental Engineering",
+  "college": "College of Engineering"
+ },
+ "dunne, jeffrey": {
+  "department": "Crop and Soil Sciences",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "theriot, casey": {
+  "department": "Population Health and Pathobiology",
+  "college": "College of Veterinary Medicine"
+ },
+ "irwin, rebecca": {
+  "department": "Applied Ecology",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "poole, chad": {
+  "department": "Biological and Agricultural Engineering",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "augustyn, veronica": {
+  "department": "Materials Science and Engineering",
+  "college": "College of Engineering"
+ },
+ "meritet, danielle": {
+  "department": "Population Health and Pathobiology",
+  "college": "College of Veterinary Medicine"
+ },
+ "anderson, kenneth": {
+  "department": "Prestage Department of Poultry Science",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "peterson, nils": {
+  "department": "Forestry and Environmental Resources",
+  "college": "College of Natural Resources"
+ },
+ "allen, jonathan": {
+  "department": "Food, Bioprocessing, and Nutrition Sciences",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "ranjithan, ranji": {
+  "department": "Civil, Construction and Environmental Engineering",
+  "college": "College of Engineering"
+ },
+ "brown, ashley": {
+  "department": "Biomedical Engineering",
+  "college": "College of Engineering"
+ },
+ "gonzalez, ronalds": {
+  "department": "Forest Biomaterials",
+  "college": "College of Natural Resources"
+ },
+ "gross, kevin": {
+  "department": "Statistics",
+  "college": "College of Sciences"
+ },
+ "salvi, deepti": {
+  "department": "Food, Bioprocessing, and Nutrition Sciences",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "smith, ralph": {
+  "department": "Mathematics",
+  "college": "College of Sciences"
+ },
+ "villani, sara": {
+  "department": "Entomology and Plant Pathology",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "harrysson, ola": {
+  "department": "Edward P. Fitts Department of Industrial & Systems Engineering",
+  "college": "College of Engineering"
+ },
+ "o'connor, brendan": {
   "department": "Mechanical and Aerospace Engineering",
   "college": "College of Engineering"
  },
- "callahan, benjamin": {
-  "department": "Population Health and Pathobiology",
-  "college": "College of Veterinary Medicine"
+ "mills, amanda": {
+  "department": "Textile Engineering, Chemistry and Science",
+  "college": "Wilson College of Textiles"
+ },
+ "rickabaugh, jay": {
+  "department": "Political Science & Public Administration [in the School of Public and International Affairs]",
+  "college": "College of Humanities and Social Sciences"
+ },
+ "moorman, christopher": {
+  "department": "Forestry and Environmental Resources",
+  "college": "College of Natural Resources"
+ },
+ "rose, bob": {
+  "department": "Molecular and Structural Biochemistry",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "sihi, debjani": {
+  "department": "Plant and Microbial Biology",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "hernandez, ricardo": {
+  "department": "Horticultural Science",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "balke, nina": {
+  "department": "Materials Science and Engineering",
+  "college": "College of Engineering"
+ },
+ "sichitiu, mihail": {
+  "department": "Electrical and Computer Engineering",
+  "college": "College of Engineering"
+ },
+ "nelson, natalie": {
+  "department": "Biological and Agricultural Engineering",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "sayde, chadi": {
+  "department": "Biological and Agricultural Engineering",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "classen, john": {
+  "department": "Biological and Agricultural Engineering",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "yencho, craig": {
+  "department": "Horticultural Science",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "dutta, rudra": {
+  "department": "Computer Science",
+  "college": "College of Engineering"
+ },
+ "knappe, detlef": {
+  "department": "Civil, Construction and Environmental Engineering",
+  "college": "College of Engineering"
+ },
+ "carbonell, ruben": {
+  "department": "Golden Leaf Biomanufacturing Training and Education Center",
+  "college": "College of Engineering"
+ },
+ "wiegmann, brian": {
+  "department": "Entomology and Plant Pathology",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "walker, trevor": {
+  "department": "Forestry and Environmental Resources",
+  "college": "College of Natural Resources"
  },
  "gao, wei": {
   "department": "Textile Engineering, Chemistry and Science",
   "college": "Wilson College of Textiles"
  },
- "smith, adrian": {
-  "department": "Biological Sciences",
+ "maltecca, christian": {
+  "department": "Animal Science",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "jones, daniela": {
+  "department": "Biological and Agricultural Engineering",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "oh, annie": {
+  "department": "Clinical Sciences",
+  "college": "College of Veterinary Medicine"
+ },
+ "kern, jordan": {
+  "department": "Edward P. Fitts Department of Industrial & Systems Engineering",
+  "college": "College of Engineering"
+ },
+ "vatsavai, ranga": {
+  "department": "Computer Science",
+  "college": "College of Engineering"
+ },
+ "breitschwerdt, edward": {
+  "department": "Clinical Sciences",
+  "college": "College of Veterinary Medicine"
+ },
+ "park, sunkyu": {
+  "department": "Forest Biomaterials",
+  "college": "College of Natural Resources"
+ },
+ "gonzalez, ramon": {
+  "department": "Crop and Soil Sciences",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "pavlidis, spyridon": {
+  "department": "Electrical and Computer Engineering",
+  "college": "College of Engineering"
+ },
+ "osburn, chris": {
+  "department": "Marine, Earth, and Atmospheric Sciences",
   "college": "College of Sciences"
  },
- "sanders, katie": {
+ "youssef, mohamed": {
+  "department": "Biological and Agricultural Engineering",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "galik, christopher": {
+  "department": "Political Science & Public Administration [in the School of Public and International Affairs]",
+  "college": "College of Humanities and Social Sciences"
+ },
+ "williamson, ian": {
+  "department": "Molecular Biomedical Sciences",
+  "college": "College of Veterinary Medicine"
+ },
+ "bradford, philip": {
+  "department": "Textile Engineering, Chemistry and Science",
+  "college": "Wilson College of Textiles"
+ },
+ "reading, benjamin": {
+  "department": "Applied Ecology",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "koci, matt": {
+  "department": "Prestage Department of Poultry Science",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "collins, guy": {
+  "department": "Crop and Soil Sciences",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "rasmussen, david": {
+  "department": "Entomology and Plant Pathology",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "zheng, haotian": {
+  "department": "Food, Bioprocessing, and Nutrition Sciences",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "sederoff, heike": {
+  "department": "Plant and Microbial Biology",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "smith, jared": {
+  "department": "Finance",
+  "college": "Poole College of Management"
+ },
+ "knauer, mark": {
+  "department": "Animal Science",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "goshe, michael": {
+  "department": "Molecular and Structural Biochemistry",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "lietz, amanda": {
+  "department": "Nuclear Engineering",
+  "college": "College of Engineering"
+ },
+ "chang, wei-chen": {
+  "department": "Chemistry",
+  "college": "College of Sciences"
+ },
+ "hess, paul": {
+  "department": "Clinical Sciences",
+  "college": "College of Veterinary Medicine"
+ },
+ "kolar, praveen": {
+  "department": "Biological and Agricultural Engineering",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "bloom, dara": {
   "department": "Agricultural and Human Sciences",
   "college": "College of Agriculture and Life Sciences"
  },
- "jones, jacob": {
+ "li, xu": {
+  "department": "Plant and Microbial Biology",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "mathews, kyle": {
+  "department": "Clinical Sciences",
+  "college": "College of Veterinary Medicine"
+ },
+ "cook, rachel": {
+  "department": "Forestry and Environmental Resources",
+  "college": "College of Natural Resources"
+ },
+ "smirnova, tatyana": {
+  "department": "Chemistry",
+  "college": "College of Sciences"
+ },
+ "ward, jason": {
+  "department": "Biological and Agricultural Engineering",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "king, russell": {
+  "department": "Edward P. Fitts Department of Industrial & Systems Engineering",
+  "college": "College of Engineering"
+ },
+ "hyman, michael": {
+  "department": "Plant and Microbial Biology",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "baker, justin": {
+  "department": "Forestry and Environmental Resources",
+  "college": "College of Natural Resources"
+ },
+ "kennedy, george": {
+  "department": "Entomology and Plant Pathology",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "yingling, yaroslava": {
   "department": "Materials Science and Engineering",
+  "college": "College of Engineering"
+ },
+ "santiso, erik": {
+  "department": "Chemical and Biomolecular Engineering",
+  "college": "College of Engineering"
+ },
+ "li, fanxing": {
+  "department": "Chemical and Biomolecular Engineering",
+  "college": "College of Engineering"
+ },
+ "guertault, lucie": {
+  "department": "Biological and Agricultural Engineering",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "cahoon, charles": {
+  "department": "Crop and Soil Sciences",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "boi, cristiana": {
+  "department": "Chemical and Biomolecular Engineering",
+  "college": "College of Engineering"
+ },
+ "gannon, travis": {
+  "department": "Crop and Soil Sciences",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "hu, shuijin": {
+  "department": "Entomology and Plant Pathology",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "irving, douglas": {
+  "department": "Materials Science and Engineering",
+  "college": "College of Engineering"
+ },
+ "chi, min": {
+  "department": "Computer Science",
+  "college": "College of Engineering"
+ },
+ "kuraparthy, vasu": {
+  "department": "Crop and Soil Sciences",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "kudenov, michael": {
+  "department": "Electrical and Computer Engineering",
+  "college": "College of Engineering"
+ },
+ "venditti, richard": {
+  "department": "Forest Biomaterials",
+  "college": "College of Natural Resources"
+ },
+ "harris, angela": {
+  "department": "Civil, Construction and Environmental Engineering",
+  "college": "College of Engineering"
+ },
+ "kon, tom": {
+  "department": "Horticultural Science",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "snyder, lori": {
+  "department": "Crop and Soil Sciences",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "lobaton, edgar": {
+  "department": "Electrical and Computer Engineering",
+  "college": "College of Engineering"
+ },
+ "ducoste, joel": {
+  "department": "Engineering Research",
+  "college": "College of Engineering"
+ },
+ "sagues, joe": {
+  "department": "Biological and Agricultural Engineering",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "velev, orlin": {
+  "department": "Chemical and Biomolecular Engineering",
   "college": "College of Engineering"
  },
  "deperno, christopher": {
   "department": "Forestry and Environmental Resources",
   "college": "College of Natural Resources"
  },
- "shirwaiker, rohan": {
-  "department": "Edward P. Fitts Department of Industrial & Systems Engineering",
-  "college": "College of Engineering"
+ "smith, madilynn": {
+  "department": "Textile Engineering, Chemistry and Science",
+  "college": "Wilson College of Textiles"
  },
- "zheng, xiaoyong": {
-  "department": "Agricultural and Resource Economics",
+ "jennings, katherine": {
+  "department": "Horticultural Science",
   "college": "College of Agriculture and Life Sciences"
  },
- "gage, joseph": {
+ "olby, natasha": {
+  "department": "Clinical Sciences",
+  "college": "College of Veterinary Medicine"
+ },
+ "hall, steven": {
+  "department": "Biological and Agricultural Engineering",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "bellver, jose": {
+  "department": "Plant and Microbial Biology",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "zhang, jing": {
+  "department": "Horticultural Science",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "braun, james": {
+  "department": "Mechanical and Aerospace Engineering",
+  "college": "College of Engineering"
+ },
+ "mathews, stephanie": {
+  "department": "Biological Sciences",
+  "college": "College of Sciences"
+ },
+ "pawlak, joel": {
+  "department": "Forest Biomaterials",
+  "college": "College of Natural Resources"
+ },
+ "joseph, michael": {
+  "department": "Prestage Department of Poultry Science",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "doherty, colleen": {
+  "department": "Molecular and Structural Biochemistry",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "griffith, emily": {
+  "department": "Statistics",
+  "college": "College of Sciences"
+ },
+ "suchoff, david": {
   "department": "Crop and Soil Sciences",
   "college": "College of Agriculture and Life Sciences"
  },
- "tulbure, mirela": {
+ "reynolds, james": {
+  "department": "Electrical and Computer Engineering",
+  "college": "College of Engineering"
+ },
+ "sitar, zlatko": {
+  "department": "Materials Science and Engineering",
+  "college": "College of Engineering"
+ },
+ "leggett, zakiya": {
   "department": "Forestry and Environmental Resources",
   "college": "College of Natural Resources"
+ },
+ "jordan, david": {
+  "department": "Crop and Soil Sciences",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "breidt, frederick": {
+  "department": "Food, Bioprocessing, and Nutrition Sciences",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "scharf, valery": {
+  "department": "Clinical Sciences",
+  "college": "College of Veterinary Medicine"
+ },
+ "zhu, yong": {
+  "department": "Mechanical and Aerospace Engineering",
+  "college": "College of Engineering"
+ },
+ "lux, leann": {
+  "department": "Entomology and Plant Pathology",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "ghosh, tushar": {
+  "department": "Textile Engineering, Chemistry and Science",
+  "college": "Wilson College of Textiles"
+ },
+ "bruno-barcena, jose": {
+  "department": "Plant and Microbial Biology",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "wei, qingshan": {
+  "department": "Chemical and Biomolecular Engineering",
+  "college": "College of Engineering"
+ },
+ "louws, frank": {
+  "department": "Horticultural Science",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "duckworth, owen": {
+  "department": "Crop and Soil Sciences",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "cheng, jay": {
+  "department": "Biological and Agricultural Engineering",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "meentemeyer, ross": {
+  "department": "Center for Geospatial Analytics",
+  "college": "College of Natural Resources"
+ },
+ "hsieh, tzung": {
+  "department": "Plant and Microbial Biology",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "ranney, thomas": {
+  "department": "Horticultural Science",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "stapelmann, katharina": {
+  "department": "Nuclear Engineering",
+  "college": "College of Engineering"
+ },
+ "vukomanovic, jelena": {
+  "department": "Parks, Recreation and Tourism Management",
+  "college": "College of Natural Resources"
+ },
+ "jiang, xiaoning": {
+  "department": "Mechanical and Aerospace Engineering",
+  "college": "College of Engineering"
+ },
+ "ghashghaei, troy": {
+  "department": "Molecular Biomedical Sciences",
+  "college": "College of Veterinary Medicine"
  },
  "singh, munindar": {
   "department": "Computer Science",
   "college": "College of Engineering"
  },
- "cook, rachel": {
+ "saloni, daniel": {
+  "department": "Forest Biomaterials",
+  "college": "College of Natural Resources"
+ },
+ "money, eric": {
+  "department": "Center for Geospatial Analytics",
+  "college": "College of Natural Resources"
+ },
+ "zikry, mohammed": {
+  "department": "Mechanical and Aerospace Engineering",
+  "college": "College of Engineering"
+ },
+ "reisig, dominic": {
+  "department": "Entomology and Plant Pathology",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "woodley, alex": {
+  "department": "Crop and Soil Sciences",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "mitasova, helena": {
+  "department": "Marine, Earth, and Atmospheric Sciences",
+  "college": "College of Sciences"
+ },
+ "nielsen, dahlia": {
+  "department": "Biological Sciences",
+  "college": "College of Sciences"
+ },
+ "huerta, alejandra": {
+  "department": "Entomology and Plant Pathology",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "sozzani, ross": {
+  "department": "Plant and Microbial Biology",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "brown, zachary": {
+  "department": "Agricultural and Resource Economics",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "jaramillo, juan": {
   "department": "Forestry and Environmental Resources",
   "college": "College of Natural Resources"
  },
- "collazo, ramon": {
+ "oralkan, omer": {
+  "department": "Electrical and Computer Engineering",
+  "college": "College of Engineering"
+ },
+ "seyam, abdel-fattah": {
+  "department": "Textile and Apparel, Technology and Management",
+  "college": "Wilson College of Textiles"
+ },
+ "kleiner, manuel": {
+  "department": "Plant and Microbial Biology",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "jones, jacob": {
   "department": "Materials Science and Engineering",
+  "college": "College of Engineering"
+ },
+ "efimenko, kirill": {
+  "department": "Chemical and Biomolecular Engineering",
+  "college": "College of Engineering"
+ },
+ "thakur, siddhartha": {
+  "department": "Population Health and Pathobiology",
+  "college": "College of Veterinary Medicine"
+ },
+ "huang, he": {
+  "department": "Biomedical Engineering",
+  "college": "College of Engineering"
+ },
+ "eroglu, abdulkerim": {
+  "department": "Kannapolis Research",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "buckner, eli": {
+  "department": "Engineering Research",
+  "college": "College of Engineering"
+ },
+ "reich, brian": {
+  "department": "Statistics",
+  "college": "College of Sciences"
+ },
+ "mcconnell, brandon": {
+  "department": "Edward P. Fitts Department of Industrial & Systems Engineering",
+  "college": "College of Engineering"
+ },
+ "maggi, ricardo": {
+  "department": "Clinical Sciences",
+  "college": "College of Veterinary Medicine"
+ },
+ "shannon, steven": {
+  "department": "Nuclear Engineering",
+  "college": "College of Engineering"
+ },
+ "crespo, rocio": {
+  "department": "Population Health and Pathobiology",
+  "college": "College of Veterinary Medicine"
+ },
+ "castillo, miguel": {
+  "department": "Crop and Soil Sciences",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "reberg-horton, chris": {
+  "department": "Crop and Soil Sciences",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "muth, john": {
+  "department": "Electrical and Computer Engineering",
+  "college": "College of Engineering"
+ },
+ "ozturk, mehmet": {
+  "department": "Electrical and Computer Engineering",
+  "college": "College of Engineering"
+ },
+ "gilger, brian": {
+  "department": "Clinical Sciences",
+  "college": "College of Veterinary Medicine"
+ },
+ "li, zheng": {
+  "department": "Agricultural and Resource Economics",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "kerns, james": {
+  "department": "Entomology and Plant Pathology",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "pierce, joshua": {
+  "department": "Chemistry",
+  "college": "College of Sciences"
+ },
+ "binder, andrew": {
+  "department": "Communication",
+  "college": "College of Humanities and Social Sciences"
+ },
+ "wong, chau-wai": {
+  "department": "Electrical and Computer Engineering",
+  "college": "College of Engineering"
+ },
+ "cruse, glenn": {
+  "department": "Molecular Biomedical Sciences",
+  "college": "College of Veterinary Medicine"
+ },
+ "parajuli, rajan": {
+  "department": "Forestry and Environmental Resources",
+  "college": "College of Natural Resources"
+ },
+ "whitehill, justin": {
+  "department": "Forestry and Environmental Resources",
+  "college": "College of Natural Resources"
+ },
+ "lewis, ramsey": {
+  "department": "Crop and Soil Sciences",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "bozkurt, alper": {
+  "department": "Electrical and Computer Engineering",
+  "college": "College of Engineering"
+ },
+ "gundogdu, kenan": {
+  "department": "Physics",
+  "college": "College of Sciences"
+ },
+ "fisher, loren": {
+  "department": "North Carolina Agricultural Research Service",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "zeng, zhaobang": {
+  "department": "Horticultural Science",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "ashrafi, hudson": {
+  "department": "Horticultural Science",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "ade, harald": {
+  "department": "Physics",
+  "college": "College of Sciences"
+ },
+ "xu, dongkuan": {
+  "department": "Computer Science",
+  "college": "College of Engineering"
+ },
+ "lee, andrew": {
+  "department": "Mechanical and Aerospace Engineering",
+  "college": "College of Engineering"
+ },
+ "youngsteadt, elsa": {
+  "department": "Applied Ecology",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "vashaee, daryoosh": {
+  "department": "Electrical and Computer Engineering",
+  "college": "College of Engineering"
+ },
+ "collazo, jaime": {
+  "department": "Applied Ecology",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "sanders, katie": {
+  "department": "Agricultural and Human Sciences",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "fernandez, gina": {
+  "department": "Horticultural Science",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "adler, kenneth": {
+  "department": "Molecular Biomedical Sciences",
+  "college": "College of Veterinary Medicine"
+ },
+ "obenour, daniel": {
+  "department": "Civil, Construction and Environmental Engineering",
+  "college": "College of Engineering"
+ },
+ "fisher, matthew": {
+  "department": "Biomedical Engineering",
+  "college": "College of Engineering"
+ },
+ "quezada, emmanuel": {
+  "department": "Horticultural Science",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "garcia, kevin": {
+  "department": "Crop and Soil Sciences",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "heiniger, ronnie": {
+  "department": "Crop and Soil Sciences",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "williams, cranos": {
+  "department": "Electrical and Computer Engineering",
+  "college": "College of Engineering"
+ },
+ "chapman, benjamin": {
+  "department": "Agricultural and Human Sciences",
+  "college": "College of Agriculture and Life Sciences"
+ },
+ "xu, chenhan": {
+  "department": "Computer Science",
   "college": "College of Engineering"
  }
 }
