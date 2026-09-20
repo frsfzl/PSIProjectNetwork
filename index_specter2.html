@@ -1,0 +1,460 @@
+<meta charset="utf-8">
+<style>
+	html, body {
+	  margin: 0;
+	  padding: 0;
+	  width: 100%;
+	  height: 100%;
+	  overflow: hidden;
+	  font-family: sans-serif;
+	}
+	/* Navbar */
+	#navbar {
+	  position: fixed;
+	  top: 0; left: 0; right: 0;
+	  height: 48px;
+	  background: #1a1a1a;
+	  display: flex;
+	  align-items: center;
+	  padding: 0 18px;
+	  gap: 0;
+	  z-index: 1000;
+	  box-sizing: border-box;
+	}
+	#app-title {
+	  color: #fff;
+	  font-size: 15px;
+	  font-weight: 700;
+	  white-space: nowrap;
+	  letter-spacing: 0.02em;
+	}
+	#app-subtitle {
+	  color: rgba(255,255,255,0.55);
+	  font-size: 12px;
+	  white-space: nowrap;
+	  margin-left: 10px;
+	}
+	#nav-sep {
+	  width: 1px;
+	  height: 22px;
+	  background: rgba(255,255,255,0.25);
+	  margin: 0 14px;
+	  flex-shrink: 0;
+	}
+	#breadcrumb {
+	  display: flex;
+	  align-items: center;
+	  gap: 4px;
+	  font-size: 13px;
+	  min-width: 0;
+	}
+	.bc-link {
+	  color: rgba(255,255,255,0.6);
+	  cursor: pointer;
+	  white-space: nowrap;
+	  transition: color 0.15s;
+	}
+	.bc-link:hover {
+	  color: #fff;
+	  text-decoration: underline;
+	}
+	.bc-sep {
+	  color: rgba(255,255,255,0.35);
+	  font-size: 14px;
+	}
+	.bc-current {
+	  color: #fff;
+	  white-space: nowrap;
+	  overflow: hidden;
+	  text-overflow: ellipsis;
+	}
+	/* Chart container */
+	#chart {
+	  width: 100%;
+	  height: calc(100vh - 48px);
+	  margin-top: 48px;
+	  overflow: hidden;
+	  position: relative;
+	}
+
+	text {
+	  pointer-events: none;
+	}
+	rect {
+	  stroke: #fff;
+	  stroke-width: 1px;
+	}
+	rect.parent {
+	  stroke-width: 3px;
+	}
+	.children rect.parent {
+	  cursor: pointer;
+	}
+	.children rect.child {
+	  opacity: 0;
+      display: none;
+	}
+	.form-group {
+	    text-align:left;
+	}
+	.textdiv {
+	    font-size: 14px;
+	    padding: 10px;
+	    cursor: pointer;
+	    overflow: none;
+	    pointer-events: none;
+	}
+	.textdiv .title {
+	    font-size: 100%;
+	    font-weight: bold;
+	    margin-top: 8px;
+	    font-size:17px !important;
+	}
+
+	.textdiv p{
+	    line-height: 13px;
+	    margin:0 0 10px !important;
+	    padding:0px;
+	    font-size:15px !important;
+	}
+
+    .textdiv p.count {
+    margin: 0 !important;
+    font-size: 12px !important;
+    line-height: 14px !important;
+    opacity: 0.7;
+    font-weight: normal;
+    }
+
+	svg {
+	  display: block;
+	}
+</style>
+
+<nav id="navbar">
+  <span id="app-title">NCSU PSI Research Mapping</span>
+  <span id="app-subtitle">Topic Modeling (SPECTER2)</span>
+  <div id="nav-sep"></div>
+  <div id="breadcrumb"></div>
+</nav>
+<div id="chart"></div>
+
+<script src="//d3js.org/d3.v4.min.js"></script>
+<script>
+var el_id = 'chart';
+var navH   = 48;
+var margin = {top: 4, right: 4, bottom: 4, left: 4},
+    width  = window.innerWidth  - margin.left - margin.right,
+    height = window.innerHeight - navH - margin.top - margin.bottom,
+    formatNumber = d3.format(","),
+    transitioning;
+var tooltip = null;
+var navigateTo = null;
+
+var x = d3.scaleLinear().domain([0, width]).range([0, width]);
+var y = d3.scaleLinear().domain([0, height]).range([0, height]);
+
+var treemap = d3.treemap()
+    .size([width, height])
+    .paddingInner(0)
+    .round(false);
+
+var svg = d3.select('#'+el_id).append("svg")
+    .attr("width",  width  + margin.left + margin.right)
+    .attr("height", height + margin.top  + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+    .style("shape-rendering", "crispEdges");
+
+var TOPICS = [
+    { id: 0, size: 725, label: "insurance, trichocarpa, crop insurance, biosynthesis", subtopics: "sweetpotato, breeding, genetic, pine; powdery, mildew, powdery mildew, species; peanut, tillage, planting, corn; grafted, rootstocks, tomato, fruit; iron, arabidopsis, regulatory, dl; images, image, vision, computer; stem cell, cell, root, stem; maize, reg, inbred, pi; wheat, winter wheat, soft red, red winter; weed, palmer, palmer amaranth, amaranth; biorefineries, forest, ghg, mitigation; circadian, heat, fieldgrown, photosynthesis; pea, vetch, hairy, hairy vetch; insurance, crop insurance, crop, philippines; nematode, nematodes, enterolobii, meloidogyne; trichocarpa, biosynthesis, populus, pathway", bucket: "Policy and Society and Economics" },
+    { id: 1, size: 333, label: "phosphorus, food safety, phosphate, safety", subtopics: "social, extension, governance, innovation; water quality, water, shellfish, coastal; soil, carbon, emissions, soc; lignin, lignocellulosic, waste, conversion; risk, nanomaterials, risk assessment, engineered nanomaterials; phosphorus, phosphate, lm, surplus; food safety, safety, vitamin, food", bucket: "Sustainable Ag and Resource Management" },
+    { id: 2, size: 303, label: "purification, ligands, affinity, peptide", subtopics: "plasma, inactivation, discharge, log; scaffolds, tissue, constructs, scaffold; wearable, textile, flexible, electrodes; smartphone, nucleic, nucleic acid, pointofcare; sensor, vocs, sensors, volatiles; purification, ligands, affinity, peptide", bucket: "Genetics and Genomics" },
+    { id: 3, size: 218, label: "salmonella, isolates, amr, coli", subtopics: "crispr, crisprcas, genome, bacteria; salmonella, isolates, amr, coli", bucket: "Plant Ecology and Microbial Biology" },
+    { id: 4, size: 177, label: "films, ferroelectric, phase, domain", subtopics: "films, ferroelectric, phase, domain", bucket: "Sensing and Imaging Technologies" },
+    { id: 5, size: 104, label: "biobotic, topological, segmentation, robotic", subtopics: "dogs, heart rate, wearable, heart; biobotic, topological, segmentation, robotic", bucket: "AgTech and Automation" },
+    { id: 6, size: 80, label: "magnetic, mri, amplification, exchange", subtopics: "magnetic, mri, amplification, exchange", bucket: "Sensing and Imaging Technologies" },
+    { id: 7, size: 73, label: "soil moisture, moisture, temperature sensing, dts", subtopics: "spectral, imaging, polarization, calibration; soil moisture, moisture, temperature sensing, dts", bucket: "Sensing and Imaging Technologies" },
+    { id: 8, size: 48, label: "cmut, anodic bonding, bonding, anodic", subtopics: "cmut, ultrasound, transducer, array; cmut, anodic bonding, bonding, anodic", bucket: "Sensing and Imaging Technologies" },
+    { id: 9, size: 43, label: "synthesis, natural products, natural, biofilms", subtopics: "synthesis, natural products, natural, biofilms", bucket: "Plant Ecology and Microbial Biology" },
+    { id: 10, size: 37, label: "landscape, land, geospatial, urban", subtopics: "landscape, land, geospatial, urban", bucket: "Sustainable Ag and Resource Management" },
+    { id: 11, size: 33, label: "power, electricity, wind, grid", subtopics: "power, electricity, wind, grid", bucket: "Sustainable Ag and Resource Management" },
+    { id: 12, size: 26, label: "wireless, network, problem, service", subtopics: "wireless, network, problem, service", bucket: "AgTech and Automation" },
+    { id: 13, size: 19, label: "fbg, optical fiber, fiber, bonded", subtopics: "fbg, optical fiber, fiber, bonded", bucket: "Sensing and Imaging Technologies" },
+    { id: 14, size: 16, label: "lighting, leds, pf, light", subtopics: "lighting, leds, pf, light", bucket: "AgTech and Automation" },
+];
+
+var BUCKET_DISPLAY_NAMES = [
+    "Sensing and Imaging Technologies", "Data Analytics and Modeling", "AgTech and Automation",
+    "Genetics and Genomics", "Plant Ecology and Microbial Biology", "Plant Health and Pathology and Pest Mgmt",
+    "Sustainable Ag and Resource Management", "Policy and Society and Economics", "Knowledge Transfer and Outreach"
+];
+
+// Same 9 buckets, same order/colors as the main site's treemap (HierarchyData.csv order)
+var BUCKET_ORDER = [
+    "sensing and imaging technologies",
+    "data analytics and modeling",
+    "agtech and automation",
+    "genetics and genomics",
+    "plant ecology and microbial biology",
+    "plant health and pathology and pest mgmt",
+    "sustainable ag and resource management",
+    "policy and society and economics",
+    "knowledge transfer and outreach"
+];
+var BUCKET_COLORS = ["#FF0000", "#FF5300", "#FFA500", "#FFD200", "#AEC6CF", "#80C000", "#008000", "#1ABC9C", "#2471A3"];
+
+var color = d3.scaleOrdinal().domain(BUCKET_ORDER).range(BUCKET_COLORS);
+
+// ---------- Build the 3-level hierarchy: bucket -> topic -> subtopic cluster ----------
+function buildData() {
+    var byBucketDisplay = {};
+    BUCKET_ORDER.forEach(function (key, i) {
+        byBucketDisplay[key] = BUCKET_DISPLAY_NAMES[i];
+    });
+
+    var children = BUCKET_ORDER.map(function (bucketKey) {
+        var displayName = byBucketDisplay[bucketKey];
+        var topicsInBucket = TOPICS.filter(function (t) { return t.bucket.toLowerCase() === bucketKey; });
+
+        if (topicsInBucket.length === 0) {
+            return { name: displayName, unmatched: true, value: 55 };
+        }
+
+        return {
+            name: displayName,
+            children: topicsInBucket.map(function (t) {
+                var subGroups = t.subtopics.split(";").map(function (s) { return s.trim(); }).filter(Boolean);
+                var perGroup = t.size / subGroups.length;
+                return {
+                    name: t.label,
+                    topicSize: t.size,
+                    children: subGroups.map(function (sg) {
+                        return { name: sg, value: perGroup };
+                    })
+                };
+            })
+        };
+    });
+
+    return { name: " ", children: children };
+}
+
+var data = buildData();
+
+tooltip = d3.select('body')
+    .append('div')
+    .attr('id', 'tooltip')
+    .style('position', 'fixed')
+    .style('display', 'none')
+    .style('z-index', '9999')
+    .style('background', '#fff')
+    .style('border', '2px solid #333')
+    .style('border-radius', '6px')
+    .style('padding', '10px 14px')
+    .style('max-width', '300px')
+    .style('pointer-events', 'none')
+    .style('font-family', 'sans-serif')
+    .style('font-size', '13px')
+    .style('box-shadow', '0 2px 8px rgba(0,0,0,0.15)');
+
+function showTooltip(d, event) {
+    var html = '<strong style="font-size:14px">' + d.data.name + '</strong>';
+
+    if (d.data.unmatched) {
+        html += '<div style="margin-top:6px;color:#a00">No SPECTER2 topics matched this human-validated bucket.</div>';
+    } else if (d.depth === 1 && d.children) {
+        html += '<table style="margin-top:6px;border-collapse:collapse;width:100%">';
+        var sorted = d.children.slice().sort(function (a, b) { return b.value - a.value; });
+        sorted.forEach(function (child) {
+            html += '<tr>'
+                + '<td style="padding:2px 8px 2px 0;color:#333">' + child.data.name + '</td>'
+                + '<td style="padding:2px 0;text-align:right;color:#666;white-space:nowrap">' + Math.round(child.value).toLocaleString() + ' docs</td>'
+                + '</tr>';
+        });
+        html += '</table>';
+    } else if (d.depth === 2) {
+        var subCount = d.children ? d.children.length : 0;
+        html += '<div style="margin-top:6px;color:#555">'
+            + Math.round(d.data.topicSize || d.value).toLocaleString() + ' documents &nbsp;|&nbsp; '
+            + subCount + ' keyword cluster' + (subCount !== 1 ? 's' : '')
+            + '</div>';
+    } else if (d.depth === 3) {
+        html += '<div style="margin-top:6px;color:#555">keyword cluster within &ldquo;' + d.parent.data.name + '&rdquo;</div>';
+    }
+
+    tooltip.html(html).style('display', 'block');
+    var ex = event.clientX, ey = event.clientY;
+    var tw = tooltip.node().offsetWidth;
+    var left = (ex + 16 + tw > window.innerWidth) ? (ex - tw - 16) : (ex + 16);
+    tooltip.style('left', left + 'px').style('top', (ey - 10) + 'px');
+}
+
+var root = d3.hierarchy(data);
+treemap(root
+    .sum(function (d) { return d.value; })
+    .sort(function (a, b) { return b.height - a.height || b.value - a.value; })
+);
+
+display(root);
+
+function display(d) {
+    updateBreadcrumbFor(d);
+
+    var g1 = svg.insert("g", ".depth")
+        .datum(d)
+        .attr("class", "depth");
+
+    var g = g1.selectAll("g")
+        .data(d.children)
+        .enter().append("g");
+
+    g.filter(function (n) { return n.children; })
+        .classed("children", true)
+        .on("click", transition);
+
+    g.on("mouseover", function (d) { showTooltip(d, d3.event); })
+     .on("mousemove", function (d) { showTooltip(d, d3.event); })
+     .on("mouseout",  function ()  { tooltip.style("display", "none"); });
+
+    g.selectAll(".child")
+        .data(function (d) { return d.children || [d]; })
+        .enter().append("rect")
+        .attr("class", "child")
+        .call(rect);
+
+    g.append("rect")
+        .attr("class", "parent")
+        .call(rect);
+
+    g.append("foreignObject")
+        .call(rect)
+        .attr("class", "foreignobj")
+        .style("pointer-events", "none")
+        .append("xhtml:div")
+        .attr("dy", "1em")
+        .html(function (d) {
+            if (d.data.unmatched) {
+                return '<p class="title">' + d.data.name + '</p>' + '<p class="count">No topics matched</p>';
+            }
+            if (d.depth === 1) {
+                var topicCount = d.children ? d.children.length : 0;
+                return '<p class="title">' + d.data.name + '</p>' + '<p class="count">' + topicCount + ' topic' + (topicCount !== 1 ? 's' : '') + ' | ' + Math.round(d.value).toLocaleString() + ' docs</p>';
+            } else if (d.depth === 2) {
+                var subCount = d.children ? d.children.length : 0;
+                return '<p class="title">' + d.data.name + '</p>' + '<p class="count">' + Math.round(d.data.topicSize || d.value).toLocaleString() + ' docs | ' + subCount + ' clusters</p>';
+            }
+            return '<p class="title">' + d.data.name + '</p>';
+        })
+        .attr("class", "textdiv");
+
+    function transition(d) {
+        if (transitioning || !d) return;
+        transitioning = true;
+
+        var g2 = display(d),
+            t1 = g1.transition().duration(650),
+            t2 = g2.transition().duration(650);
+        x.domain([d.x0, d.x1]);
+        y.domain([d.y0, d.y1]);
+        svg.style("shape-rendering", null);
+        svg.selectAll(".depth").sort(function (a, b) { return a.depth - b.depth; });
+        g2.selectAll("text").style("fill-opacity", 0);
+        g2.selectAll("foreignObject div").style("display", "none");
+        t1.selectAll("text").style("fill-opacity", 0);
+        t2.selectAll("text").style("fill-opacity", 1);
+        t1.selectAll("rect").call(rect);
+        t2.selectAll("rect").call(rect);
+        t1.selectAll(".textdiv").style("display", "none");
+        t1.selectAll(".foreignobj").call(foreign);
+        t2.selectAll(".textdiv").style("display", "block");
+        t2.selectAll(".foreignobj").call(foreign);
+        t1.on("end.remove", function () {
+            this.remove();
+            transitioning = false;
+        });
+    }
+    return g;
+}
+
+function rect(rect) {
+    rect.attr("x", function (d) { return x(d.x0); })
+        .attr("y", function (d) { return y(d.y0); })
+        .attr("width", function (d) { return x(d.x1) - x(d.x0); })
+        .attr("height", function (d) { return y(d.y1) - y(d.y0); })
+        .attr("fill", function (d) {
+            if (d.data.unmatched) return "url(#hatch)";
+            var name = d.data.name ? d.data.name.toString().trim().toLowerCase() : "";
+            var parent = d.parent && d.parent.data && d.parent.data.name ? d.parent.data.name.toString().trim().toLowerCase() : "";
+            var grandparent = d.parent && d.parent.parent && d.parent.parent.data && d.parent.parent.data.name ? d.parent.parent.data.name.toString().trim().toLowerCase() : "";
+            if (BUCKET_ORDER.indexOf(name) !== -1) return color(name);
+            if (BUCKET_ORDER.indexOf(parent) !== -1) return color(parent);
+            if (BUCKET_ORDER.indexOf(grandparent) !== -1) return color(grandparent);
+            return "#ccc";
+        })
+        .attr("opacity", function (d) { return d.data.unmatched ? 1 : (d.depth == 3 ? 0.65 : 0.8); });
+}
+
+function foreign(foreign) {
+    foreign.attr("x", function (d) { return x(d.x0); })
+           .attr("y", function (d) { return y(d.y0); })
+           .attr("width", function (d) { return x(d.x1) - x(d.x0); })
+           .attr("height", function (d) { return y(d.y1) - y(d.y0); });
+}
+
+navigateTo = function (node) {
+    tooltip.style("display", "none");
+    d3.selectAll(".depth").remove();
+    transitioning = false;
+    if (!node.parent) {
+        x.domain([0, width]);
+        y.domain([0, height]);
+    } else {
+        x.domain([node.x0, node.x1]);
+        y.domain([node.y0, node.y1]);
+    }
+    display(node);
+};
+
+function updateBreadcrumbFor(d) {
+    if (!d.parent) {
+        updateBreadcrumb([]);
+        return;
+    }
+    var chain = d.ancestors().reverse();
+    var segments = [{ label: 'All Buckets', node: root }];
+    for (var i = 1; i < chain.length; i++) {
+        var isLast = (i === chain.length - 1);
+        segments.push({ label: chain[i].data.name, node: isLast ? null : chain[i] });
+    }
+    updateBreadcrumb(segments);
+}
+
+function updateBreadcrumb(segments) {
+    var bc = d3.select('#breadcrumb');
+    bc.html('');
+    segments.forEach(function (seg, i) {
+        if (i > 0) {
+            bc.append('span').attr('class', 'bc-sep').text('›');
+        }
+        if (seg.node !== null) {
+            bc.append('span')
+              .attr('class', 'bc-link')
+              .text(seg.label)
+              .on('click', function () { navigateTo(seg.node); });
+        } else {
+            bc.append('span').attr('class', 'bc-current').text(seg.label);
+        }
+    });
+}
+
+// Hatch pattern for buckets with zero matched topics
+var defs = svg.append("defs");
+var pattern = defs.append("pattern")
+    .attr("id", "hatch")
+    .attr("width", 8).attr("height", 8)
+    .attr("patternUnits", "userSpaceOnUse")
+    .attr("patternTransform", "rotate(45)");
+pattern.append("rect").attr("width", 8).attr("height", 8).attr("fill", "#eeeeee");
+pattern.append("rect").attr("width", 3).attr("height", 8).attr("fill", "#d6d6d6");
+</script>
