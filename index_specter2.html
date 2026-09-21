@@ -6,7 +6,7 @@
 	  width: 100%;
 	  height: 100%;
 	  overflow: hidden;
-	  font-family: sans-serif;
+	  font-family: Georgia, 'Times New Roman', Times, serif;
 	}
 	/* Navbar */
 	#navbar {
@@ -20,6 +20,7 @@
 	  gap: 0;
 	  z-index: 1000;
 	  box-sizing: border-box;
+	  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
 	}
 	#app-title {
 	  color: #fff;
@@ -27,12 +28,6 @@
 	  font-weight: 700;
 	  white-space: nowrap;
 	  letter-spacing: 0.02em;
-	}
-	#app-subtitle {
-	  color: rgba(255,255,255,0.55);
-	  font-size: 12px;
-	  white-space: nowrap;
-	  margin-left: 10px;
 	}
 	#nav-sep {
 	  width: 1px;
@@ -86,9 +81,13 @@
 	}
 	rect.parent {
 	  stroke-width: 3px;
+	  transition: filter 0.12s ease;
 	}
 	.children rect.parent {
 	  cursor: pointer;
+	}
+	.children rect.parent:hover {
+	  filter: brightness(1.06);
 	}
 	.children rect.child {
 	  opacity: 0;
@@ -98,32 +97,39 @@
 	    text-align:left;
 	}
 	.textdiv {
-	    font-size: 14px;
-	    padding: 10px;
 	    cursor: pointer;
-	    overflow: none;
+	    overflow: hidden;
 	    pointer-events: none;
+	    box-sizing: border-box;
+	    width: 100%;
+	    height: 100%;
+	    display: flex;
+	    flex-direction: column;
+	    justify-content: center;
+	    align-items: flex-start;
 	}
 	.textdiv .title {
-	    font-size: 100%;
-	    font-weight: bold;
-	    margin-top: 8px;
-	    font-size:17px !important;
+	    margin: 0 0 0.35em;
+	    font-weight: 600;
+	    line-height: 1.22;
+	    width: 100%;
+	    word-wrap: normal;
+	    overflow-wrap: normal;
 	}
 
-	.textdiv p{
-	    line-height: 13px;
-	    margin:0 0 10px !important;
-	    padding:0px;
-	    font-size:15px !important;
+	.textdiv p {
+	    margin: 0;
+	    padding: 0;
+	    width: 100%;
+	    max-width: 100%;
+	    word-wrap: normal;
+	    overflow-wrap: normal;
 	}
 
     .textdiv p.count {
-    margin: 0 !important;
-    font-size: 12px !important;
-    line-height: 14px !important;
-    opacity: 0.7;
-    font-weight: normal;
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.3;
     }
 
 	svg {
@@ -133,7 +139,6 @@
 
 <nav id="navbar">
   <span id="app-title">NCSU PSI Research Mapping</span>
-  <span id="app-subtitle">Topic Modeling (SPECTER2)</span>
   <div id="nav-sep"></div>
   <div id="breadcrumb"></div>
 </nav>
@@ -206,6 +211,126 @@ var BUCKET_COLORS = ["#FF0000", "#FF5300", "#FFA500", "#FFD200", "#AEC6CF", "#80
 
 var color = d3.scaleOrdinal().domain(BUCKET_ORDER).range(BUCKET_COLORS);
 
+var DEPTH12_OPACITY = 0.92, DEPTH3_OPACITY = 0.8;
+
+// ---------- Color: resolve each node's fill, independent of depth ----------
+function fillColorFor(d) {
+    if (d.data.unmatched) return { hex: "#eeeeee", opacity: 1, isHatch: true };
+    var name = d.data.name ? d.data.name.toString().trim().toLowerCase() : "";
+    var parent = d.parent && d.parent.data && d.parent.data.name ? d.parent.data.name.toString().trim().toLowerCase() : "";
+    var grandparent = d.parent && d.parent.parent && d.parent.parent.data && d.parent.parent.data.name ? d.parent.parent.data.name.toString().trim().toLowerCase() : "";
+    var hex = "#cccccc";
+    if (BUCKET_ORDER.indexOf(name) !== -1) hex = color(name);
+    else if (BUCKET_ORDER.indexOf(parent) !== -1) hex = color(parent);
+    else if (BUCKET_ORDER.indexOf(grandparent) !== -1) hex = color(grandparent);
+    return { hex: hex, opacity: d.depth === 3 ? DEPTH3_OPACITY : DEPTH12_OPACITY, isHatch: false };
+}
+
+// ---------- WCAG-style contrast: pick black or white text for a given fill ----------
+function hexToRgb(hex) {
+    var m = hex.replace("#", "").match(/.{2}/g).map(function (h) { return parseInt(h, 16); });
+    return { r: m[0], g: m[1], b: m[2] };
+}
+function blendOverWhite(hex, alpha) {
+    var c = hexToRgb(hex);
+    return {
+        r: c.r * alpha + 255 * (1 - alpha),
+        g: c.g * alpha + 255 * (1 - alpha),
+        b: c.b * alpha + 255 * (1 - alpha)
+    };
+}
+function relLuminance(rgb) {
+    function ch(v) { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }
+    return 0.2126 * ch(rgb.r) + 0.7152 * ch(rgb.g) + 0.0722 * ch(rgb.b);
+}
+function contrastRatio(l1, l2) {
+    var lighter = Math.max(l1, l2), darker = Math.min(l1, l2);
+    return (lighter + 0.05) / (darker + 0.05);
+}
+function pickTextColor(hex, alpha) {
+    var bgLum = relLuminance(blendOverWhite(hex, alpha));
+    var withBlack = contrastRatio(bgLum, 0);
+    var withWhite = contrastRatio(bgLum, 1);
+    return withWhite > withBlack ? { title: "#ffffff", count: "rgba(255,255,255,0.85)" }
+                                  : { title: "#141a1f", count: "rgba(20,26,31,0.65)" };
+}
+
+// ---------- Text sizing: a modest size proportional to each box's own dimensions,
+// not a size maximized to fill the box. `ratio` sets the target as a fraction of the
+// box's shorter side; targetMax/min are a sane comfort range, never a ceiling to fill up to.
+var SIZE_CAPS = {
+    1: { ratio: 0.075, targetMin: 15, targetMax: 34, countRatio: 0.42, countMin: 12 },
+    2: { ratio: 0.07,  targetMin: 13, targetMax: 24, countRatio: 0.46, countMin: 11 },
+    3: { ratio: 0.065, targetMin: 11, targetMax: 18, countRatio: 0.42, countMin: 10 }
+};
+var MIN_VISIBLE_W = 42, MIN_VISIBLE_H = 24;
+
+// Starts at the modest formula-based target and only ever shrinks further if that
+// target doesn't actually fit the box -- it never grows past the target to fill space.
+function shrinkToFit(el, maxWidth, maxHeight, target, minSize) {
+    function fitsAt(size) {
+        el.style.fontSize = size + "px";
+        // Words wrap only at spaces now (no break-word), so a real overflow shows up as a
+        // large width gap; a few px of tolerance just absorbs subpixel layout rounding.
+        return el.scrollWidth <= maxWidth + 3 && el.scrollHeight <= maxHeight + 0.5;
+    }
+    if (maxWidth <= 0 || maxHeight <= 0) { el.style.fontSize = minSize + "px"; return minSize; }
+    if (fitsAt(target)) return target;
+    var lo = minSize, hi = target, best = minSize;
+    fitsAt(minSize);
+    while (lo <= hi) {
+        var mid = Math.floor((lo + hi) / 2);
+        if (fitsAt(mid)) { best = mid; lo = mid + 1; }
+        else { hi = mid - 1; }
+    }
+    el.style.fontSize = best + "px";
+    return best;
+}
+
+function fitAllLabels(selection) {
+    selection.each(function (d) {
+        var container = this.querySelector(".textdiv");
+        if (!container) return;
+        var titleEl = container.querySelector(".title");
+        if (!titleEl) return;
+        var countEl = container.querySelector(".count");
+
+        if (container.clientWidth < MIN_VISIBLE_W || container.clientHeight < MIN_VISIBLE_H) {
+            container.style.visibility = "hidden";
+            return;
+        }
+        container.style.visibility = "visible";
+
+        var caps = SIZE_CAPS[d.depth] || SIZE_CAPS[3];
+        var shortSide = Math.min(container.clientWidth, container.clientHeight);
+        var pad = Math.max(8, Math.min(22, shortSide * 0.06));
+        container.style.padding = pad + "px";
+
+        var fillInfo = fillColorFor(d);
+        var textColor = fillInfo.isHatch ? { title: "#2b2b2b", count: "rgba(43,43,43,0.7)" } : pickTextColor(fillInfo.hex, fillInfo.opacity);
+        titleEl.style.color = textColor.title;
+        if (countEl) countEl.style.color = textColor.count;
+
+        var availW = container.clientWidth - 2 * pad;
+        var availH = container.clientHeight - 2 * pad;
+        var countAvailH = countEl ? Math.min(availH * 0.3, 30) : 0;
+        var titleAvailH = availH - countAvailH;
+
+        var target = Math.max(caps.targetMin, Math.min(caps.targetMax, shortSide * caps.ratio));
+        var finalTitleSize = shrinkToFit(titleEl, availW, titleAvailH, target, caps.targetMin);
+
+        if (countEl) {
+            if (finalTitleSize <= caps.targetMin + 1 && titleAvailH < 30) {
+                countEl.style.display = "none";
+            } else {
+                countEl.style.display = "";
+                var countTarget = Math.max(caps.countMin, finalTitleSize * caps.countRatio);
+                shrinkToFit(countEl, availW, countAvailH, countTarget, caps.countMin);
+            }
+        }
+    });
+}
+
 // ---------- Build the 3-level hierarchy: bucket -> topic -> subtopic cluster ----------
 function buildData() {
     var byBucketDisplay = {};
@@ -254,7 +379,7 @@ tooltip = d3.select('body')
     .style('padding', '10px 14px')
     .style('max-width', '300px')
     .style('pointer-events', 'none')
-    .style('font-family', 'sans-serif')
+    .style('font-family', "'Inter', sans-serif")
     .style('font-size', '13px')
     .style('box-shadow', '0 2px 8px rgba(0,0,0,0.15)');
 
@@ -348,6 +473,8 @@ function display(d) {
         })
         .attr("class", "textdiv");
 
+    fitAllLabels(g);
+
     function transition(d) {
         if (transitioning || !d) return;
         transitioning = true;
@@ -367,11 +494,14 @@ function display(d) {
         t2.selectAll("rect").call(rect);
         t1.selectAll(".textdiv").style("display", "none");
         t1.selectAll(".foreignobj").call(foreign);
-        t2.selectAll(".textdiv").style("display", "block");
+        t2.selectAll(".textdiv").style("display", "flex");
         t2.selectAll(".foreignobj").call(foreign);
         t1.on("end.remove", function () {
             this.remove();
             transitioning = false;
+        });
+        t2.on("end.fit", function () {
+            fitAllLabels(g2);
         });
     }
     return g;
@@ -382,17 +512,8 @@ function rect(rect) {
         .attr("y", function (d) { return y(d.y0); })
         .attr("width", function (d) { return x(d.x1) - x(d.x0); })
         .attr("height", function (d) { return y(d.y1) - y(d.y0); })
-        .attr("fill", function (d) {
-            if (d.data.unmatched) return "url(#hatch)";
-            var name = d.data.name ? d.data.name.toString().trim().toLowerCase() : "";
-            var parent = d.parent && d.parent.data && d.parent.data.name ? d.parent.data.name.toString().trim().toLowerCase() : "";
-            var grandparent = d.parent && d.parent.parent && d.parent.parent.data && d.parent.parent.data.name ? d.parent.parent.data.name.toString().trim().toLowerCase() : "";
-            if (BUCKET_ORDER.indexOf(name) !== -1) return color(name);
-            if (BUCKET_ORDER.indexOf(parent) !== -1) return color(parent);
-            if (BUCKET_ORDER.indexOf(grandparent) !== -1) return color(grandparent);
-            return "#ccc";
-        })
-        .attr("opacity", function (d) { return d.data.unmatched ? 1 : (d.depth == 3 ? 0.65 : 0.8); });
+        .attr("fill", function (d) { var f = fillColorFor(d); return f.isHatch ? "url(#hatch)" : f.hex; })
+        .attr("opacity", function (d) { return fillColorFor(d).opacity; });
 }
 
 function foreign(foreign) {
