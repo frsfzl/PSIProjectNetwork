@@ -1,0 +1,582 @@
+<meta charset="utf-8">
+<style>
+	html, body {
+	  margin: 0;
+	  padding: 0;
+	  width: 100%;
+	  height: 100%;
+	  overflow: hidden;
+	  font-family: Georgia, 'Times New Roman', Times, serif;
+	}
+	/* Navbar */
+	#navbar {
+	  position: fixed;
+	  top: 0; left: 0; right: 0;
+	  height: 48px;
+	  background: #1a1a1a;
+	  display: flex;
+	  align-items: center;
+	  padding: 0 18px;
+	  gap: 0;
+	  z-index: 1000;
+	  box-sizing: border-box;
+	  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+	}
+	#app-title {
+	  color: #fff;
+	  font-size: 15px;
+	  font-weight: 700;
+	  white-space: nowrap;
+	  letter-spacing: 0.02em;
+	}
+	#nav-sep {
+	  width: 1px;
+	  height: 22px;
+	  background: rgba(255,255,255,0.25);
+	  margin: 0 14px;
+	  flex-shrink: 0;
+	}
+	#breadcrumb {
+	  display: flex;
+	  align-items: center;
+	  gap: 4px;
+	  font-size: 13px;
+	  min-width: 0;
+	}
+	.bc-link {
+	  color: rgba(255,255,255,0.6);
+	  cursor: pointer;
+	  white-space: nowrap;
+	  transition: color 0.15s;
+	}
+	.bc-link:hover {
+	  color: #fff;
+	  text-decoration: underline;
+	}
+	.bc-sep {
+	  color: rgba(255,255,255,0.35);
+	  font-size: 14px;
+	}
+	.bc-current {
+	  color: #fff;
+	  white-space: nowrap;
+	  overflow: hidden;
+	  text-overflow: ellipsis;
+	}
+	/* Chart container */
+	#chart {
+	  width: 100%;
+	  height: calc(100vh - 48px);
+	  margin-top: 48px;
+	  overflow: hidden;
+	  position: relative;
+	}
+
+	text {
+	  pointer-events: none;
+	}
+	rect {
+	  stroke: #fff;
+	  stroke-width: 1px;
+	}
+	rect.parent {
+	  stroke-width: 3px;
+	  transition: filter 0.12s ease;
+	}
+	.children rect.parent {
+	  cursor: pointer;
+	}
+	.children rect.parent:hover {
+	  filter: brightness(1.06);
+	}
+	.children rect.child {
+	  opacity: 0;
+      display: none;
+	}
+	.form-group {
+	    text-align:left;
+	}
+	.textdiv {
+	    cursor: pointer;
+	    overflow: hidden;
+	    pointer-events: none;
+	    box-sizing: border-box;
+	    width: 100%;
+	    height: 100%;
+	    display: flex;
+	    flex-direction: column;
+	    justify-content: center;
+	    align-items: flex-start;
+	}
+	.textdiv .title {
+	    margin: 0 0 0.35em;
+	    font-weight: 600;
+	    line-height: 1.22;
+	    width: 100%;
+	    word-wrap: normal;
+	    overflow-wrap: normal;
+	}
+
+	.textdiv p {
+	    margin: 0;
+	    padding: 0;
+	    width: 100%;
+	    max-width: 100%;
+	    word-wrap: normal;
+	    overflow-wrap: normal;
+	}
+
+    .textdiv p.count {
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.3;
+    }
+
+	svg {
+	  display: block;
+	}
+</style>
+
+<nav id="navbar">
+  <span id="app-title">NCSU PSI Research Mapping</span>
+  <div id="nav-sep"></div>
+  <div id="breadcrumb"></div>
+</nav>
+<div id="chart"></div>
+
+<script src="//d3js.org/d3.v4.min.js"></script>
+<script>
+var el_id = 'chart';
+var navH   = 48;
+var margin = {top: 4, right: 4, bottom: 4, left: 4},
+    width  = window.innerWidth  - margin.left - margin.right,
+    height = window.innerHeight - navH - margin.top - margin.bottom,
+    formatNumber = d3.format(","),
+    transitioning;
+var tooltip = null;
+var navigateTo = null;
+
+var x = d3.scaleLinear().domain([0, width]).range([0, width]);
+var y = d3.scaleLinear().domain([0, height]).range([0, height]);
+
+var treemap = d3.treemap()
+    .size([width, height])
+    .paddingInner(0)
+    .round(false);
+
+var svg = d3.select('#'+el_id).append("svg")
+    .attr("width",  width  + margin.left + margin.right)
+    .attr("height", height + margin.top  + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+    .style("shape-rendering", "crispEdges");
+
+// This topic-model run only gives us a topic label and its matched human bucket --
+// no document counts or keyword sub-clusters like the previous run had, so this
+// treemap is 2 levels (bucket -> topic) with every topic weighted equally.
+// bucket: null means the topic didn't fit any of the 9 human-validated buckets.
+var TOPICS = [
+    { id: 1,  label: "plasma, discharge, downy, inactivation", bucket: "plant health and pathology and pest mgmt" },
+    { id: 2,  label: "crispr, barrangou, rodolphe, volume issue", bucket: "genetics and genomics" },
+    { id: 3,  label: "lignin, monolignol, pathway, biosynthesis", bucket: "genetics and genomics" },
+    { id: 4,  label: "raser, radiofrequency, stimulated emission, amplification stimulated", bucket: "sensing and imaging technologies" },
+    { id: 5,  label: "transducer, micromachined, capacitive, ultrasonic", bucket: "sensing and imaging technologies" },
+    { id: 6,  label: "films, ferroelectric, hfo2, ferroelectricity", bucket: "sensing and imaging technologies" },
+    { id: 7,  label: "powdery, powdery mildew, mildew, mildews", bucket: "plant health and pathology and pest mgmt" },
+    { id: 8,  label: "synthesis, natural products, natural, biofilms", bucket: "plant ecology and microbial biology" },
+    { id: 9,  label: "power, electricity, wind, grid", bucket: "sustainable ag and resource management" },
+    { id: 10, label: "dogs, dog, canine, heart rate", bucket: null },
+    { id: 11, label: "biobotic, insects, biobots, topological", bucket: "agtech and automation" },
+    { id: 12, label: "divisions, stem cell, stem, cell", bucket: "genetics and genomics" },
+    { id: 13, label: "lighting, leds, pf, light", bucket: "agtech and automation" },
+    { id: 14, label: "soil moisture, moisture, distributed temperature, temperature sensing", bucket: "sensing and imaging technologies" },
+    { id: 15, label: "fbg, fiber, optical fiber, grating", bucket: "sensing and imaging technologies" }
+];
+
+var BUCKET_DISPLAY_NAMES = [
+    "Sensing and Imaging Technologies", "Data Analytics and Modeling", "AgTech and Automation",
+    "Genetics and Genomics", "Plant Ecology and Microbial Biology", "Plant Health and Pathology and Pest Mgmt",
+    "Sustainable Ag and Resource Management", "Policy and Society and Economics", "Knowledge Transfer and Outreach"
+];
+
+// Same 9 buckets, same order/colors as the main site's treemap (HierarchyData.csv order)
+var BUCKET_ORDER = [
+    "sensing and imaging technologies",
+    "data analytics and modeling",
+    "agtech and automation",
+    "genetics and genomics",
+    "plant ecology and microbial biology",
+    "plant health and pathology and pest mgmt",
+    "sustainable ag and resource management",
+    "policy and society and economics",
+    "knowledge transfer and outreach"
+];
+var BUCKET_COLORS = ["#FF0000", "#FF5300", "#FFA500", "#FFD200", "#AEC6CF", "#80C000", "#008000", "#1ABC9C", "#2471A3"];
+
+var color = d3.scaleOrdinal().domain(BUCKET_ORDER).range(BUCKET_COLORS);
+
+var NO_FIT_NAME = "No Bucket Fit";
+var NO_FIT_COLOR = "#8a8a8a";
+var DEPTH12_OPACITY = 0.92;
+
+// ---------- Color: resolve each node's fill, independent of depth ----------
+function fillColorFor(d) {
+    if (d.data.unmatched) return { hex: "#eeeeee", opacity: 1, isHatch: true };
+    if (d.data.noFit || (d.parent && d.parent.data && d.parent.data.noFit)) {
+        return { hex: NO_FIT_COLOR, opacity: 0.85, isHatch: false };
+    }
+    var name = d.data.name ? d.data.name.toString().trim().toLowerCase() : "";
+    var parent = d.parent && d.parent.data && d.parent.data.name ? d.parent.data.name.toString().trim().toLowerCase() : "";
+    var hex = "#cccccc";
+    if (BUCKET_ORDER.indexOf(name) !== -1) hex = color(name);
+    else if (BUCKET_ORDER.indexOf(parent) !== -1) hex = color(parent);
+    return { hex: hex, opacity: DEPTH12_OPACITY, isHatch: false };
+}
+
+// ---------- WCAG-style contrast: pick black or white text for a given fill ----------
+function hexToRgb(hex) {
+    var m = hex.replace("#", "").match(/.{2}/g).map(function (h) { return parseInt(h, 16); });
+    return { r: m[0], g: m[1], b: m[2] };
+}
+function blendOverWhite(hex, alpha) {
+    var c = hexToRgb(hex);
+    return {
+        r: c.r * alpha + 255 * (1 - alpha),
+        g: c.g * alpha + 255 * (1 - alpha),
+        b: c.b * alpha + 255 * (1 - alpha)
+    };
+}
+function relLuminance(rgb) {
+    function ch(v) { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }
+    return 0.2126 * ch(rgb.r) + 0.7152 * ch(rgb.g) + 0.0722 * ch(rgb.b);
+}
+function contrastRatio(l1, l2) {
+    var lighter = Math.max(l1, l2), darker = Math.min(l1, l2);
+    return (lighter + 0.05) / (darker + 0.05);
+}
+function pickTextColor(hex, alpha) {
+    var bgLum = relLuminance(blendOverWhite(hex, alpha));
+    var withBlack = contrastRatio(bgLum, 0);
+    var withWhite = contrastRatio(bgLum, 1);
+    return withWhite > withBlack ? { title: "#ffffff", count: "rgba(255,255,255,0.85)" }
+                                  : { title: "#141a1f", count: "rgba(20,26,31,0.65)" };
+}
+
+// ---------- Text sizing: a modest size proportional to each box's own dimensions,
+// not a size maximized to fill the box. `ratio` sets the target as a fraction of the
+// box's shorter side; targetMax/min are a sane comfort range, never a ceiling to fill up to.
+var SIZE_CAPS = {
+    1: { ratio: 0.075, targetMin: 15, targetMax: 34, countRatio: 0.42, countMin: 12 },
+    2: { ratio: 0.07,  targetMin: 13, targetMax: 24, countRatio: 0.46, countMin: 11 }
+};
+var MIN_VISIBLE_W = 42, MIN_VISIBLE_H = 24;
+
+// Starts at the modest formula-based target and only ever shrinks further if that
+// target doesn't actually fit the box -- it never grows past the target to fill space.
+function shrinkToFit(el, maxWidth, maxHeight, target, minSize) {
+    function fitsAt(size) {
+        el.style.fontSize = size + "px";
+        // Words wrap only at spaces now (no break-word), so a real overflow shows up as a
+        // large width gap; a few px of tolerance just absorbs subpixel layout rounding.
+        return el.scrollWidth <= maxWidth + 3 && el.scrollHeight <= maxHeight + 0.5;
+    }
+    if (maxWidth <= 0 || maxHeight <= 0) { el.style.fontSize = minSize + "px"; return minSize; }
+    if (fitsAt(target)) return target;
+    var lo = minSize, hi = target, best = minSize;
+    fitsAt(minSize);
+    while (lo <= hi) {
+        var mid = Math.floor((lo + hi) / 2);
+        if (fitsAt(mid)) { best = mid; lo = mid + 1; }
+        else { hi = mid - 1; }
+    }
+    el.style.fontSize = best + "px";
+    return best;
+}
+
+function fitAllLabels(selection) {
+    selection.each(function (d) {
+        var container = this.querySelector(".textdiv");
+        if (!container) return;
+        var titleEl = container.querySelector(".title");
+        if (!titleEl) return;
+        var countEl = container.querySelector(".count");
+
+        if (container.clientWidth < MIN_VISIBLE_W || container.clientHeight < MIN_VISIBLE_H) {
+            container.style.visibility = "hidden";
+            return;
+        }
+        container.style.visibility = "visible";
+
+        var caps = SIZE_CAPS[d.depth] || SIZE_CAPS[2];
+        var shortSide = Math.min(container.clientWidth, container.clientHeight);
+        var pad = Math.max(8, Math.min(22, shortSide * 0.06));
+        container.style.padding = pad + "px";
+
+        var fillInfo = fillColorFor(d);
+        var textColor = fillInfo.isHatch ? { title: "#2b2b2b", count: "rgba(43,43,43,0.7)" } : pickTextColor(fillInfo.hex, fillInfo.opacity);
+        titleEl.style.color = textColor.title;
+        if (countEl) countEl.style.color = textColor.count;
+
+        var availW = container.clientWidth - 2 * pad;
+        var availH = container.clientHeight - 2 * pad;
+        var countAvailH = countEl ? Math.min(availH * 0.3, 30) : 0;
+        var titleAvailH = availH - countAvailH;
+
+        var target = Math.max(caps.targetMin, Math.min(caps.targetMax, shortSide * caps.ratio));
+        var finalTitleSize = shrinkToFit(titleEl, availW, titleAvailH, target, caps.targetMin);
+
+        if (countEl) {
+            if (finalTitleSize <= caps.targetMin + 1 && titleAvailH < 30) {
+                countEl.style.display = "none";
+            } else {
+                countEl.style.display = "";
+                var countTarget = Math.max(caps.countMin, finalTitleSize * caps.countRatio);
+                shrinkToFit(countEl, availW, countAvailH, countTarget, caps.countMin);
+            }
+        }
+    });
+}
+
+// ---------- Build the 2-level hierarchy: bucket -> topic. Every topic (and every
+// unmatched/no-fit placeholder) carries equal weight (1) since there's no doc-count data. ----------
+function buildData() {
+    var byBucketDisplay = {};
+    BUCKET_ORDER.forEach(function (key, i) {
+        byBucketDisplay[key] = BUCKET_DISPLAY_NAMES[i];
+    });
+
+    var matchedTopics = TOPICS.filter(function (t) { return t.bucket !== null; });
+    var noFitTopics = TOPICS.filter(function (t) { return t.bucket === null; });
+
+    var children = BUCKET_ORDER.map(function (bucketKey) {
+        var displayName = byBucketDisplay[bucketKey];
+        var topicsInBucket = matchedTopics.filter(function (t) { return t.bucket === bucketKey; });
+
+        if (topicsInBucket.length === 0) {
+            return { name: displayName, unmatched: true, value: 1 };
+        }
+
+        return {
+            name: displayName,
+            children: topicsInBucket.map(function (t) { return { name: t.label, value: 1 }; })
+        };
+    });
+
+    if (noFitTopics.length > 0) {
+        children.push({
+            name: NO_FIT_NAME,
+            noFit: true,
+            children: noFitTopics.map(function (t) { return { name: t.label, value: 1 }; })
+        });
+    }
+
+    return { name: " ", children: children };
+}
+
+var data = buildData();
+
+tooltip = d3.select('body')
+    .append('div')
+    .attr('id', 'tooltip')
+    .style('position', 'fixed')
+    .style('display', 'none')
+    .style('z-index', '9999')
+    .style('background', '#fff')
+    .style('border', '2px solid #333')
+    .style('border-radius', '6px')
+    .style('padding', '10px 14px')
+    .style('max-width', '320px')
+    .style('pointer-events', 'none')
+    .style('font-family', "-apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif")
+    .style('font-size', '13px')
+    .style('box-shadow', '0 2px 8px rgba(0,0,0,0.15)');
+
+function showTooltip(d, event) {
+    var html = '<strong style="font-size:14px">' + d.data.name + '</strong>';
+
+    if (d.data.unmatched) {
+        html += '<div style="margin-top:6px;color:#a00">No topics from this run matched this human-validated bucket.</div>';
+    } else if (d.data.noFit) {
+        html += '<div style="margin-top:6px;color:#555">Topic(s) that didn\'t fit any of the 9 human-validated buckets.</div>';
+    } else if (d.depth === 1 && d.children) {
+        html += '<ul style="margin:6px 0 0;padding-left:18px;color:#333">';
+        d.children.forEach(function (child) {
+            html += '<li style="margin-bottom:2px">' + child.data.name + '</li>';
+        });
+        html += '</ul>';
+    } else if (d.depth === 2) {
+        if (d.parent && d.parent.data && d.parent.data.noFit) {
+            html += '<div style="margin-top:6px;color:#a00">Did not fit any of the 9 human-validated buckets.</div>';
+        } else {
+            html += '<div style="margin-top:6px;color:#555">Topic under &ldquo;' + d.parent.data.name + '&rdquo;</div>';
+        }
+    }
+
+    tooltip.html(html).style('display', 'block');
+    var ex = event.clientX, ey = event.clientY;
+    var tw = tooltip.node().offsetWidth;
+    var left = (ex + 16 + tw > window.innerWidth) ? (ex - tw - 16) : (ex + 16);
+    tooltip.style('left', left + 'px').style('top', (ey - 10) + 'px');
+}
+
+var root = d3.hierarchy(data);
+treemap(root
+    .sum(function (d) { return d.value; })
+    .sort(function (a, b) { return b.height - a.height || b.value - a.value; })
+);
+
+display(root);
+
+function display(d) {
+    updateBreadcrumbFor(d);
+
+    var g1 = svg.insert("g", ".depth")
+        .datum(d)
+        .attr("class", "depth");
+
+    var g = g1.selectAll("g")
+        .data(d.children)
+        .enter().append("g");
+
+    g.filter(function (n) { return n.children; })
+        .classed("children", true)
+        .on("click", transition);
+
+    g.on("mouseover", function (d) { showTooltip(d, d3.event); })
+     .on("mousemove", function (d) { showTooltip(d, d3.event); })
+     .on("mouseout",  function ()  { tooltip.style("display", "none"); });
+
+    g.selectAll(".child")
+        .data(function (d) { return d.children || [d]; })
+        .enter().append("rect")
+        .attr("class", "child")
+        .call(rect);
+
+    g.append("rect")
+        .attr("class", "parent")
+        .call(rect);
+
+    g.append("foreignObject")
+        .call(rect)
+        .attr("class", "foreignobj")
+        .style("pointer-events", "none")
+        .append("xhtml:div")
+        .attr("dy", "1em")
+        .html(function (d) {
+            if (d.data.unmatched) {
+                return '<p class="title">' + d.data.name + '</p>' + '<p class="count">No topics matched</p>';
+            }
+            if (d.depth === 1) {
+                var topicCount = d.children ? d.children.length : 0;
+                return '<p class="title">' + d.data.name + '</p>' + '<p class="count">' + topicCount + ' topic' + (topicCount !== 1 ? 's' : '') + '</p>';
+            }
+            return '<p class="title">' + d.data.name + '</p>';
+        })
+        .attr("class", "textdiv");
+
+    fitAllLabels(g);
+
+    function transition(d) {
+        if (transitioning || !d) return;
+        transitioning = true;
+
+        var g2 = display(d),
+            t1 = g1.transition().duration(650),
+            t2 = g2.transition().duration(650);
+        x.domain([d.x0, d.x1]);
+        y.domain([d.y0, d.y1]);
+        svg.style("shape-rendering", null);
+        svg.selectAll(".depth").sort(function (a, b) { return a.depth - b.depth; });
+        g2.selectAll("text").style("fill-opacity", 0);
+        g2.selectAll("foreignObject div").style("display", "none");
+        t1.selectAll("text").style("fill-opacity", 0);
+        t2.selectAll("text").style("fill-opacity", 1);
+        t1.selectAll("rect").call(rect);
+        t2.selectAll("rect").call(rect);
+        t1.selectAll(".textdiv").style("display", "none");
+        t1.selectAll(".foreignobj").call(foreign);
+        t2.selectAll(".textdiv").style("display", "flex");
+        t2.selectAll(".foreignobj").call(foreign);
+        t1.on("end.remove", function () {
+            this.remove();
+            transitioning = false;
+        });
+        t2.on("end.fit", function () {
+            fitAllLabels(g2);
+        });
+    }
+    return g;
+}
+
+function rect(rect) {
+    rect.attr("x", function (d) { return x(d.x0); })
+        .attr("y", function (d) { return y(d.y0); })
+        .attr("width", function (d) { return x(d.x1) - x(d.x0); })
+        .attr("height", function (d) { return y(d.y1) - y(d.y0); })
+        .attr("fill", function (d) { var f = fillColorFor(d); return f.isHatch ? "url(#hatch)" : f.hex; })
+        .attr("opacity", function (d) { return fillColorFor(d).opacity; });
+}
+
+function foreign(foreign) {
+    foreign.attr("x", function (d) { return x(d.x0); })
+           .attr("y", function (d) { return y(d.y0); })
+           .attr("width", function (d) { return x(d.x1) - x(d.x0); })
+           .attr("height", function (d) { return y(d.y1) - y(d.y0); });
+}
+
+navigateTo = function (node) {
+    tooltip.style("display", "none");
+    d3.selectAll(".depth").remove();
+    transitioning = false;
+    if (!node.parent) {
+        x.domain([0, width]);
+        y.domain([0, height]);
+    } else {
+        x.domain([node.x0, node.x1]);
+        y.domain([node.y0, node.y1]);
+    }
+    display(node);
+};
+
+function updateBreadcrumbFor(d) {
+    if (!d.parent) {
+        updateBreadcrumb([]);
+        return;
+    }
+    var chain = d.ancestors().reverse();
+    var segments = [{ label: 'All Buckets', node: root }];
+    for (var i = 1; i < chain.length; i++) {
+        var isLast = (i === chain.length - 1);
+        segments.push({ label: chain[i].data.name, node: isLast ? null : chain[i] });
+    }
+    updateBreadcrumb(segments);
+}
+
+function updateBreadcrumb(segments) {
+    var bc = d3.select('#breadcrumb');
+    bc.html('');
+    segments.forEach(function (seg, i) {
+        if (i > 0) {
+            bc.append('span').attr('class', 'bc-sep').text('›');
+        }
+        if (seg.node !== null) {
+            bc.append('span')
+              .attr('class', 'bc-link')
+              .text(seg.label)
+              .on('click', function () { navigateTo(seg.node); });
+        } else {
+            bc.append('span').attr('class', 'bc-current').text(seg.label);
+        }
+    });
+}
+
+// Hatch pattern for buckets with zero matched topics
+var defs = svg.append("defs");
+var pattern = defs.append("pattern")
+    .attr("id", "hatch")
+    .attr("width", 8).attr("height", 8)
+    .attr("patternUnits", "userSpaceOnUse")
+    .attr("patternTransform", "rotate(45)");
+pattern.append("rect").attr("width", 8).attr("height", 8).attr("fill", "#eeeeee");
+pattern.append("rect").attr("width", 3).attr("height", 8).attr("fill", "#d6d6d6");
+</script>
