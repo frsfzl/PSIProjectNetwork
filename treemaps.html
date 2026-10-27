@@ -64,6 +64,27 @@
 	  background: #fff;
 	  color: #1a1a1a;
 	}
+	#nav-download {
+	  margin-left: auto;
+	  flex-shrink: 0;
+	  display: inline-flex;
+	  align-items: center;
+	  gap: 7px;
+	  background: rgba(255,255,255,0.08);
+	  color: rgba(255,255,255,0.85);
+	  border: none;
+	  border-radius: 7px;
+	  padding: 7px 13px;
+	  font-family: inherit;
+	  font-size: 12.5px;
+	  font-weight: 700;
+	  letter-spacing: 0.02em;
+	  cursor: pointer;
+	  transition: background 0.15s, color 0.15s;
+	}
+	#nav-download svg { width: 14px; height: 14px; display: block; }
+	#nav-download:hover { background: rgba(255,255,255,0.18); color: #fff; }
+	#nav-download:active { background: rgba(255,255,255,0.26); }
 	#breadcrumb {
 	  display: flex;
 	  align-items: center;
@@ -160,6 +181,258 @@
     line-height: 1.3;
     }
 
+	/* Author list styling */
+	#authorList {
+	    font-family: sans-serif;
+	    padding: 0;
+	    margin: 0;
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	    right: 0;
+	    bottom: 0;
+	    background: #fff;
+	    z-index: 999;
+	    overflow-y: auto;
+	    -webkit-overflow-scrolling: touch;
+	    box-sizing: border-box;
+	}
+	#authorList h3 {
+	    margin: 0;
+	    font-size: 16px;
+	}
+	#authorList ul {
+	    list-style-type: none;
+	    padding: 0 28px 24px;
+	    margin: 0;
+	}
+	#authorList li:last-child {
+	    border-bottom: none;
+	}
+
+	/* Sticky toolbar: stays visible while the list scrolls beneath it */
+	.author-toolbar {
+	    position: sticky;
+	    top: 0;
+	    z-index: 5;
+	    background: #fff;
+	    padding: 20px 28px 14px;
+	    border-bottom: 1px solid #e8e8e8;
+	    box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+	}
+	.toolbar-top {
+	    display: flex;
+	    align-items: center;
+	    gap: 14px;
+	    flex-wrap: wrap;
+	    margin-bottom: 12px;
+	}
+	.toolbar-top h3 {
+	    flex: 1;
+	    min-width: 160px;
+	}
+	.toolbar-bottom {
+	    display: flex;
+	    align-items: center;
+	    gap: 16px;
+	    flex-wrap: wrap;
+	}
+	.author-toggle {
+	    display: inline-flex;
+	    border-radius: 20px;
+	    overflow: hidden;
+	    border: 1.5px solid #aaa;
+	    font-size: 12px;
+	    font-family: sans-serif;
+	    flex-shrink: 0;
+	}
+	.author-toggle label {
+	    padding: 4px 13px;
+	    cursor: pointer;
+	    background: #f0f0f0;
+	    color: #444;
+	    margin: 0;
+	    user-select: none;
+	    transition: background 0.15s, color 0.15s;
+	}
+	.author-toggle label.active {
+	    background: #CC0000;
+	    color: #fff;
+	}
+	.author-toggle input[type="radio"] {
+	    display: none;
+	}
+	.back-btn {
+	    background: none;
+	    border: 1.5px solid #666;
+	    border-radius: 6px;
+	    padding: 6px 14px;
+	    font-size: 13px;
+	    font-family: sans-serif;
+	    cursor: pointer;
+	    color: #333;
+	    transition: background 0.15s;
+	    flex-shrink: 0;
+	}
+	.back-btn:hover {
+	    background: #f0f0f0;
+	}
+	.author-search {
+	    display: block;
+	    flex: 1;
+	    min-width: 180px;
+	    max-width: 320px;
+	    margin: 0;
+	    padding: 7px 12px;
+	    font-size: 14px;
+	    font-family: sans-serif;
+	    border: 1.5px solid #ccc;
+	    border-radius: 6px;
+	    box-sizing: border-box;
+	    outline: none;
+	}
+	.author-search:focus {
+	    border-color: #888;
+	}
+	.sort-controls {
+	    display: flex;
+	    align-items: center;
+	    gap: 6px;
+	    font-size: 13px;
+	    font-family: sans-serif;
+	    color: #555;
+	    flex-shrink: 0;
+	}
+	.sort-btn {
+	    padding: 3px 10px;
+	    font-size: 12px;
+	    font-family: sans-serif;
+	    border: 1.5px solid #aaa;
+	    border-radius: 4px;
+	    background: #f0f0f0;
+	    cursor: pointer;
+	    color: #444;
+	    transition: background 0.15s;
+	}
+	.sort-btn.active {
+	    background: #333;
+	    color: #fff;
+	    border-color: #333;
+	}
+	.author-count {
+	    font-size: 12px;
+	    color: #888;
+	    margin: 0 0 0 auto;
+	    font-family: sans-serif;
+	    white-space: nowrap;
+	}
+	.download-btn {
+	    background: #CC0000;
+	    border: none;
+	    border-radius: 6px;
+	    padding: 6px 14px;
+	    font-size: 13px;
+	    font-family: sans-serif;
+	    cursor: pointer;
+	    color: #fff;
+	    transition: background 0.15s;
+	    flex-shrink: 0;
+	}
+	.download-btn:hover {
+	    background: #a30000;
+	}
+
+	/* Sticky letter section headers, e.g. an A-Z index over the list */
+	.letter-header {
+	    position: sticky;
+	    background: #f7f7f7;
+	    color: #999;
+	    font-size: 11px;
+	    font-weight: 700;
+	    letter-spacing: 0.06em;
+	    padding: 5px 14px;
+	    border-bottom: 1px solid #ececec;
+	}
+	.author-row {
+	    display: flex;
+	    align-items: center;
+	    justify-content: space-between;
+	    gap: 10px;
+	    padding: 8px 14px;
+	    border-bottom: 1px solid #f0f0f0;
+	    border-left: 3px solid transparent;
+	    font-size: 14px;
+	    color: #222;
+	    transition: background 0.1s;
+	}
+	.name-col {
+	    display: flex;
+	    flex-direction: column;
+	    gap: 2px;
+	    min-width: 0;
+	}
+	.also-in {
+	    font-size: 11px;
+	    color: #888;
+	    white-space: nowrap;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	    max-width: 650px;
+	    cursor: default;
+	}
+	.author-row.row-alt {
+	    background: #fafafa;
+	}
+	.author-row:hover {
+	    background: #f1f1f1;
+	}
+	.author-row.ncs {
+	    border-left-color: #CC0000;
+	    background: #fff8f8;
+	}
+	.author-row.ncs.row-alt {
+	    background: #fef2f2;
+	}
+	.author-row.ncs:hover {
+	    background: #fce6e6;
+	}
+	.tags-wrap {
+	    display: flex;
+	    align-items: center;
+	    gap: 8px;
+	    flex-shrink: 0;
+	}
+	.psi-tag {
+	    display: inline-block;
+	    padding: 2px 9px;
+	    font-size: 10px;
+	    font-weight: 700;
+	    letter-spacing: 0.03em;
+	    border-radius: 10px;
+	    background: #E8F5E9;
+	    color: #2E7D32;
+	    border: 1px solid #A5D6A7;
+	    white-space: nowrap;
+	    flex-shrink: 0;
+	}
+	.ncs-tag {
+	    font-size: 11px;
+	    font-weight: 700;
+	    color: #CC0000;
+	    flex-shrink: 0;
+	    text-align: right;
+	    max-width: 260px;
+	    white-space: nowrap;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	    cursor: default;
+	}
+	.ncs-tag.generic {
+	    letter-spacing: 0.05em;
+	    text-transform: uppercase;
+	    font-size: 10px;
+	}
+
 	svg {
 	  display: block;
 	}
@@ -169,15 +442,20 @@
   <span id="app-title">NCSU PSI Research Mapping</span>
   <div id="nav-sep"></div>
   <div id="tabs">
-    <button class="tab-btn active" data-key="specter2">SPECTER2</button>
+    <button class="tab-btn active" data-key="human">Human-Validated</button>
+    <button class="tab-btn" data-key="specter2">SPECTER2</button>
     <button class="tab-btn" data-key="gtrt5">GTR_T5</button>
   </div>
   <div id="nav-sep2"></div>
   <div id="breadcrumb"></div>
+  <button id="nav-download" title="Download all authors for the current view">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v8.5M4.5 7.5L8 11l3.5-3.5M2.5 13.5h11"/></svg>
+    Download CSV
+  </button>
 </nav>
 <div id="chart"></div>
 
-<script src="//d3js.org/d3.v4.min.js"></script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
 <script>
 var el_id = 'chart';
 var navH   = 48;
@@ -188,7 +466,7 @@ var margin = {top: 4, right: 4, bottom: 4, left: 4},
     transitioning;
 var tooltip = null;
 var navigateTo = null;
-var activeKey = 'specter2';
+var activeKey = 'human';
 var root; // currently active hierarchy root -- reassigned on tab switch
 
 var x = d3.scaleLinear().domain([0, width]).range([0, width]);
@@ -283,32 +561,42 @@ function buildSpecter2Data() {
 }
 
 // =====================================================================
-// Dataset 2: GTR_T5 -- 2-level hierarchy (bucket -> topic). This run only
-// gives a topic label and its matched bucket, no doc counts or keyword
-// sub-clusters, so every topic (and unmatched placeholder) is equal-weighted.
+// Dataset 2: GTR_T5 -- 3-level hierarchy (bucket -> topic -> subtopic cluster)
+// with real document counts, from topics_PSI/topics/topics_gtr_t5_auto.csv.
+// Buckets are matched per topic label.
 // bucket: null means the topic didn't fit any of the 9 human-validated buckets.
 // =====================================================================
 var GTRT5_TOPICS = [
-    { id: 1,  label: "plasma, discharge, downy, inactivation", bucket: "plant health and pathology and pest mgmt" },
-    { id: 2,  label: "crispr, barrangou, rodolphe, volume issue", bucket: "genetics and genomics" },
-    { id: 3,  label: "lignin, monolignol, pathway, biosynthesis", bucket: "genetics and genomics" },
-    { id: 4,  label: "raser, radiofrequency, stimulated emission, amplification stimulated", bucket: "sensing and imaging technologies" },
-    { id: 5,  label: "transducer, micromachined, capacitive, ultrasonic", bucket: "sensing and imaging technologies" },
-    { id: 6,  label: "films, ferroelectric, hfo2, ferroelectricity", bucket: "sensing and imaging technologies" },
-    { id: 7,  label: "powdery, powdery mildew, mildew, mildews", bucket: "plant health and pathology and pest mgmt" },
-    { id: 8,  label: "synthesis, natural products, natural, biofilms", bucket: "plant ecology and microbial biology" },
-    { id: 9,  label: "power, electricity, wind, grid", bucket: "sustainable ag and resource management" },
-    { id: 10, label: "dogs, dog, canine, heart rate", bucket: null },
-    { id: 11, label: "biobotic, insects, biobots, topological", bucket: "agtech and automation" },
-    { id: 12, label: "divisions, stem cell, stem, cell", bucket: "genetics and genomics" },
-    { id: 13, label: "lighting, leds, pf, light", bucket: "agtech and automation" },
-    { id: 14, label: "soil moisture, moisture, distributed temperature, temperature sensing", bucket: "sensing and imaging technologies" },
-    { id: 15, label: "fbg, fiber, optical fiber, grating", bucket: "sensing and imaging technologies" }
+    { id: 0, size: 1638, label: "plasma, discharge, downy, inactivation", subtopics: "social, governance, community, students; weed, crop, peanut, ha; domain, piezoelectric, phase, electric; scaffolds, tissue, 3d, scaffold; carbon, soil, forest, emissions; spectral, imaging, polymer, polarization; salmonella, coli, isolates, amr; sweetpotato, ipomoea, batatas, storage; maize, breeding, selection, prediction; problem, wireless, vehicle, network; wearable, sensor, sensors, monitoring; iron, deficiency, transcription, stress; water quality, shellfish, water, waters; wheat, fusarium, srww, resistance; pine, families, pinus, tree; smartphone, nucleic, nucleic acid, detection; purification, ligands, peptide, affinity; rootstocks, tomato, rootstock, strawberry; qtl, linkage, markers, mapping; plasma, plasmas, cap, plasma treatment; drought, reflectance, leaf, dormancy; inactivation, log, cip, sprouts; downy, downy mildew, cucurbit, citri; discharge, wave, dielectric barrier, optical emission", bucket: "plant health and pathology and pest mgmt" },
+    { id: 1, size: 110, label: "crispr, barrangou, rodolphe, volume issue", subtopics: "crisprcas, crisprcas systems, crispr, phage; crispr, barrangou, rodolphe, volume issue", bucket: "genetics and genomics" },
+    { id: 2, size: 80, label: "lignin, monolignol, pathway, biosynthesis", subtopics: "lactobacillus, acidophilus, strains, probiotic; monolignol, lignin, pathway, biosynthesis; lignin, lignocellulosic, poplar, conversion", bucket: "genetics and genomics" },
+    { id: 3, size: 80, label: "raser, radiofrequency, stimulated emission, amplification stimulated", subtopics: "hyperpolarization, sabre, hyperpolarized, reversible exchange; raser, radiofrequency, stimulated emission, amplification stimulated", bucket: "sensing and imaging technologies" },
+    { id: 4, size: 58, label: "transducer, micromachined, capacitive, ultrasonic", subtopics: "transducer, micromachined, capacitive, ultrasonic", bucket: "sensing and imaging technologies" },
+    { id: 5, size: 52, label: "films, ferroelectric, hfo2, ferroelectricity", subtopics: "films, ferroelectric, hfo2, ferroelectricity", bucket: "sensing and imaging technologies" },
+    { id: 6, size: 42, label: "powdery, powdery mildew, mildew, mildews", subtopics: "powdery, powdery mildew, mildew, mildews", bucket: "plant health and pathology and pest mgmt" },
+    { id: 7, size: 41, label: "synthesis, natural products, natural, biofilms", subtopics: "synthesis, natural products, natural, biofilms", bucket: "plant ecology and microbial biology" },
+    { id: 8, size: 30, label: "power, electricity, wind, grid", subtopics: "power, electricity, wind, grid", bucket: "sustainable ag and resource management" },
+    { id: 9, size: 26, label: "dogs, dog, canine, heart rate", subtopics: "dogs, dog, canine, heart rate", bucket: null },
+    { id: 10, size: 19, label: "biobotic, insects, biobots, topological", subtopics: "biobotic, insects, biobots, topological", bucket: "agtech and automation" },
+    { id: 11, size: 17, label: "divisions, stem cell, stem, cell", subtopics: "divisions, stem cell, stem, cell", bucket: "genetics and genomics" },
+    { id: 12, size: 15, label: "lighting, leds, pf, light", subtopics: "lighting, leds, pf, light", bucket: "agtech and automation" },
+    { id: 13, size: 14, label: "soil moisture, moisture, distributed temperature, temperature sensing", subtopics: "soil moisture, moisture, distributed temperature, temperature sensing", bucket: "sensing and imaging technologies" },
+    { id: 14, size: 13, label: "fbg, fiber, optical fiber, grating", subtopics: "fbg, fiber, optical fiber, grating", bucket: "sensing and imaging technologies" }
 ];
 
 function buildGtrT5Data() {
     var byBucketDisplay = {};
     BUCKET_ORDER.forEach(function (key, i) { byBucketDisplay[key] = BUCKET_DISPLAY_NAMES[i]; });
+
+    function topicNode(t) {
+        var subGroups = t.subtopics.split(";").map(function (s) { return s.trim(); }).filter(Boolean);
+        var perGroup = t.size / subGroups.length;
+        return {
+            name: t.label,
+            topicSize: t.size,
+            children: subGroups.map(function (sg) { return { name: sg, value: perGroup }; })
+        };
+    }
 
     var matchedTopics = GTRT5_TOPICS.filter(function (t) { return t.bucket !== null; });
     var noFitTopics = GTRT5_TOPICS.filter(function (t) { return t.bucket === null; });
@@ -318,24 +606,356 @@ function buildGtrT5Data() {
         var topicsInBucket = matchedTopics.filter(function (t) { return t.bucket === bucketKey; });
 
         if (topicsInBucket.length === 0) {
-            return { name: displayName, unmatched: true, value: 1 };
+            return { name: displayName, unmatched: true, value: 55 };
         }
 
-        return {
-            name: displayName,
-            children: topicsInBucket.map(function (t) { return { name: t.label, value: 1 }; })
-        };
+        return { name: displayName, children: topicsInBucket.map(topicNode) };
     });
 
     if (noFitTopics.length > 0) {
-        children.push({
-            name: NO_FIT_NAME,
-            noFit: true,
-            children: noFitTopics.map(function (t) { return { name: t.label, value: 1 }; })
-        });
+        children.push({ name: NO_FIT_NAME, noFit: true, children: noFitTopics.map(topicNode) });
     }
 
     return { name: " ", children: children };
+}
+
+
+// ---------- Author lists (same behaviour as index.html) ----------
+// Everything here is loaded asynchronously from JSON; the treemap itself does not depend on it.
+var ncsAuthorKeys = new Set();
+var lastParentNode = null;
+var AUTHOR_DATA = null; // treemaps_authors.json: {ncsKeys, specter2: {"topic||subtopic": [authors]}, gtrt5: {...}}
+
+function ncsKeyFor(authorName) {
+    var parts = authorName.split(",");
+    if (parts.length < 2) return null;
+
+    var last = parts[0].trim().toLowerCase();
+    var first = parts[1].trim().split(/\s+/)[0].toLowerCase();
+
+    return last + ", " + first;
+}
+
+function isNCSAuthor(authorName) {
+    var key = ncsKeyFor(authorName);
+    return !!key && ncsAuthorKeys.has(key);
+}
+
+// Populated from ncs_faculty_lookup.json: "last, first" -> {department, college}
+var ncsFacultyInfo = {};
+
+function getFacultyInfo(authorName) {
+    var key = ncsKeyFor(authorName);
+    return (key && ncsFacultyInfo[key]) || null;
+}
+
+// Populated from ncs_psi_keys.json: Set of "last, first" keys on the NC PSI faculty roster
+var ncsPsiKeys = new Set();
+
+function isNCPSI(authorName) {
+    var key = ncsKeyFor(authorName);
+    return !!key && ncsPsiKeys.has(key);
+}
+
+// Populated from ncs_author_topics.json: "last, first" -> {topics: [...], subtopics: [...]}
+var ncsAuthorTopics = {};
+
+// All top-level topics this author appears in besides the one currently being
+// viewed, alphabetical (see README for why).
+function getOtherTopics(authorName, currentTopic) {
+    var key = ncsKeyFor(authorName);
+    var info = key && ncsAuthorTopics[key];
+    if (!info) return [];
+    return info.topics.filter(function(t) { return t !== currentTopic; });
+}
+
+function downloadAuthorsCSV(subtopicName, authors, parentTopic) {
+    var rows = ["Author Name,NC State Affiliation,Department,College,NC PSI,Other Topics"];
+    authors.forEach(function(a) {
+        var name = '"' + a.replace(/"/g, '""') + '"';
+        var affiliation = isNCSAuthor(a) ? "Yes" : "No";
+        var info = getFacultyInfo(a);
+        var department = '"' + (info ? info.department.replace(/"/g, '""') : "") + '"';
+        var college = '"' + (info ? info.college.replace(/"/g, '""') : "") + '"';
+        var psi = isNCPSI(a) ? "Yes" : "No";
+        var otherTopics = '"' + getOtherTopics(a, parentTopic).join(", ").replace(/"/g, '""') + '"';
+        rows.push(name + "," + affiliation + "," + department + "," + college + "," + psi + "," + otherTopics);
+    });
+
+    var blob = new Blob([rows.join("\n")], {type: "text/csv;charset=utf-8;"});
+    var url = URL.createObjectURL(blob);
+    var safeName = subtopicName.toString().trim().replace(/[^a-z0-9]+/gi, "_").toLowerCase();
+
+    var link = document.createElement("a");
+    link.href = url;
+    link.download = "authors_" + safeName + ".csv";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+}
+
+function authorFirstLetter(name) {
+    var ch = name.trim().charAt(0).toUpperCase();
+    return /[A-Z]/.test(ch) ? ch : "#";
+}
+
+function showAuthorList(topicName, authors, parentTopic) {
+    d3.select("#authorList").remove();
+    tooltip.style("display", "none");
+
+    var authorDiv = d3.select("#" + el_id)
+        .append("div")
+        .attr("id", "authorList");
+
+    // Sticky toolbar: back button + title + toggle + download, then search + sort + count
+    var toolbar = authorDiv.append("div")
+        .attr("class", "author-toolbar");
+
+    var toolbarTop = toolbar.append("div").attr("class", "toolbar-top");
+
+    toolbarTop.append("button")
+        .attr("class", "back-btn")
+        .text("← Back to map")
+        .on("click", function() {
+            if (lastParentNode) navigateTo(lastParentNode);
+        });
+
+    toolbarTop.append("h3").text("Authors in " + topicName);
+
+    var toggleDiv = toolbarTop.append("div")
+        .attr("class", "author-toggle");
+
+    var lblAll = toggleDiv.append("label");
+    lblAll.append("input").attr("type", "radio").attr("name", "authorFilter").attr("value", "all");
+    lblAll.append("span").text("All Authors");
+
+    var lblNCS = toggleDiv.append("label").attr("class", "active");
+    lblNCS.append("input").attr("type", "radio").attr("name", "authorFilter").attr("value", "ncstate").property("checked", true);
+    lblNCS.append("span").text("NC State Authors");
+
+    var lblPSI = toggleDiv.append("label");
+    lblPSI.append("input").attr("type", "radio").attr("name", "authorFilter").attr("value", "ncpsi");
+    lblPSI.append("span").text("NC PSI");
+
+    toolbarTop.append("button")
+        .attr("class", "download-btn")
+        .text("⬇ Download CSV")
+        .on("click", function() {
+            downloadAuthorsCSV(topicName, currentFiltered, parentTopic);
+        });
+
+    var toolbarBottom = toolbar.append("div").attr("class", "toolbar-bottom");
+
+    var searchInput = toolbarBottom.append("input")
+        .attr("type", "text")
+        .attr("class", "author-search")
+        .attr("placeholder", "Search authors...");
+
+    var sortDir = 1;
+    var sortControls = toolbarBottom.append("div").attr("class", "sort-controls");
+    sortControls.append("span").text("Sort:");
+    var btnAZ = sortControls.append("button").attr("class", "sort-btn active").text("A → Z");
+    var btnZA = sortControls.append("button").attr("class", "sort-btn").text("Z → A");
+
+    var countDisplay = toolbarBottom.append("span").attr("class", "author-count");
+
+    var list = authorDiv.append("ul");
+    var currentFiltered = [];
+
+    function renderList() {
+        list.selectAll("li").remove();
+        var filterVal = d3.select("input[name='authorFilter']:checked").property("value");
+        var searchVal = searchInput.property("value").toLowerCase();
+
+        var filtered = authors.slice();
+        if (filterVal === "ncstate") {
+            filtered = filtered.filter(function(a) { return isNCSAuthor(a); });
+        } else if (filterVal === "ncpsi") {
+            filtered = filtered.filter(function(a) { return isNCPSI(a); });
+        }
+
+        if (searchVal) {
+            filtered = filtered.filter(function(a) {
+                return a.toLowerCase().indexOf(searchVal) !== -1;
+            });
+        }
+
+        filtered.sort(function(a, b) { return sortDir * a.localeCompare(b); });
+        currentFiltered = filtered;
+
+        countDisplay.text(filtered.length + " author" + (filtered.length !== 1 ? "s" : ""));
+
+        var toolbarHeight = toolbar.node().getBoundingClientRect().height;
+        var lastLetter = null;
+        var rowIndex = 0;
+
+        filtered.forEach(function(a) {
+            var letter = authorFirstLetter(a);
+            if (letter !== lastLetter) {
+                list.append("li")
+                    .attr("class", "letter-header")
+                    .style("top", toolbarHeight + "px")
+                    .text(letter);
+                lastLetter = letter;
+            }
+
+            var isNcs = isNCSAuthor(a);
+            var isPsi = isNCPSI(a);
+            var li = list.append("li")
+                .attr("class", "author-row"
+                    + (isNcs ? " ncs" : "")
+                    + (rowIndex % 2 === 1 ? " row-alt" : ""));
+
+            var nameCol = li.append("span").attr("class", "name-col");
+            nameCol.append("span").attr("class", "author-name").text(a);
+
+            var otherTopics = getOtherTopics(a, parentTopic);
+            if (otherTopics.length > 0) {
+                var maxShown = 3;
+                var shownText = otherTopics.slice(0, maxShown).join(", ");
+                var remaining = otherTopics.length - maxShown;
+                if (remaining > 0) shownText += " +" + remaining + " more";
+                nameCol.append("span")
+                    .attr("class", "also-in")
+                    .attr("title", otherTopics.join(", "))
+                    .text("Also in: " + shownText);
+            }
+
+            if (isNcs) {
+                var tagsWrap = li.append("span").attr("class", "tags-wrap");
+                if (isPsi) {
+                    tagsWrap.append("span").attr("class", "psi-tag").text("NC PSI");
+                }
+                var facultyInfo = getFacultyInfo(a);
+                if (facultyInfo) {
+                    tagsWrap.append("span")
+                        .attr("class", "ncs-tag")
+                        .attr("title", facultyInfo.college + " · " + facultyInfo.department)
+                        .text(facultyInfo.department);
+                } else {
+                    tagsWrap.append("span").attr("class", "ncs-tag generic").text("NC State");
+                }
+            }
+            rowIndex++;
+        });
+    }
+
+    renderList();
+
+    toggleDiv.selectAll("input[type='radio']").on("change", function() {
+        toggleDiv.selectAll("label").classed("active", false);
+        d3.select(this.parentNode).classed("active", true);
+        renderList();
+    });
+
+    searchInput.on("input", renderList);
+
+    btnAZ.on("click", function() {
+        sortDir = 1;
+        btnAZ.classed("active", true);
+        btnZA.classed("active", false);
+        renderList();
+    });
+
+    btnZA.on("click", function() {
+        sortDir = -1;
+        btnAZ.classed("active", false);
+        btnZA.classed("active", true);
+        renderList();
+    });
+}
+
+d3.queue()
+    .defer(d3.json, "treemaps_authors.json")
+    .defer(d3.json, "ncs_faculty_lookup.json")
+    .defer(d3.json, "ncs_psi_keys.json")
+    .defer(d3.json, "ncs_author_topics.json")
+    .await(function (error, authorData, facultyLookup, psiKeys, authorTopics) {
+        if (error) { console.warn("Author data failed to load (serve the folder over http):", error); return; }
+        AUTHOR_DATA = authorData;
+        ncsAuthorKeys = new Set(authorData.ncsKeys || []);
+        ncsFacultyInfo = facultyLookup || {};
+        ncsPsiKeys = new Set(psiKeys || []);
+        ncsAuthorTopics = authorTopics || {};
+    });
+
+// ---------- Download CSV for whatever level is currently on screen ----------
+var currentNode = null; // node whose tiles are showing (root, bucket or topic)
+
+// Every distinct author under a node: the union over all its subtopic leaves.
+function authorsUnder(node) {
+    var set = new Set();
+    node.leaves().forEach(function (leaf) {
+        var list = leaf.data.authorList || (AUTHOR_DATA && AUTHOR_DATA[activeKey]
+            ? AUTHOR_DATA[activeKey][leaf.parent.data.name + "||" + leaf.data.name] : null);
+        (list || []).forEach(function (a) { set.add(a); });
+    });
+    return Array.from(set).sort(function (a, b) { return a.localeCompare(b); });
+}
+
+d3.select('#nav-download').on('click', function () {
+    if (!currentNode) return;
+    if (activeKey !== 'human' && !AUTHOR_DATA) {
+        alert("Author data hasn't loaded. Serve this folder over http (python3 -m http.server) and reload.");
+        return;
+    }
+    var chain = currentNode.ancestors().reverse().slice(1).map(function (n) { return n.data.name; });
+    var tabName = d3.select('.tab-btn.active').text();
+    var bucket = chain.length ? chain[0] : "";
+    var label = [tabName].concat(chain.length ? chain : ["all"]).join(" ");
+    downloadAuthorsCSV(label, authorsUnder(currentNode), bucket);
+});
+
+function showSubtopicAuthors(d) {
+    d3.select('#nav-download').style('display', 'none');
+    var authors = d.data.authorList || (AUTHOR_DATA && AUTHOR_DATA[activeKey]
+        ? AUTHOR_DATA[activeKey][d.parent.data.name + "||" + d.data.name] : null);
+    tooltip.style("display", "none");
+    d3.selectAll(".depth").remove();
+    transitioning = false;
+    lastParentNode = d.parent;
+    var chain = d.ancestors().reverse();
+    var segments = [{ label: 'All Buckets', node: root }];
+    for (var i = 1; i < chain.length; i++) {
+        segments.push({ label: chain[i].data.name, node: i === chain.length - 1 ? null : chain[i] });
+    }
+    updateBreadcrumb(segments);
+    var bucketName = d.depth === 2 ? d.parent.data.name : d.parent.parent.data.name;
+    showAuthorList(d.data.name, authors || [], bucketName);
+}
+
+// =====================================================================
+// Dataset 0: Human-validated buckets (same data as index.html) -- bucket ->
+// subtopic, sized by number of papers. Loaded from jsonRETTL3.json; the
+// per-paper leaves are collapsed to a count since only subtopics are drawn.
+// =====================================================================
+function buildHumanData(json) {
+    return {
+        name: " ",
+        children: json.children.map(function (bucket) {
+            // A paper/author can sit in several subtopics, so the bucket's own
+            // paper and author counts are de-duplicated across its subtopics.
+            var bucketPapers = new Set(), bucketAuthors = new Set();
+            var subs = bucket.children.map(function (sub) {
+                var titles = new Set((sub.children || []).map(function (p) { return p.name; }));
+                titles.forEach(function (t) { bucketPapers.add(t); });
+                (sub.authorList || []).forEach(function (a) { bucketAuthors.add(a); });
+                return {
+                    name: sub.name,
+                    value: titles.size,
+                    authorList: sub.authorList || [],
+                    collabCount: sub.collabCount || 0
+                };
+            });
+            return {
+                name: bucket.name,
+                uniquePapers: bucketPapers.size,
+                uniqueAuthors: bucketAuthors.size,
+                children: subs
+            };
+        })
+    };
 }
 
 // ---------- Build both hierarchies + layouts once up front; switching tabs just swaps `root` ----------
@@ -343,12 +963,13 @@ var roots = {
     specter2: d3.hierarchy(buildSpecter2Data()),
     gtrt5: d3.hierarchy(buildGtrT5Data())
 };
-Object.keys(roots).forEach(function (key) {
-    treemap(roots[key]
+function layoutRoot(r) {
+    return treemap(r
         .sum(function (d) { return d.value; })
         .sort(function (a, b) { return b.height - a.height || b.value - a.value; })
     );
-});
+}
+Object.keys(roots).forEach(function (key) { layoutRoot(roots[key]); });
 
 // ---------- Color: resolve each node's fill, independent of depth ----------
 function fillColorFor(d) {
@@ -487,6 +1108,15 @@ tooltip = d3.select('body')
     .style('font-size', '13px')
     .style('box-shadow', '0 2px 8px rgba(0,0,0,0.15)');
 
+// "N Papers | M Authors" label for the human-validated tab (same wording as index.html)
+function humanCountText(d) {
+    if (d.depth === 1) {
+        return d.data.uniquePapers.toLocaleString() + ' Papers | ' + d.data.uniqueAuthors.toLocaleString() + ' Authors';
+    }
+    return Math.round(d.value || 0).toLocaleString() + ' Papers | '
+        + (d.data.authorList ? d.data.authorList.length : 0).toLocaleString() + ' Authors';
+}
+
 function showTooltip(d, event) {
     var html = '<strong style="font-size:14px">' + d.data.name + '</strong>';
 
@@ -497,35 +1127,28 @@ function showTooltip(d, event) {
         html += '<div style="margin-top:6px;color:#a00">' + msg + '</div>';
     } else if (d.data.noFit) {
         html += '<div style="margin-top:6px;color:#555">Topic(s) that didn\'t fit any of the 9 human-validated buckets.</div>';
+    } else if (activeKey === 'human' && d.depth === 2) {
+        html += '<div style="margin-top:6px;color:#555">' + humanCountText(d) + '</div>'
+            + '<div style="margin-top:4px;color:#888">Click to see authors</div>';
     } else if (d.depth === 1 && d.children) {
-        if (activeKey === 'specter2') {
-            html += '<table style="margin-top:6px;border-collapse:collapse;width:100%">';
-            var sorted = d.children.slice().sort(function (a, b) { return b.value - a.value; });
-            sorted.forEach(function (child) {
-                html += '<tr>'
-                    + '<td style="padding:2px 8px 2px 0;color:#333">' + child.data.name + '</td>'
-                    + '<td style="padding:2px 0;text-align:right;color:#666;white-space:nowrap">' + Math.round(child.value).toLocaleString() + ' docs</td>'
-                    + '</tr>';
-            });
-            html += '</table>';
-        } else {
-            html += '<ul style="margin:6px 0 0;padding-left:18px;color:#333">';
-            d.children.forEach(function (child) {
-                html += '<li style="margin-bottom:2px">' + child.data.name + '</li>';
-            });
-            html += '</ul>';
-        }
+        html += '<table style="margin-top:6px;border-collapse:collapse;width:100%">';
+        var sorted = d.children.slice().sort(function (a, b) { return b.value - a.value; });
+        sorted.forEach(function (child) {
+            html += '<tr>'
+                + '<td style="padding:2px 8px 2px 0;color:#333">' + child.data.name + '</td>'
+                + '<td style="padding:2px 0;text-align:right;color:#666;white-space:nowrap">' + Math.round(child.value).toLocaleString() + (activeKey === 'human' ? ' papers' : ' docs') + '</td>'
+                + '</tr>';
+        });
+        html += '</table>';
     } else if (d.depth === 2) {
         if (d.parent && d.parent.data && d.parent.data.noFit) {
             html += '<div style="margin-top:6px;color:#a00">Did not fit any of the 9 human-validated buckets.</div>';
-        } else if (activeKey === 'specter2') {
+        } else {
             var subCount = d.children ? d.children.length : 0;
             html += '<div style="margin-top:6px;color:#555">'
                 + Math.round(d.data.topicSize || d.value).toLocaleString() + ' documents &nbsp;|&nbsp; '
                 + subCount + ' keyword cluster' + (subCount !== 1 ? 's' : '')
                 + '</div>';
-        } else {
-            html += '<div style="margin-top:6px;color:#555">Topic under &ldquo;' + d.parent.data.name + '&rdquo;</div>';
         }
     } else if (d.depth === 3) {
         html += '<div style="margin-top:6px;color:#555">keyword cluster within &ldquo;' + d.parent.data.name + '&rdquo;</div>';
@@ -539,6 +1162,8 @@ function showTooltip(d, event) {
 }
 
 function display(d) {
+    currentNode = d;
+    d3.select('#nav-download').style('display', null);
     updateBreadcrumbFor(d);
 
     var g1 = svg.insert("g", ".depth")
@@ -552,6 +1177,10 @@ function display(d) {
     g.filter(function (n) { return n.children; })
         .classed("children", true)
         .on("click", transition);
+
+    g.filter(function (n) { return !n.children && (n.depth === 3 || n.data.authorList); })
+        .style("cursor", "pointer")
+        .on("click", showSubtopicAuthors);
 
     g.on("mouseover", function (d) { showTooltip(d, d3.event); })
      .on("mousemove", function (d) { showTooltip(d, d3.event); })
@@ -577,12 +1206,15 @@ function display(d) {
             if (d.data.unmatched) {
                 return '<p class="title">' + d.data.name + '</p>' + '<p class="count">No topics matched</p>';
             }
+            if (activeKey === 'human') {
+                return '<p class="title">' + d.data.name + '</p>' + '<p class="count">' + humanCountText(d) + '</p>';
+            }
             if (d.depth === 1) {
                 var topicCount = d.children ? d.children.length : 0;
                 var countText = topicCount + ' topic' + (topicCount !== 1 ? 's' : '');
-                if (activeKey === 'specter2') countText += ' | ' + Math.round(d.value).toLocaleString() + ' docs';
+                countText += ' | ' + Math.round(d.value).toLocaleString() + ' docs';
                 return '<p class="title">' + d.data.name + '</p>' + '<p class="count">' + countText + '</p>';
-            } else if (d.depth === 2 && activeKey === 'specter2') {
+            } else if (d.depth === 2) {
                 var subCount = d.children ? d.children.length : 0;
                 return '<p class="title">' + d.data.name + '</p>' + '<p class="count">' + Math.round(d.data.topicSize || d.value).toLocaleString() + ' docs | ' + subCount + ' clusters</p>';
             }
@@ -641,6 +1273,7 @@ function foreign(foreign) {
 }
 
 navigateTo = function (node) {
+    d3.select("#authorList").remove();
     tooltip.style("display", "none");
     d3.selectAll(".depth").remove();
     transitioning = false;
@@ -661,6 +1294,7 @@ function switchDataset(key) {
         return this.getAttribute('data-key') === key;
     });
     tooltip.style('display', 'none');
+    d3.select('#authorList').remove();
     d3.selectAll('.depth').remove();
     transitioning = false;
     x.domain([0, width]);
@@ -715,7 +1349,18 @@ var pattern = defs.append("pattern")
 pattern.append("rect").attr("width", 8).attr("height", 8).attr("fill", "#eeeeee");
 pattern.append("rect").attr("width", 3).attr("height", 8).attr("fill", "#d6d6d6");
 
-// ---------- Initial paint: SPECTER2 tab ----------
-root = roots[activeKey];
-display(root);
+// ---------- Initial paint: Human-Validated tab (needs jsonRETTL3.json; falls back to SPECTER2) ----------
+d3.json("jsonRETTL3.json", function (error, json) {
+    if (error || !json) {
+        console.warn("Human-validated data failed to load (serve the folder over http):", error);
+        d3.select('.tab-btn[data-key="human"]')
+            .style('display', 'none');
+        activeKey = 'specter2';
+        d3.selectAll('.tab-btn').classed('active', function () { return this.getAttribute('data-key') === activeKey; });
+    } else {
+        roots.human = layoutRoot(d3.hierarchy(buildHumanData(json)));
+    }
+    root = roots[activeKey];
+    display(root);
+});
 </script>

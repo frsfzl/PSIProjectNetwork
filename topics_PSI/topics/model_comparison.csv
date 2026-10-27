@@ -1,0 +1,6 @@
+model,nr_topics,n_subtopics,n_topics,coherence_cv,topic_diversity
+gtr_t5,auto,42,15,0.7585,0.9653
+mxbai,auto,58,15,0.6762,0.944
+scibert,auto,35,15,0.62,0.9493
+scincl,auto,51,15,0.664,0.9413
+specter2,auto,45,15,0.7052,0.9387

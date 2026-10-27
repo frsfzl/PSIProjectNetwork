@@ -1,0 +1,5 @@
+model,nr_topics,n_subtopics,n_topics,coherence_cv,topic_diversity
+gtr_t5,30,173,30,0.7515,0.9413
+gtr_t5,auto,176,30,0.7068,0.9453
+specter2,30,196,30,0.7208,0.9133
+specter2,auto,196,12,0.8247,0.9367
